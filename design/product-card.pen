@@ -1,0 +1,2924 @@
+{
+  "version": "2.10",
+  "children": [
+    {
+      "type": "frame",
+      "id": "6xEoC",
+      "x": -538.211530766629,
+      "y": -309.59579156588825,
+      "name": "Report P1 - Cover",
+      "clip": true,
+      "width": 595,
+      "height": 842,
+      "fill": "#FFFFFFFF",
+      "layout": "none",
+      "children": [
+        {
+          "type": "text",
+          "id": "WADip",
+          "x": 40,
+          "y": 32,
+          "fill": "#000000FF",
+          "content": "8mirrors",
+          "fontFamily": "Inter",
+          "fontSize": 10,
+          "fontWeight": "700",
+          "letterSpacing": 3
+        },
+        {
+          "type": "text",
+          "id": "gSSmO",
+          "x": 520,
+          "y": 32,
+          "fill": "#AAAAAA",
+          "content": "Overview",
+          "fontFamily": "Inter",
+          "fontSize": 10,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "line",
+          "id": "rZZzw",
+          "x": 40,
+          "y": 52,
+          "width": 515,
+          "height": 0,
+          "stroke": {
+            "align": "center",
+            "thickness": 1,
+            "fill": "#E0E0E0FF"
+          }
+        },
+        {
+          "type": "text",
+          "id": "ZAsO9",
+          "x": 40,
+          "y": 68,
+          "fill": "#AAAAAA",
+          "content": "Dear Sarah,",
+          "fontFamily": "Inter",
+          "fontSize": 14,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "UW9Da",
+          "x": 40,
+          "y": 96,
+          "name": "specBlock",
+          "width": 300,
+          "height": 340,
+          "layout": "none",
+          "children": [
+            {
+              "type": "polygon",
+              "polygonCount": 10,
+              "id": "PIrkh",
+              "x": 50,
+              "y": 0,
+              "fill": "#F8F8F8FF",
+              "width": 200,
+              "height": 200,
+              "stroke": {
+                "align": "inside",
+                "thickness": 2,
+                "fill": "#1A1A1AFF"
+              }
+            },
+            {
+              "type": "frame",
+              "id": "vZZ0U",
+              "x": 0,
+              "y": 215,
+              "name": "specTags",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "fiXB9",
+                  "name": "st1",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "zNzKd",
+                      "width": 10,
+                      "height": 10,
+                      "fill": "#FF9800FF",
+                      "cornerRadius": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "RxzzM",
+                      "fill": "#000000FF",
+                      "content": "Dehydration",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Tp3NK",
+                  "name": "st2",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "GUQ39",
+                      "width": 10,
+                      "height": 10,
+                      "fill": "#E91E63FF",
+                      "cornerRadius": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "7g6nX",
+                      "fill": "#000000FF",
+                      "content": "Sensitivity",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "eJ4tD",
+                  "name": "st3",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "4vmdW",
+                      "width": 10,
+                      "height": 10,
+                      "fill": "#FF9800FF",
+                      "cornerRadius": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "mE9b6",
+                      "fill": "#000000FF",
+                      "content": "Oily T-zone",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "fHSzR",
+          "x": 345,
+          "y": 96,
+          "name": "msgBlock",
+          "width": 210,
+          "fill": "#F5F5F5FF",
+          "layout": "vertical",
+          "gap": 16,
+          "padding": 24,
+          "children": [
+            {
+              "type": "text",
+              "id": "rpZOs",
+              "fill": "#000000FF",
+              "textGrowth": "fixed-width",
+              "width": 170,
+              "content": "Your skin is currently\nreactive but stable.",
+              "lineHeight": 1.3,
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "kjyCm",
+              "fill": "#888888FF",
+              "textGrowth": "fixed-width",
+              "width": 170,
+              "content": "The key direction is not aggressive correction, but supporting regulation and allowing consistent healing.",
+              "lineHeight": 1.6,
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "vRt5H",
+              "name": "imgRow",
+              "width": 170,
+              "gap": 6,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 6,
+                  "id": "xsZyJ",
+                  "fill": "#E0E0E0FF",
+                  "width": "fill_container",
+                  "height": 56
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 6,
+                  "id": "bKCGv",
+                  "fill": "#D8D8D8FF",
+                  "width": "fill_container",
+                  "height": 56
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 6,
+                  "id": "XpSPB",
+                  "fill": "#D0D0D0FF",
+                  "width": "fill_container",
+                  "height": 56
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "id": "bw4xp",
+          "x": 40,
+          "y": 445,
+          "width": 515,
+          "height": 0,
+          "stroke": {
+            "align": "center",
+            "thickness": 1,
+            "fill": "#E0E0E0FF"
+          }
+        },
+        {
+          "type": "frame",
+          "id": "9AHrJ",
+          "x": 40,
+          "y": 460,
+          "name": "scoreBlock",
+          "width": 250,
+          "height": 160,
+          "layout": "none",
+          "children": [
+            {
+              "type": "text",
+              "id": "s4LwU",
+              "x": 0,
+              "y": 0,
+              "fill": "#000000FF",
+              "content": "72",
+              "fontFamily": "Inter",
+              "fontSize": 80,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "6pbg0",
+              "x": 150,
+              "y": 20,
+              "fill": "#000000FF",
+              "textGrowth": "fixed-width",
+              "width": 80,
+              "content": "Routine\nScore",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "h5sUm",
+              "x": 0,
+              "y": 110,
+              "name": "scStat",
+              "gap": 14,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "gDk0Q",
+                  "name": "kp",
+                  "gap": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "Nr7rZ",
+                      "fill": "#4CAF50FF",
+                      "width": 8,
+                      "height": 8
+                    },
+                    {
+                      "type": "text",
+                      "id": "kVlUh",
+                      "fill": "#666666FF",
+                      "content": "Keep 4",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "xif4Z",
+                  "name": "sp",
+                  "gap": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "goelE",
+                      "fill": "#F44336FF",
+                      "width": 8,
+                      "height": 8
+                    },
+                    {
+                      "type": "text",
+                      "id": "rjV9e",
+                      "fill": "#666666FF",
+                      "content": "Stop 3",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "0qStl",
+          "x": 300,
+          "y": 460,
+          "name": "keepBlock",
+          "width": 130,
+          "fill": "#F5F5F5FF",
+          "layout": "vertical",
+          "gap": 10,
+          "padding": [
+            20,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "2M0lE",
+              "name": "keepH",
+              "gap": 5,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "VIShA",
+                  "fill": "#4CAF50FF",
+                  "width": 8,
+                  "height": 8
+                },
+                {
+                  "type": "text",
+                  "id": "VUFS7",
+                  "fill": "#4CAF50FF",
+                  "content": "Keep",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "ozncS",
+              "fill": "#555555FF",
+              "textGrowth": "fixed-width",
+              "width": 100,
+              "content": "La Roche-Posay\nCleanser\n\nANUA Azelaic\nAcid Serum\n\nDr.Althea\n345 Relief Cream\n\nBeauty of Joseon\nSPF 40",
+              "lineHeight": 1.4,
+              "fontFamily": "Inter",
+              "fontSize": 9,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "cQca7",
+          "x": 430,
+          "y": 460,
+          "name": "stopBlock",
+          "width": 125,
+          "fill": "#F5F5F5FF",
+          "layout": "vertical",
+          "gap": 10,
+          "padding": [
+            20,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "Zi6jO",
+              "name": "stopH",
+              "gap": 5,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "CmwvA",
+                  "fill": "#F44336FF",
+                  "width": 8,
+                  "height": 8
+                },
+                {
+                  "type": "text",
+                  "id": "P0usX",
+                  "fill": "#F44336FF",
+                  "content": "Stop",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "AjX9O",
+              "fill": "#555555FF",
+              "textGrowth": "fixed-width",
+              "width": 100,
+              "content": "SKIN1004\nCleansing Oil\n\nPaula's Choice\n2% BHA\n\nThe Ordinary\nAloe + NAG",
+              "lineHeight": 1.4,
+              "fontFamily": "Inter",
+              "fontSize": 9,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "id": "glhFV",
+          "x": 40,
+          "y": 660,
+          "width": 515,
+          "height": 0,
+          "stroke": {
+            "align": "center",
+            "thickness": 1,
+            "fill": "#E0E0E0FF"
+          }
+        },
+        {
+          "type": "frame",
+          "id": "UylIL",
+          "x": 40,
+          "y": 675,
+          "name": "goalBar",
+          "width": 310,
+          "height": 80,
+          "fill": "#1A1A1AFF",
+          "layout": "none",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "CA78z",
+              "x": 16,
+              "y": 16,
+              "width": 16,
+              "height": 16,
+              "iconFontName": "target",
+              "iconFontFamily": "lucide",
+              "fill": "#FFFFFFFF"
+            },
+            {
+              "type": "text",
+              "id": "2aXXR",
+              "x": 40,
+              "y": 16,
+              "fill": "#666666FF",
+              "content": "Phase 1",
+              "fontFamily": "Inter",
+              "fontSize": 9,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "SbYph",
+              "x": 16,
+              "y": 36,
+              "fill": "#FFFFFFFF",
+              "textGrowth": "fixed-width",
+              "width": 150,
+              "content": "Reset &\nStabilize",
+              "fontFamily": "Inter",
+              "fontSize": 24,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "ObpDc",
+              "x": 220,
+              "y": 36,
+              "fill": "#555555FF",
+              "textGrowth": "fixed-width",
+              "width": 80,
+              "content": "4–6\nweeks",
+              "fontFamily": "Inter",
+              "fontSize": 20,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "G0mqQ",
+          "x": 355,
+          "y": 675,
+          "name": "tipBlock",
+          "width": 200,
+          "layout": "vertical",
+          "gap": 10,
+          "children": [
+            {
+              "type": "text",
+              "id": "1vsxz",
+              "fill": "#AAAAAA",
+              "content": "CARE TIPS",
+              "fontFamily": "Inter",
+              "fontSize": 9,
+              "fontWeight": "700",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "UKgx6",
+              "name": "ct1",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "mUiV5",
+                  "fill": "#CCCCCCFF",
+                  "content": "①",
+                  "fontFamily": "Inter",
+                  "fontSize": 9,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "3sGEx",
+                  "fill": "#333333FF",
+                  "content": "Simplify to core steps",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "uEoT9",
+              "name": "ct2",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "8RBNu",
+                  "fill": "#CCCCCCFF",
+                  "content": "②",
+                  "fontFamily": "Inter",
+                  "fontSize": 9,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "Ui6VN",
+                  "fill": "#333333FF",
+                  "content": "Pause overlapping actives",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Z28IE",
+              "name": "ct3",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "rOiac",
+                  "fill": "#CCCCCCFF",
+                  "content": "③",
+                  "fontFamily": "Inter",
+                  "fontSize": 9,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "azEpe",
+                  "fill": "#333333FF",
+                  "content": "Gentle cleansing only",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "NKbpj",
+          "x": 40,
+          "y": 760,
+          "name": "resultBar",
+          "width": 515,
+          "fill": "#E8F5E9FF",
+          "gap": 8,
+          "padding": [
+            12,
+            16
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "RfDcX",
+              "width": 14,
+              "height": 14,
+              "iconFontName": "trending-up",
+              "iconFontFamily": "lucide",
+              "fill": "#4CAF50FF"
+            },
+            {
+              "type": "text",
+              "id": "R1Rn3",
+              "fill": "#4CAF50FF",
+              "textGrowth": "fixed-width",
+              "width": 450,
+              "content": "Less reactive skin, reduced redness, fewer breakouts. Comfort improves first.",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "8an1b",
+          "x": 40,
+          "y": 816,
+          "name": "footer",
+          "width": 515,
+          "justifyContent": "space_between",
+          "children": [
+            {
+              "type": "text",
+              "id": "kAKsz",
+              "fill": "#CCCCCCFF",
+              "content": "Phase 1 Report",
+              "fontFamily": "Inter",
+              "fontSize": 9,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "N4a42",
+              "fill": "#CCCCCCFF",
+              "content": "Page 1 / 7",
+              "fontFamily": "Inter",
+              "fontSize": 9,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "5JQv2",
+      "x": 2041.788469233371,
+      "y": -309.59579156588825,
+      "name": "Report P2 - Routine",
+      "clip": true,
+      "width": 595,
+      "height": 842,
+      "fill": "#FFFFFFFF",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "degfZ",
+          "name": "h2",
+          "width": "fill_container",
+          "padding": [
+            48,
+            48,
+            0,
+            48
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "WMhhA",
+              "fill": "#000000FF",
+              "content": "8mirrors",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "700",
+              "letterSpacing": 3
+            },
+            {
+              "type": "text",
+              "id": "OdJ1f",
+              "fill": "#999999FF",
+              "content": "Your Custom Routine",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "WBkkI",
+          "name": "title2",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 4,
+          "padding": [
+            24,
+            48,
+            0,
+            48
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "EkgmX",
+              "fill": "#000000FF",
+              "content": "Your Custom Routine",
+              "fontFamily": "Inter",
+              "fontSize": 24,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "6QRWm",
+              "fill": "#888888FF",
+              "content": "Products selected specifically for your skin profile",
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ZKLfg",
+          "name": "amSec",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 12,
+          "padding": [
+            20,
+            48,
+            0,
+            48
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "UQoND",
+              "fill": "#999999FF",
+              "content": "AM ROUTINE",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "700",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "cE6K5",
+              "name": "amGrid",
+              "width": "fill_container",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "L4HMl",
+                  "name": "am1",
+                  "width": "fill_container",
+                  "fill": "#F5F5F5FF",
+                  "cornerRadius": 10,
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        10,
+                        10,
+                        0,
+                        0
+                      ],
+                      "id": "2mHoB",
+                      "fill": "#E0E0E0FF",
+                      "width": "fill_container",
+                      "height": 80
+                    },
+                    {
+                      "type": "frame",
+                      "id": "5tipt",
+                      "name": "am1t",
+                      "layout": "vertical",
+                      "gap": 3,
+                      "padding": 10,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "CSnGp",
+                          "fill": "#AAAAAA",
+                          "content": "Dr.G",
+                          "fontFamily": "Inter",
+                          "fontSize": 8,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "bEjIX",
+                          "fill": "#000000FF",
+                          "textGrowth": "fixed-width",
+                          "width": 80,
+                          "content": "RED Blemish\nCleanser",
+                          "fontFamily": "Inter",
+                          "fontSize": 10,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "4POe3",
+                  "name": "am2",
+                  "width": "fill_container",
+                  "fill": "#F5F5F5FF",
+                  "cornerRadius": 10,
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        10,
+                        10,
+                        0,
+                        0
+                      ],
+                      "id": "oGtHF",
+                      "fill": "#E0E0E0FF",
+                      "width": "fill_container",
+                      "height": 80
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Q5cTW",
+                      "name": "am2t",
+                      "layout": "vertical",
+                      "gap": 3,
+                      "padding": 10,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "KtgKo",
+                          "fill": "#AAAAAA",
+                          "content": "Anua",
+                          "fontFamily": "Inter",
+                          "fontSize": 8,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "NVHb4",
+                          "fill": "#000000FF",
+                          "textGrowth": "fixed-width",
+                          "width": 80,
+                          "content": "Heartleaf 77%\nToner",
+                          "fontFamily": "Inter",
+                          "fontSize": 10,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "i2rWq",
+                  "name": "am3",
+                  "width": "fill_container",
+                  "fill": "#F5F5F5FF",
+                  "cornerRadius": 10,
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        10,
+                        10,
+                        0,
+                        0
+                      ],
+                      "id": "HoYll",
+                      "fill": "#E0E0E0FF",
+                      "width": "fill_container",
+                      "height": 80
+                    },
+                    {
+                      "type": "frame",
+                      "id": "WkfTK",
+                      "name": "am3t",
+                      "layout": "vertical",
+                      "gap": 3,
+                      "padding": 10,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "5WQhc",
+                          "fill": "#AAAAAA",
+                          "content": "Purito",
+                          "fontFamily": "Inter",
+                          "fontSize": 8,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "erLsj",
+                          "fill": "#000000FF",
+                          "textGrowth": "fixed-width",
+                          "width": 80,
+                          "content": "Centella\nSerum",
+                          "fontFamily": "Inter",
+                          "fontSize": 10,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "0UnhF",
+                  "name": "am4",
+                  "width": "fill_container",
+                  "fill": "#F5F5F5FF",
+                  "cornerRadius": 10,
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        10,
+                        10,
+                        0,
+                        0
+                      ],
+                      "id": "AFafz",
+                      "fill": "#E0E0E0FF",
+                      "width": "fill_container",
+                      "height": 80
+                    },
+                    {
+                      "type": "frame",
+                      "id": "YdzM3",
+                      "name": "am4t",
+                      "layout": "vertical",
+                      "gap": 3,
+                      "padding": 10,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "NMlgI",
+                          "fill": "#AAAAAA",
+                          "content": "S.Nature",
+                          "fontFamily": "Inter",
+                          "fontSize": 8,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "a7Mcg",
+                          "fill": "#000000FF",
+                          "textGrowth": "fixed-width",
+                          "width": 80,
+                          "content": "Aqua Oasis\nGel Cream",
+                          "fontFamily": "Inter",
+                          "fontSize": 10,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "8F5OV",
+                  "name": "am5",
+                  "width": "fill_container",
+                  "fill": "#F5F5F5FF",
+                  "cornerRadius": 10,
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        10,
+                        10,
+                        0,
+                        0
+                      ],
+                      "id": "EnweO",
+                      "fill": "#E0E0E0FF",
+                      "width": "fill_container",
+                      "height": 80
+                    },
+                    {
+                      "type": "frame",
+                      "id": "VO0QK",
+                      "name": "am5t",
+                      "layout": "vertical",
+                      "gap": 3,
+                      "padding": 10,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "uUl0p",
+                          "fill": "#AAAAAA",
+                          "content": "Skin1004",
+                          "fontFamily": "Inter",
+                          "fontSize": 8,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "qYhgi",
+                          "fill": "#000000FF",
+                          "textGrowth": "fixed-width",
+                          "width": 80,
+                          "content": "Airfit\nSunscreen",
+                          "fontFamily": "Inter",
+                          "fontSize": 10,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "LrTdA",
+          "name": "pmSec",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 12,
+          "padding": [
+            20,
+            48,
+            0,
+            48
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "CgQ3j",
+              "fill": "#999999FF",
+              "content": "PM ROUTINE",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "700",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "naAI7",
+              "name": "pmGrid",
+              "width": "fill_container",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "LgCcK",
+                  "name": "pm1",
+                  "width": "fill_container",
+                  "fill": "#F5F5F5FF",
+                  "cornerRadius": 10,
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        10,
+                        10,
+                        0,
+                        0
+                      ],
+                      "id": "QdRjs",
+                      "fill": "#E0E0E0FF",
+                      "width": "fill_container",
+                      "height": 80
+                    },
+                    {
+                      "type": "frame",
+                      "id": "AmVwK",
+                      "name": "pm1t",
+                      "layout": "vertical",
+                      "gap": 3,
+                      "padding": 10,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "e1MEo",
+                          "fill": "#AAAAAA",
+                          "content": "Dr.G",
+                          "fontFamily": "Inter",
+                          "fontSize": 8,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "m1fGX",
+                          "fill": "#000000FF",
+                          "textGrowth": "fixed-width",
+                          "width": 80,
+                          "content": "RED Blemish\nCleanser",
+                          "fontFamily": "Inter",
+                          "fontSize": 10,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ag81P",
+                  "name": "pm2",
+                  "width": "fill_container",
+                  "fill": "#F5F5F5FF",
+                  "cornerRadius": 10,
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        10,
+                        10,
+                        0,
+                        0
+                      ],
+                      "id": "PPbIu",
+                      "fill": "#E0E0E0FF",
+                      "width": "fill_container",
+                      "height": 80
+                    },
+                    {
+                      "type": "frame",
+                      "id": "9IUvX",
+                      "name": "pm2t",
+                      "layout": "vertical",
+                      "gap": 3,
+                      "padding": 10,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "sHplA",
+                          "fill": "#AAAAAA",
+                          "content": "Anua",
+                          "fontFamily": "Inter",
+                          "fontSize": 8,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "CVq0y",
+                          "fill": "#000000FF",
+                          "textGrowth": "fixed-width",
+                          "width": 80,
+                          "content": "Heartleaf 77%\nToner",
+                          "fontFamily": "Inter",
+                          "fontSize": 10,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "w8tzU",
+                  "name": "pm3",
+                  "width": "fill_container",
+                  "fill": "#F5F5F5FF",
+                  "cornerRadius": 10,
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        10,
+                        10,
+                        0,
+                        0
+                      ],
+                      "id": "nsmWx",
+                      "fill": "#E0E0E0FF",
+                      "width": "fill_container",
+                      "height": 80
+                    },
+                    {
+                      "type": "frame",
+                      "id": "99S3y",
+                      "name": "pm3t",
+                      "layout": "vertical",
+                      "gap": 3,
+                      "padding": 10,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "5YD5E",
+                          "fill": "#AAAAAA",
+                          "content": "Purito",
+                          "fontFamily": "Inter",
+                          "fontSize": 8,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "xFKBi",
+                          "fill": "#000000FF",
+                          "textGrowth": "fixed-width",
+                          "width": 80,
+                          "content": "Centella\nSerum",
+                          "fontFamily": "Inter",
+                          "fontSize": 10,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "xtnX4",
+                  "name": "pm4",
+                  "width": "fill_container",
+                  "fill": "#F5F5F5FF",
+                  "cornerRadius": 10,
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": [
+                        10,
+                        10,
+                        0,
+                        0
+                      ],
+                      "id": "RmBzm",
+                      "fill": "#E0E0E0FF",
+                      "width": "fill_container",
+                      "height": 80
+                    },
+                    {
+                      "type": "frame",
+                      "id": "JuIaw",
+                      "name": "pm4t",
+                      "layout": "vertical",
+                      "gap": 3,
+                      "padding": 10,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "foQpd",
+                          "fill": "#AAAAAA",
+                          "content": "S.Nature",
+                          "fontFamily": "Inter",
+                          "fontSize": 8,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Q2NI6",
+                          "fill": "#000000FF",
+                          "textGrowth": "fixed-width",
+                          "width": 80,
+                          "content": "Aqua Oasis\nGel Cream",
+                          "fontFamily": "Inter",
+                          "fontSize": 10,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "bsVUG",
+          "name": "f2",
+          "width": "fill_container",
+          "padding": [
+            0,
+            48,
+            40,
+            48
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "KBewb",
+              "fill": "#CCCCCCFF",
+              "content": "Phase 1 Report",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "Pn4ID",
+              "fill": "#CCCCCCFF",
+              "content": "Page 5 / 6",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "ILzK1",
+      "x": 106.78846923337096,
+      "y": -309.59579156588825,
+      "name": "Report P3 - Spectrum",
+      "clip": true,
+      "width": 595,
+      "height": 842,
+      "fill": "#FFFFFFFF",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "WQ7n2",
+          "name": "h3",
+          "width": "fill_container",
+          "padding": [
+            48,
+            48,
+            0,
+            48
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "FJeGt",
+              "fill": "#000000FF",
+              "content": "8mirrors",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "700",
+              "letterSpacing": 3
+            },
+            {
+              "type": "text",
+              "id": "YtB4u",
+              "fill": "#999999FF",
+              "content": "01. Skin Spectrum",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "sjD4e",
+          "name": "title3",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 4,
+          "padding": [
+            24,
+            48,
+            0,
+            48
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "nrSAr",
+              "fill": "#E0E0E0FF",
+              "content": "01",
+              "fontFamily": "Inter",
+              "fontSize": 36,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "XoOAl",
+              "fill": "#000000FF",
+              "content": "Skin Spectrum",
+              "fontFamily": "Inter",
+              "fontSize": 24,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "tWEIx",
+          "name": "specArea",
+          "width": "fill_container",
+          "gap": 24,
+          "padding": [
+            16,
+            48
+          ],
+          "children": [
+            {
+              "type": "polygon",
+              "polygonCount": 10,
+              "id": "9HSes",
+              "fill": "#F5F5F5FF",
+              "width": 160,
+              "height": 160,
+              "stroke": {
+                "align": "inside",
+                "thickness": 2,
+                "fill": "#1A1A1AFF"
+              }
+            },
+            {
+              "type": "frame",
+              "id": "4UUez",
+              "name": "specDesc",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 4,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "TEcT2",
+                  "fill": "#666666FF",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Your skin is currently reactive but stable. There is ongoing acne activity concentrated on the cheeks, jawline, and perioral area, accompanied by residual redness.",
+                  "lineHeight": 1.6,
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Qk8SG",
+          "name": "findings",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 14,
+          "padding": [
+            16,
+            48
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "GIOpN",
+              "name": "f1",
+              "width": "fill_container",
+              "fill": "#F5F5F5FF",
+              "cornerRadius": 12,
+              "layout": "vertical",
+              "gap": 6,
+              "padding": [
+                16,
+                20
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "turRU",
+                  "name": "f1h",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "sI0HZ",
+                      "fill": "#E91E63FF",
+                      "width": 8,
+                      "height": 8
+                    },
+                    {
+                      "type": "text",
+                      "id": "shjVP",
+                      "fill": "#000000FF",
+                      "content": "Inflammatory Acne Activity",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "1YHUZ",
+                  "fill": "#888888FF",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Active breakouts are present, indicating ongoing inflammatory cycles that require controlled, consistent regulation.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "irBm8",
+              "name": "f2",
+              "width": "fill_container",
+              "fill": "#F5F5F5FF",
+              "cornerRadius": 12,
+              "layout": "vertical",
+              "gap": 6,
+              "padding": [
+                16,
+                20
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "a1C5Q",
+                  "name": "f2h",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "vOIQ8",
+                      "fill": "#FF9800FF",
+                      "width": 8,
+                      "height": 8
+                    },
+                    {
+                      "type": "text",
+                      "id": "3BzHN",
+                      "fill": "#000000FF",
+                      "content": "Post-Inflammatory Redness & Marks",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "0mq9G",
+                  "fill": "#888888FF",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Redness and lingering spots show that healing is happening, but recovery time is being stretched by repeated irritation.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "yiUEN",
+              "name": "f3",
+              "width": "fill_container",
+              "fill": "#F5F5F5FF",
+              "cornerRadius": 12,
+              "layout": "vertical",
+              "gap": 6,
+              "padding": [
+                16,
+                20
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Ffs8A",
+                  "name": "f3h",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "aI8JH",
+                      "fill": "#FF9800FF",
+                      "width": 8,
+                      "height": 8
+                    },
+                    {
+                      "type": "text",
+                      "id": "67b5u",
+                      "fill": "#000000FF",
+                      "content": "Combination Balance Control",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "O2qQD",
+                  "fill": "#888888FF",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Oil production is active while some areas lag in recovery, making balance the priority.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "nhkEl",
+          "name": "ft3",
+          "width": "fill_container",
+          "padding": [
+            0,
+            48,
+            40,
+            48
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "iBOyy",
+              "fill": "#CCCCCCFF",
+              "content": "Phase 1 Report",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "EodWi",
+              "fill": "#CCCCCCFF",
+              "content": "Page 2 / 6",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "rf3K4",
+      "x": 751.788469233371,
+      "y": -309.59579156588825,
+      "name": "Report P4 - Check",
+      "clip": true,
+      "width": 595,
+      "height": 842,
+      "fill": "#FFFFFFFF",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "3dB0F",
+          "name": "h4",
+          "width": "fill_container",
+          "padding": [
+            48,
+            48,
+            0,
+            48
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "Q7c9O",
+              "fill": "#000000FF",
+              "content": "8mirrors",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "700",
+              "letterSpacing": 3
+            },
+            {
+              "type": "text",
+              "id": "BPym6",
+              "fill": "#999999FF",
+              "content": "02. Current Routine Check",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "06z4P",
+          "name": "title4",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 4,
+          "padding": [
+            24,
+            48,
+            0,
+            48
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "Zlz9y",
+              "fill": "#E0E0E0FF",
+              "content": "02",
+              "fontFamily": "Inter",
+              "fontSize": 36,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "aTCah",
+              "fill": "#000000FF",
+              "content": "Current Routine Check",
+              "fontFamily": "Inter",
+              "fontSize": 24,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "mo3j7",
+          "name": "scoreRow",
+          "width": "fill_container",
+          "gap": 16,
+          "padding": [
+            20,
+            48,
+            0,
+            48
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "gLzH5",
+              "name": "scCircle",
+              "width": 64,
+              "height": 64,
+              "cornerRadius": 32,
+              "stroke": {
+                "align": "inside",
+                "thickness": 4,
+                "fill": "#1A1A1AFF"
+              },
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "E2CXB",
+                  "fill": "#000000FF",
+                  "content": "72",
+                  "fontFamily": "Inter",
+                  "fontSize": 24,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "Vhf06",
+              "fill": "#000000FF",
+              "content": "Routine Score",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "600"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Cm7pW",
+          "name": "wellSec",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            20,
+            48,
+            0,
+            48
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "CdGYX",
+              "name": "wellH",
+              "gap": 6,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "HJI33",
+                  "content": "✅",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "41b73",
+                  "fill": "#000000FF",
+                  "content": "What you're doing well",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "Au5VW",
+              "fill": "#666666FF",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "You've built a routine that focuses on inflammation control and acne regulation. The combination of gentle cleansing, azelaic acid, and daily sunscreen shows consistency and intention.",
+              "lineHeight": 1.6,
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "6pl2q",
+          "name": "holdSec",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            16,
+            48,
+            0,
+            48
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "qSMGs",
+              "name": "holdH",
+              "gap": 6,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "oh0dL",
+                  "content": "⚠️",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "SL6vN",
+                  "fill": "#000000FF",
+                  "content": "What's holding your results back",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "bDu1D",
+              "fill": "#666666FF",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Multiple actives (BHA + azelaic acid + exfoliating) are working in the same direction, but there isn't enough recovery-focused hydration to support healing between flare-ups.",
+              "lineHeight": 1.6,
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "aDS5z",
+          "name": "keepStop",
+          "width": "fill_container",
+          "gap": 20,
+          "padding": [
+            20,
+            48,
+            0,
+            48
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "9b7W0",
+              "name": "keepCol",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "lMmu1",
+                  "name": "keepH",
+                  "gap": 6,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "FvkpS",
+                      "fill": "#4CAF50FF",
+                      "width": 10,
+                      "height": 10
+                    },
+                    {
+                      "type": "text",
+                      "id": "NJ8RK",
+                      "fill": "#4CAF50FF",
+                      "content": "Keep Using",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "NTosf",
+                  "fill": "#666666FF",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "• La Roche-Posay Cleanser\n• ANUA Azelaic Acid Serum\n• Dr.Althea 345 Relief Cream\n• Beauty of Joseon SPF 40",
+                  "lineHeight": 1.8,
+                  "fontFamily": "Inter",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "bO3uJ",
+              "name": "stopCol",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "j36y3",
+                  "name": "stopH",
+                  "gap": 6,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "BFzx1",
+                      "fill": "#F44336FF",
+                      "width": 10,
+                      "height": 10
+                    },
+                    {
+                      "type": "text",
+                      "id": "cHOQJ",
+                      "fill": "#F44336FF",
+                      "content": "Stop for now",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "KJApG",
+                  "fill": "#666666FF",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "• SKIN1004 Cleansing Oil\n• Paula's Choice 2% BHA\n• The Ordinary Aloe + NAG",
+                  "lineHeight": 1.8,
+                  "fontFamily": "Inter",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "rjYGb",
+          "name": "ft4",
+          "width": "fill_container",
+          "padding": [
+            0,
+            48,
+            40,
+            48
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "UY5li",
+              "fill": "#CCCCCCFF",
+              "content": "Phase 1 Report",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "hLhr6",
+              "fill": "#CCCCCCFF",
+              "content": "Page 3 / 6",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "cIVIv",
+      "x": 1396.788469233371,
+      "y": -309.59579156588825,
+      "name": "Report P5 - Plan",
+      "clip": true,
+      "width": 595,
+      "height": 842,
+      "fill": "#FFFFFFFF",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "019m8",
+          "name": "h5",
+          "width": "fill_container",
+          "padding": [
+            48,
+            48,
+            0,
+            48
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "LcAcS",
+              "fill": "#000000FF",
+              "content": "8mirrors",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "700",
+              "letterSpacing": 3
+            },
+            {
+              "type": "text",
+              "id": "fLBZM",
+              "fill": "#999999FF",
+              "content": "03. Treatment Plan",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "0RBzA",
+          "name": "title5",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 4,
+          "padding": [
+            24,
+            48,
+            0,
+            48
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "0HI12",
+              "fill": "#E0E0E0FF",
+              "content": "03",
+              "fontFamily": "Inter",
+              "fontSize": 36,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "n7nV2",
+              "fill": "#000000FF",
+              "content": "Treatment Plan",
+              "fontFamily": "Inter",
+              "fontSize": 24,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "J8tIB",
+          "name": "goalSec",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 12,
+          "padding": [
+            20,
+            48,
+            0,
+            48
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "EfBiv",
+              "name": "goalBox",
+              "width": "fill_container",
+              "fill": "#1A1A1AFF",
+              "cornerRadius": 14,
+              "layout": "vertical",
+              "gap": 6,
+              "padding": [
+                20,
+                24
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "MyAPC",
+                  "fill": "#FFFFFFFF",
+                  "content": "Reset & Stabilize",
+                  "fontFamily": "Inter",
+                  "fontSize": 20,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "qGPyq",
+                  "fill": "#888888FF",
+                  "content": "Duration: 4–6 weeks",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "3dkTg",
+                  "fill": "#AAAAAA",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Calming inflammation and allowing your skin\nto return to its baseline function.",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ZoQoY",
+          "name": "actions",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 10,
+          "padding": [
+            16,
+            48,
+            0,
+            48
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "twTxR",
+              "fill": "#999999FF",
+              "content": "ACTIONS",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "700",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "5H4qI",
+              "name": "a1",
+              "width": "fill_container",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "IIIRO",
+                  "name": "a1n",
+                  "width": 22,
+                  "height": 22,
+                  "fill": "#1A1A1AFF",
+                  "cornerRadius": 11,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "W3iSq",
+                      "fill": "#FFFFFFFF",
+                      "content": "1",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "6lOb1",
+                  "fill": "#333333FF",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Simplify the routine to core steps only:\ncleanse, calm, moisturize, protect",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ZQE7E",
+              "name": "a2",
+              "width": "fill_container",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "7kMV2",
+                  "name": "a2n",
+                  "width": 22,
+                  "height": 22,
+                  "fill": "#1A1A1AFF",
+                  "cornerRadius": 11,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "f8ccJ",
+                      "fill": "#FFFFFFFF",
+                      "content": "2",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "bMRgu",
+                  "fill": "#333333FF",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Pause overlapping actives to reduce\ncumulative irritation signals",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "MuITG",
+              "name": "a3",
+              "width": "fill_container",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "HZi58",
+                  "name": "a3n",
+                  "width": 22,
+                  "height": 22,
+                  "fill": "#1A1A1AFF",
+                  "cornerRadius": 11,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "sx760",
+                      "fill": "#FFFFFFFF",
+                      "content": "3",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "tmkzA",
+                  "fill": "#333333FF",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Use gentle cleansing consistently\nwithout over-cleansing",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "LBjnu",
+          "name": "resultSec",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            16,
+            48,
+            0,
+            48
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "Z9Lc7",
+              "fill": "#999999FF",
+              "content": "EXPECTED RESULTS",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "700",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "xklGH",
+              "name": "resultBox",
+              "width": "fill_container",
+              "fill": "#E8F5E9FF",
+              "cornerRadius": 12,
+              "layout": "vertical",
+              "gap": 6,
+              "padding": [
+                16,
+                20
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "JqjRj",
+                  "name": "rh",
+                  "gap": 6,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "UYGdM",
+                      "width": 14,
+                      "height": 14,
+                      "iconFontName": "trending-up",
+                      "iconFontFamily": "lucide",
+                      "fill": "#4CAF50FF"
+                    },
+                    {
+                      "type": "text",
+                      "id": "kD3Zo",
+                      "fill": "#2E7D32FF",
+                      "content": "What to expect",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "Ni3NO",
+                  "fill": "#4CAF50FF",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Your skin should feel less reactive day to day, with reduced redness and fewer sudden breakouts. Overall comfort and stability will improve first.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Qrd57",
+          "name": "ft5",
+          "width": "fill_container",
+          "padding": [
+            0,
+            48,
+            40,
+            48
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "TOIIb",
+              "fill": "#CCCCCCFF",
+              "content": "Phase 1 Report",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "AMUvO",
+              "fill": "#CCCCCCFF",
+              "content": "Page 4 / 6",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "EHlph",
+      "x": -1183.211530766629,
+      "y": -309.59579156588825,
+      "name": "Report P0 - Cover",
+      "clip": true,
+      "width": 595,
+      "height": 842,
+      "fill": "#F5F5F5FF",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "pQ9jK",
+          "x": 158,
+          "y": 200,
+          "name": "folder",
+          "width": 280,
+          "height": 360,
+          "fill": "#FFFFFFFF",
+          "cornerRadius": 16,
+          "layout": "none",
+          "children": [
+            {
+              "type": "rectangle",
+              "cornerRadius": 16,
+              "id": "XHH2u",
+              "x": 0,
+              "y": 0,
+              "fill": "#FFFFFFFF",
+              "width": 280,
+              "height": 360
+            },
+            {
+              "type": "rectangle",
+              "cornerRadius": [
+                0,
+                10,
+                10,
+                0
+              ],
+              "id": "rCrSn",
+              "x": 268,
+              "y": 80,
+              "name": "tabGreen",
+              "fill": "#6FE08AFF",
+              "width": 24,
+              "height": 80
+            },
+            {
+              "type": "rectangle",
+              "cornerRadius": [
+                0,
+                10,
+                10,
+                0
+              ],
+              "id": "KOqqF",
+              "x": 268,
+              "y": 190,
+              "name": "tabPurple",
+              "fill": "#B4A7F5FF",
+              "width": 24,
+              "height": 80
+            },
+            {
+              "type": "frame",
+              "id": "ztCAe",
+              "x": 32,
+              "y": 40,
+              "name": "titleText",
+              "layout": "vertical",
+              "gap": 4,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "RfGFe",
+                  "fill": "#000000FF",
+                  "textGrowth": "fixed-width",
+                  "width": 220,
+                  "content": "Your Skin\nAnalysis\nReport",
+                  "lineHeight": 1.2,
+                  "fontFamily": "Inter",
+                  "fontSize": 32,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "IzIWg",
+              "x": 32,
+              "y": 175,
+              "name": "phaseTag",
+              "fill": "#F5F5F5FF",
+              "cornerRadius": 8,
+              "padding": [
+                6,
+                12
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "xQlLp",
+                  "fill": "#999999FF",
+                  "content": "Phase 1",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "I1MGF",
+          "x": 198,
+          "y": 590,
+          "name": "infoSec",
+          "layout": "vertical",
+          "gap": 8,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "yS63b",
+              "name": "infoRow1",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "V6RA3",
+                  "fill": "#AAAAAA",
+                  "content": "Sarah Johnson",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "yvdZa",
+                  "fill": "#CCCCCCFF",
+                  "content": "·",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "70bGA",
+                  "fill": "#AAAAAA",
+                  "content": "Age 36",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "QiUja",
+              "name": "infoRow2",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "WTvDw",
+                  "fill": "#AAAAAA",
+                  "content": "April 10, 2026",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "xkx6p",
+                  "fill": "#CCCCCCFF",
+                  "content": "·",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "N6m5d",
+                  "fill": "#AAAAAA",
+                  "content": "by Sumin",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "Etisb",
+          "x": 254,
+          "y": 780,
+          "name": "brand",
+          "fill": "#CCCCCCFF",
+          "content": "8mirrors",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "700",
+          "letterSpacing": 3
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "xSLnJ",
+      "x": 2686.788469233371,
+      "y": -309.59579156588825,
+      "name": "Report P6 - Message",
+      "clip": true,
+      "width": 595,
+      "height": 842,
+      "fill": "#FFFFFFFF",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "YAuLj",
+          "name": "h6",
+          "width": "fill_container",
+          "padding": [
+            48,
+            48,
+            0,
+            48
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "1mEYz",
+              "fill": "#000000FF",
+              "content": "8mirrors",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "700",
+              "letterSpacing": 3
+            },
+            {
+              "type": "text",
+              "id": "bRWHU",
+              "fill": "#999999FF",
+              "content": "Final Message",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ygo3u",
+          "name": "title6",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 4,
+          "padding": [
+            24,
+            48,
+            0,
+            48
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "4NqBY",
+              "fill": "#000000FF",
+              "content": "Final Message",
+              "fontFamily": "Inter",
+              "fontSize": 24,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "a2gxJ",
+          "name": "letterSec",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 20,
+          "padding": [
+            20,
+            48,
+            0,
+            48
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "g1JnZ",
+              "name": "avatarRow",
+              "gap": 14,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "6io3R",
+                  "fill": "#D0D0D0FF",
+                  "width": 48,
+                  "height": 48
+                },
+                {
+                  "type": "frame",
+                  "id": "vmttA",
+                  "name": "avText",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "iWR5L",
+                      "fill": "#000000FF",
+                      "content": "Sumin",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "9Aai7",
+                      "fill": "#999999FF",
+                      "content": "Founder & Skin Specialist",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "line",
+              "id": "ZQLhf",
+              "width": "fill_container",
+              "height": 0,
+              "stroke": {
+                "align": "center",
+                "thickness": 1,
+                "fill": "#E8E4DFFF"
+              }
+            },
+            {
+              "type": "text",
+              "id": "K35A4",
+              "fill": "#444444FF",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Dear Sarah,\n\nYour skin journey hasn't been easy, and it makes complete sense if you've felt frustrated or tired along the way. When breakouts, redness, or slow progress keep repeating, it can feel personal — but it isn't a failure on your part.\n\nWhat matters most is that your skin is responsive and manageable. That means there is a clear path forward. We're not chasing quick fixes or perfection — we're focusing on stability first, then gradual improvement.\n\nSkin care is a long-term relationship, not a sprint. Some days will feel better than others, and that's normal. Progress often shows up quietly — in fewer reactions, calmer mornings, and skin that feels a little more predictable.\n\nPlease don't feel like you have to do this alone. I'm here to guide you, adjust the direction when needed, and support you through each phase.\n\nBe patient with your skin, and be kind to yourself.\n\nWarmly,\nSumin",
+              "lineHeight": 1.7,
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "AYTHo",
+          "name": "ft6",
+          "width": "fill_container",
+          "padding": [
+            0,
+            48,
+            40,
+            48
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "PUy77",
+              "fill": "#CCCCCCFF",
+              "content": "Phase 1 Report",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "ow0Ke",
+              "fill": "#CCCCCCFF",
+              "content": "Page 6 / 6",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

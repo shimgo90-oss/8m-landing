@@ -1,19 +1,32 @@
 "use client";
 
 import { useState } from "react";
+import ProductCard from "./components/ProductCard";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
 
   return (
-    <main className="min-h-screen bg-neutral-50 flex flex-col items-center justify-center p-6">
-      <div className="text-center mb-8">
+    <main className="min-h-screen bg-neutral-50 flex flex-col items-center p-6 gap-10 py-16">
+      <div className="text-center">
         <h1 className="text-3xl font-bold text-neutral-900 mb-2">
           8mirrors Design Sandbox
         </h1>
         <p className="text-neutral-600">
           Pencil → Code → Preview 파이프라인 테스트
         </p>
+      </div>
+
+      <div className="flex flex-col items-center gap-4">
+        <p className="text-xs uppercase tracking-wider text-neutral-400">
+          From design/product-card.pen
+        </p>
+        <ProductCard
+          title="메디큐브 PDRN 핑크 크림"
+          subtitle="탄력·주름 개선 라인"
+          price="₩32,000"
+          rating="4.8"
+        />
       </div>
 
       <button
