@@ -18,9 +18,9 @@ export default function Home() {
 
       <button
         onClick={() => setOpen(true)}
-        className="px-6 py-3 bg-neutral-900 text-white rounded-full font-medium hover:bg-neutral-700 active:scale-95 transition-all shadow-lg"
+        className="px-6 py-3 bg-indigo-600 text-white rounded-full font-medium hover:bg-indigo-500 active:scale-95 transition-all shadow-lg shadow-indigo-600/30"
       >
-        모달 열기
+        모달 열기 ✨
       </button>
 
       {open && (
@@ -33,8 +33,8 @@ export default function Home() {
             className="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl p-6 animate-[slideUp_300ms_ease-out]"
           >
             <div className="w-12 h-1 bg-neutral-300 rounded-full mx-auto mb-4 sm:hidden" />
-            <h2 className="text-xl font-bold text-neutral-900 mb-2">
-              안녕하세요
+            <h2 className="text-xl font-bold text-indigo-600 mb-2">
+              반가워요 👋
             </h2>
             <p className="text-neutral-600 mb-6">
               이 모달은 300ms ease-out 애니메이션으로 아래에서 올라왔어요. 실제
