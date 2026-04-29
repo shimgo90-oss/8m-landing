@@ -1,5 +1,33 @@
 @import "tailwindcss";
 
+@theme {
+  --font-display: var(--font-display), ui-serif, Georgia, serif;
+  --font-body: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+
+  --color-canvas: #f7f7f7;
+  --color-charcoal: #242424;
+  --color-midnight: #111111;
+  --color-mid-gray: #898989;
+
+  --color-mirror-cyan: #62d8f4;
+  --color-mirror-cyan-hover: #3fc4e0;
+  --color-mirror-cyan-subtle: #e8f9fd;
+
+  --color-lumen-lime: #ecff8c;
+  --color-lumen-lime-hover: #dff56a;
+}
+
+:root {
+  --shadow-card:
+    rgba(19, 19, 22, 0.7) 0px 1px 5px -4px,
+    rgba(34, 42, 53, 0.08) 0px 0px 0px 1px,
+    rgba(34, 42, 53, 0.05) 0px 4px 8px 0px;
+  --shadow-input-ring:
+    rgba(34, 42, 53, 0.12) 0px 0px 0px 1px;
+  --shadow-button-inset:
+    rgba(255, 255, 255, 0.15) 0px 2px 0px inset;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
