@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type Ref } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function SuminAvatar({ size }: { size: number }) {
   return (
@@ -101,7 +101,7 @@ function RollingColumn({ snap }: { snap: 1 | 2 }) {
   );
 }
 
-function Hero({ slotRef }: { slotRef: Ref<HTMLDivElement> }) {
+function Hero() {
   return (
     <section className="flex flex-col items-center px-5 pt-10 pb-12 text-center">
       {/* rolling animation — sits above the coach profile */}
@@ -115,8 +115,7 @@ function Hero({ slotRef }: { slotRef: Ref<HTMLDivElement> }) {
 
       {/* Coach block — pulled up to overlap the animation */}
       <div className="relative z-10 flex flex-col items-center w-full" style={{ marginTop: -44 }}>
-        {/* avatar docks here; the traveling avatar renders on top of this slot */}
-        <div ref={slotRef} style={{ width: 84, height: 84 }} aria-hidden />
+        <SuminAvatar size={84} />
         <div className="mt-3 flex items-center gap-1.5">
           <span className="text-midnight" style={{ fontSize: 13, fontWeight: 700 }}>Sumin</span>
           <span className="text-mid-gray" style={{ fontSize: 13 }}>· your skin coach</span>
@@ -369,21 +368,19 @@ function SkinConditionRadar() {
   );
 }
 
-function SkinConditionSection() {
+function SkinConditionVisual() {
   const cards = [
     ["Inflammatory Acne Activity", "Ongoing inflammatory cycles need steady, gentle care…"],
     ["Post-Inflammatory Redness & Marks", "Healing is happening, slowed by repeated irritation…"],
     ["Combination Balance Control", "Balance is the priority — not dryness or excess oil…"],
   ];
   return (
-    <div className="px-5 pt-6 pb-8">
-      <SectionNum n="01" />
-      <h3 className="font-display text-midnight mt-1" style={{ fontSize: 26, fontWeight: 500 }}>Skin Condition Check</h3>
-      <Truncate className="mt-2">Reactive but stable, not fragile right now…</Truncate>
+    <div>
+      <Truncate>Reactive but stable, not fragile right now…</Truncate>
       <div className="mt-2"><SkinConditionRadar /></div>
-      <div className="flex gap-3 overflow-x-auto -mx-5 px-5 mt-1" style={{ scrollSnapType: "x mandatory" }}>
+      <div className="flex gap-3 overflow-x-auto -mx-4 px-4 mt-1">
         {cards.map(([title, body]) => (
-          <div key={title} className="shrink-0 rounded-xl bg-white border border-neutral-200 p-4" style={{ width: 290, scrollSnapAlign: "start" }}>
+          <div key={title} className="shrink-0 rounded-xl bg-white border border-neutral-200 p-4" style={{ width: 290 }}>
             <div className="text-midnight" style={{ fontSize: 16, fontWeight: 700 }}>{title}</div>
             <Truncate className="mt-1">{body}</Truncate>
           </div>
@@ -407,11 +404,9 @@ function ScoreDonut({ score }: { score: number }) {
   );
 }
 
-function RoutineCheckSection() {
+function RoutineCheckVisual() {
   return (
-    <div className="px-5 pt-6 pb-8">
-      <SectionNum n="02" />
-      <h3 className="font-display text-midnight mt-1 mb-4" style={{ fontSize: 26, fontWeight: 500 }}>Routine Check</h3>
+    <div>
       <ScoreDonut score={72} />
       <div className="text-center mt-2">
         <div className="text-midnight" style={{ fontSize: 14, fontWeight: 700 }}>Routine Score</div>
@@ -426,69 +421,55 @@ function RoutineCheckSection() {
         <div className="text-midnight" style={{ fontSize: 16, fontWeight: 700 }}>⚠️ What&apos;s Holding Your Results Back</div>
         <Truncate className="mt-1">Overlapping actives may be slowing barrier repair…</Truncate>
       </div>
-      <div className="mt-5 rounded-xl bg-neutral-100 p-4 space-y-3">
-        <div className="flex items-center gap-2.5"><span style={{ color: "#1a9d3c", fontWeight: 700 }}>✓</span><span className="text-midnight font-bold text-[15px]">Okay to Use</span><span className="text-mid-gray text-xs font-bold">4</span></div>
-        <div className="flex items-center gap-2.5"><span style={{ color: "#d24d4d", fontWeight: 700 }}>✕</span><span className="text-midnight font-bold text-[15px]">Stop Using</span><span className="text-mid-gray text-xs font-bold">2</span></div>
-      </div>
     </div>
   );
 }
 
-function TreatmentPlanSection() {
+function TreatmentPlanVisual() {
   return (
-    <div className="px-5 pt-6 pb-8">
-      <SectionNum n="03" />
-      <h3 className="font-display text-midnight mt-1 mb-3" style={{ fontSize: 26, fontWeight: 500 }}>Treatment Plan</h3>
-      <div className="flex gap-3 overflow-x-auto -mx-5 px-5" style={{ scrollSnapType: "x mandatory" }}>
-        <div className="shrink-0 rounded-[20px] bg-white border border-neutral-200 overflow-hidden" style={{ width: 300, scrollSnapAlign: "start" }}>
-          <div className="bg-neutral-200" style={{ height: 220 }} />
-          <div className="p-5">
-            <div className="text-midnight" style={{ fontSize: 22, fontWeight: 700, lineHeight: 1.2 }}>Reset &amp; Stabilize</div>
-            <div className="flex items-center gap-2.5 mt-3"><Eyebrow>DURATION</Eyebrow><span className="text-[#525252] text-sm font-semibold">4–6 weeks</span></div>
-            <div className="mt-3"><Eyebrow>CARE STRATEGY</Eyebrow><Truncate className="mt-1">Bring skin back to a calm, stable baseline first…</Truncate></div>
-          </div>
+    <div className="flex gap-3 overflow-x-auto -mx-4 px-4">
+      <div className="shrink-0 rounded-[20px] bg-white border border-neutral-200 overflow-hidden" style={{ width: 290 }}>
+        <div className="bg-neutral-200" style={{ height: 170 }} />
+        <div className="p-5">
+          <div className="text-midnight" style={{ fontSize: 22, fontWeight: 700, lineHeight: 1.2 }}>Reset &amp; Stabilize</div>
+          <div className="flex items-center gap-2.5 mt-3"><Eyebrow>DURATION</Eyebrow><span className="text-[#525252] text-sm font-semibold">4–6 weeks</span></div>
+          <div className="mt-3"><Eyebrow>CARE STRATEGY</Eyebrow><Truncate className="mt-1">Bring skin back to a calm, stable baseline first…</Truncate></div>
         </div>
-        <div className="shrink-0 rounded-[20px] bg-white border border-neutral-200 p-5" style={{ width: 300, scrollSnapAlign: "start" }}>
-          <Eyebrow>ACTION</Eyebrow>
-          <div className="flex flex-col gap-3 mt-3">
-            {["Simplify to core steps — cleanse, calm, protect…", "Pause overlapping actives to reduce irritation…", "Cleanse gently and consistently…"].map((t, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <span className="shrink-0 rounded-full bg-midnight text-white flex items-center justify-center" style={{ width: 24, height: 24, fontSize: 12, fontWeight: 700 }}>{i + 1}</span>
-                <span className="truncate text-[#525252] text-sm">{t}</span>
-              </div>
-            ))}
-          </div>
-          <div className="mt-4 rounded-xl p-4" style={{ background: "var(--color-mirror-cyan-subtle)", border: "1px solid #62d8f4" }}>
-            <div style={{ color: "#0090b0", fontSize: 11, fontWeight: 700, letterSpacing: "0.14em" }}>EXPECTED RESULTS</div>
-            <p className="truncate text-[#525252] text-sm mt-1">Less reactive skin, less redness, fewer breakouts…</p>
-          </div>
+      </div>
+      <div className="shrink-0 rounded-[20px] bg-white border border-neutral-200 p-5" style={{ width: 290 }}>
+        <Eyebrow>ACTION</Eyebrow>
+        <div className="flex flex-col gap-3 mt-3">
+          {["Simplify to core steps — cleanse, calm, protect…", "Pause overlapping actives to reduce irritation…", "Cleanse gently and consistently…"].map((t, i) => (
+            <div key={i} className="flex items-center gap-3">
+              <span className="shrink-0 rounded-full bg-midnight text-white flex items-center justify-center" style={{ width: 24, height: 24, fontSize: 12, fontWeight: 700 }}>{i + 1}</span>
+              <span className="truncate text-[#525252] text-sm">{t}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
 }
 
-function CustomRoutineSection() {
+function CustomRoutineVisual() {
   const products = [
     ["01", "CLEANSER", "ILLIYOON Ceramide Ato 5.0 Cleanser"],
     ["02", "TONER", "Anua Heartleaf 77 Soothing Toner"],
     ["03", "SERUM", "Beauty of Joseon Glow Serum"],
   ];
   return (
-    <div className="px-5 pt-8 pb-10 bg-neutral-50">
-      <SectionNum n="04" />
-      <h3 className="font-display text-midnight mt-1" style={{ fontSize: 26, fontWeight: 500 }}>Custom Routine</h3>
-      <div className="flex items-center gap-6 mt-2 mb-4">
+    <div>
+      <div className="flex items-center gap-6 mb-4">
         <span className="text-mid-gray" style={{ fontSize: 20, fontWeight: 500 }}>Daily <span className="text-[13px]">5</span></span>
         <span className="text-midnight flex items-center gap-1.5" style={{ fontSize: 20, fontWeight: 700 }}>
           Special <span className="text-mid-gray text-[13px]">7</span>
           <LimeChip className="!text-[10px] !font-bold">POPULAR</LimeChip>
         </span>
       </div>
-      <div className="flex gap-6 overflow-x-auto -mx-5 px-5" style={{ scrollSnapType: "x mandatory" }}>
+      <div className="flex gap-6 overflow-x-auto -mx-4 px-4">
         {products.map(([n, cat, name]) => (
-          <div key={n} className="shrink-0 flex flex-col items-center text-center" style={{ width: 260, scrollSnapAlign: "center" }}>
-            <div className="rounded-[18px] bg-neutral-100 flex items-center justify-center w-full" style={{ height: 240 }}>
+          <div key={n} className="shrink-0 flex flex-col items-center text-center" style={{ width: 240 }}>
+            <div className="rounded-[18px] bg-neutral-100 flex items-center justify-center w-full" style={{ height: 200 }}>
               <BottleIcon color="#c9b6f0" size={56} />
             </div>
             <div className="flex items-center gap-2 mt-4">
@@ -496,177 +477,114 @@ function CustomRoutineSection() {
               <span className="text-mid-gray" style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.15em" }}>{cat}</span>
             </div>
             <div className="text-midnight mt-2" style={{ fontSize: 17, fontWeight: 700, lineHeight: 1.3 }}>{name}</div>
-            <div className="mt-3"><Eyebrow>HOW TO USE</Eyebrow></div>
-            <p className="truncate text-[#666] text-[13px] mt-1 w-full">Massage onto damp skin, rinse with lukewarm water…</p>
           </div>
         ))}
       </div>
-      <button className="mt-6 w-full rounded-2xl bg-white flex items-center justify-center gap-1.5 text-midnight font-bold text-sm" style={{ padding: "16px 20px", border: "1.5px solid #111111" }}>
-        View Product Details ›
-      </button>
     </div>
   );
 }
 
-function FinalMessageSection() {
+function FinalMessageVisual() {
   return (
-    <div className="px-5 pt-6 pb-10">
-      <SectionNum n="05" />
-      <h3 className="font-display text-midnight mt-1 mb-3" style={{ fontSize: 26, fontWeight: 500 }}>Final Message</h3>
+    <p className="text-[#525252]" style={{ fontSize: 15, lineHeight: 1.7 }}>
+      Dear Sarah 🤍
+      <br />
+      <br />
+      Your skin journey hasn&apos;t been easy, and it makes complete sense if you&apos;ve felt frustrated or tired
+      along the way. When breakouts, redness, or slow progress keep repeating, it can feel personal — but it
+      isn&apos;t a failure on your part. It&apos;s simply your skin asking for time, consistency, and the right kind of
+      support…
+    </p>
+  );
+}
+
+/* ───────────────────────── Report panel (title → Sumin bubble → reference) ───────────────────────── */
+
+function ReportBubble({ message }: { message: string }) {
+  return (
+    <div className="mt-6 flex items-start gap-3">
+      <SuminAvatar size={56} />
       <div
-        className="rounded-[14px] bg-[#fafafa] p-6 relative overflow-hidden"
-        style={{
-          maxHeight: 300,
-          WebkitMaskImage: "linear-gradient(to bottom, #000 60%, transparent 100%)",
-          maskImage: "linear-gradient(to bottom, #000 60%, transparent 100%)",
-        }}
+        className="relative flex-1 rounded-[22px] rounded-tl-md px-5 py-4"
+        style={{ background: "var(--color-mirror-cyan-subtle)", boxShadow: "0 8px 22px #22283322" }}
       >
-        <p className="text-[#525252]" style={{ fontSize: 15, lineHeight: 1.7 }}>
-          Dear Sarah 🤍
-          <br />
-          <br />
-          Your skin journey hasn&apos;t been easy, and it makes complete sense if you&apos;ve felt frustrated or tired
-          along the way. When breakouts, redness, or slow progress keep repeating, it can feel personal — but it
-          isn&apos;t a failure on your part. It&apos;s simply your skin asking for time, consistency, and the right kind of
-          support. What matters most is that your skin is responsive and manageable…
+        <span className="absolute -left-[7px] top-4 h-3.5 w-3.5 rotate-45" style={{ background: "var(--color-mirror-cyan-subtle)" }} aria-hidden />
+        <div className="text-mid-gray" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.06em" }}>
+          SUMIN · YOUR SKIN COACH
+        </div>
+        <p className="text-midnight mt-1.5" style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.45 }}>
+          {message}
         </p>
       </div>
     </div>
   );
 }
 
-/* ───────────────────────── Sumin sticky bar ───────────────────────── */
-
-const REPORT_SECTIONS = [
-  { id: "skin-condition", message: "I read your skin condition from a single photo.", node: <SkinConditionSection /> },
-  { id: "routine-check", message: "I check what's working in your routine — and what to drop.", node: <RoutineCheckSection /> },
-  { id: "treatment-plan", message: "I lay out a treatment plan paced to your skin.", node: <TreatmentPlanSection /> },
-  { id: "custom-routine", message: "I curate your K-beauty routine, delivered to your door.", node: <CustomRoutineSection /> },
-  { id: "final-message", message: "I'm with you through the whole journey.", node: <FinalMessageSection /> },
-];
-
-function SuminBar({ message, visible, slotRef }: { message: string; visible: boolean; slotRef: Ref<HTMLDivElement> }) {
+function ReportPanel({
+  num,
+  title,
+  message,
+  children,
+}: {
+  num: string;
+  title: string;
+  message: string;
+  children: React.ReactNode;
+}) {
   return (
-    <div
-      className="fixed left-1/2 z-40 w-full px-4"
-      style={{ bottom: 84, maxWidth: 480, transform: "translateX(-50%)" }}
-    >
-      <div className="flex items-end gap-2.5">
-        {/* dock target for the traveling Sumin avatar */}
-        <div ref={slotRef} className="shrink-0" style={{ width: 56, height: 56 }} aria-hidden />
+    <section className="snap-start flex flex-col justify-center px-5 py-14" style={{ minHeight: "100svh" }}>
+      <div className="text-center">
+        <SectionNum n={num} />
+        <h3 className="font-display text-midnight mt-1" style={{ fontSize: 28, fontWeight: 500 }}>{title}</h3>
+      </div>
+
+      <ReportBubble message={message} />
+
+      {/* the real report shown as a reference glimpse */}
+      <div className="mt-7">
+        <div className="text-center text-mid-gray mb-3" style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em" }}>
+          FROM YOUR FULL REPORT
+        </div>
         <div
-          className="relative flex-1 rounded-[18px] rounded-bl-md bg-white px-4 py-3 transition-all duration-300"
+          className="relative rounded-2xl border border-neutral-200 bg-[#fafafa] px-4 pt-4 overflow-hidden"
           style={{
-            boxShadow: "0 4px 10px #22283318, 0 10px 30px #22283322",
-            opacity: visible ? 1 : 0,
-            transform: `translateY(${visible ? 0 : 8}px)`,
-            pointerEvents: visible ? "auto" : "none",
+            maxHeight: 330,
+            pointerEvents: "none",
+            WebkitMaskImage: "linear-gradient(to bottom, #000 72%, transparent)",
+            maskImage: "linear-gradient(to bottom, #000 72%, transparent)",
           }}
         >
-          <span className="absolute -left-[6px] bottom-3.5 h-3 w-3 rotate-45 bg-white" aria-hidden />
-          <div className="relative text-mid-gray" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.04em" }}>
-            SUMIN · YOUR SKIN COACH
-          </div>
-          <div key={message} className="relative text-midnight guide-bar-enter" style={{ fontSize: 15, fontWeight: 500, lineHeight: 1.4 }}>
-            {message}
-          </div>
+          {children}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
+
+const REPORT_PANELS = [
+  { id: "skin-condition", num: "01", title: "Skin Condition Check", message: "I read your skin condition from a single photo — no clinic visit needed.", Visual: SkinConditionVisual },
+  { id: "routine-check", num: "02", title: "Routine Check", message: "I check what's working in your current routine — and what to drop.", Visual: RoutineCheckVisual },
+  { id: "treatment-plan", num: "03", title: "Treatment Plan", message: "I lay out a treatment plan paced to your skin, step by step.", Visual: TreatmentPlanVisual },
+  { id: "custom-routine", num: "04", title: "Custom Routine", message: "I curate your K-beauty routine and have it delivered to your door.", Visual: CustomRoutineVisual },
+  { id: "final-message", num: "05", title: "Final Message", message: "And I'm with you through the whole journey — not just day one.", Visual: FinalMessageVisual },
+];
 
 /* ───────────────────────── Page ───────────────────────── */
 
 export default function Landing() {
-  const [activeMsg, setActiveMsg] = useState(REPORT_SECTIONS[0].message);
-  const [barVisible, setBarVisible] = useState(false);
-  const refs = useRef<(HTMLDivElement | null)[]>([]);
-  const heroSlotRef = useRef<HTMLDivElement>(null);
-  const barSlotRef = useRef<HTMLDivElement>(null);
-  const avatarRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      (entries) => {
-        let anyVisible = false;
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            anyVisible = true;
-            const idx = refs.current.findIndex((r) => r === e.target);
-            if (idx >= 0) setActiveMsg(REPORT_SECTIONS[idx].message);
-          }
-        });
-        if (anyVisible) setBarVisible(true);
-      },
-      { rootMargin: "-45% 0px -45% 0px" }
-    );
-    refs.current.forEach((r) => r && obs.observe(r));
-    return () => obs.disconnect();
-  }, []);
-
-  // Traveling avatar: hero (large, centered) → docks bottom-left as you scroll, back on scroll up.
-  useEffect(() => {
-    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-    const ease = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
-    let threshold = 1;
-    let raf = 0;
-    const measure = () => {
-      const h = heroSlotRef.current;
-      if (h) {
-        const r = h.getBoundingClientRect();
-        threshold = Math.max(1, r.top + window.scrollY);
-      }
-    };
-    const update = () => {
-      raf = 0;
-      const h = heroSlotRef.current, b = barSlotRef.current, a = avatarRef.current;
-      if (!h || !b || !a) return;
-      const hr = h.getBoundingClientRect();
-      const br = b.getBoundingClientRect();
-      const p = Math.min(1, Math.max(0, window.scrollY / threshold));
-      const e = ease(p);
-      const left = lerp(hr.left, br.left, e);
-      const top = lerp(hr.top, br.top, e);
-      const s = lerp(1, 56 / 84, e);
-      a.style.transform = `translate3d(${left}px, ${top}px, 0) scale(${s})`;
-      a.style.opacity = "1";
-    };
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
-    const onResize = () => { measure(); update(); };
-    measure();
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
-    const t = setTimeout(onResize, 350); // re-measure after fonts/images settle
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
-      cancelAnimationFrame(raf);
-      clearTimeout(t);
-    };
-  }, []);
-
   return (
-    <main className="mx-auto bg-white" style={{ maxWidth: 480 }}>
-      <Hero slotRef={heroSlotRef} />
+    <main
+      className="mx-auto bg-white snap-y snap-proximity"
+      style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}
+    >
+      <Hero />
       <HowItWorks />
-      {REPORT_SECTIONS.map((s, i) => (
-        <div key={s.id} id={s.id} ref={(el) => { refs.current[i] = el; }}>
-          {s.node}
-        </div>
+      {REPORT_PANELS.map(({ id, num, title, message, Visual }) => (
+        <ReportPanel key={id} num={num} title={title} message={message}>
+          <Visual />
+        </ReportPanel>
       ))}
-      <div style={{ height: 180 }} />
-      <SuminBar message={activeMsg} visible={barVisible} slotRef={barSlotRef} />
-
-      {/* Single traveling avatar (hero ⇄ docked bottom-left) */}
-      <div
-        ref={avatarRef}
-        className="fixed left-0 top-0 z-50"
-        style={{ width: 84, height: 84, transformOrigin: "top left", opacity: 0, pointerEvents: "none", willChange: "transform" }}
-      >
-        <SuminAvatar size={84} />
-      </div>
+      <div style={{ height: 24 }} />
     </main>
   );
 }
