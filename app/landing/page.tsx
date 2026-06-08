@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type Ref } from "react";
 
 function SuminAvatar({ size }: { size: number }) {
   return (
@@ -101,7 +101,7 @@ function RollingColumn({ snap }: { snap: 1 | 2 }) {
   );
 }
 
-function Hero() {
+function Hero({ slotRef }: { slotRef: Ref<HTMLDivElement> }) {
   return (
     <section className="flex flex-col items-center px-5 pt-10 pb-12 text-center">
       {/* rolling animation — sits above the coach profile */}
@@ -113,37 +113,38 @@ function Hero() {
         </div>
       </div>
 
-      {/* Sumin profile */}
-      <div className="mt-6">
-        <SuminAvatar size={84} />
-      </div>
-      <div className="mt-3 flex items-center gap-1.5">
-        <span className="text-midnight" style={{ fontSize: 13, fontWeight: 700 }}>Sumin</span>
-        <span className="text-mid-gray" style={{ fontSize: 13 }}>· your skin coach</span>
-      </div>
+      {/* Coach block — pulled up to overlap the animation */}
+      <div className="relative z-10 flex flex-col items-center w-full" style={{ marginTop: -44 }}>
+        {/* avatar docks here; the traveling avatar renders on top of this slot */}
+        <div ref={slotRef} style={{ width: 84, height: 84 }} aria-hidden />
+        <div className="mt-3 flex items-center gap-1.5">
+          <span className="text-midnight" style={{ fontSize: 13, fontWeight: 700 }}>Sumin</span>
+          <span className="text-mid-gray" style={{ fontSize: 13 }}>· your skin coach</span>
+        </div>
 
-      {/* Speech bubble — Sumin is talking to you */}
-      <div
-        className="relative mt-5 w-full rounded-[28px] bg-white px-6 py-7"
-        style={{ maxWidth: 440, boxShadow: "var(--shadow-card)" }}
-      >
-        <span
-          className="absolute left-1/2 -top-2 h-4 w-4 rotate-45 bg-white"
-          style={{ transform: "translateX(-50%) rotate(45deg)", boxShadow: "var(--shadow-card)" }}
-          aria-hidden
-        />
-        <h1
-          className="relative font-display text-charcoal"
-          style={{ fontSize: "clamp(30px, 8.5vw, 44px)", lineHeight: 1.12, fontWeight: 500, letterSpacing: "-0.015em" }}
+        {/* Speech bubble — Sumin is talking to you */}
+        <div
+          className="relative mt-5 w-full rounded-[28px] bg-white px-6 py-7"
+          style={{ maxWidth: 440, boxShadow: "var(--shadow-card)" }}
         >
-          Get your skincare routine that{" "}
-          <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", padding: "0 6px", borderRadius: 4 }}>
-            actually works
-          </span>
-        </h1>
-        <p className="relative mt-4 text-mid-gray" style={{ fontSize: 16, lineHeight: 1.55 }}>
-          Skincare is not one-size-fits-all. Our experts analyze your skin &amp; match it with the right products for you.
-        </p>
+          <span
+            className="absolute left-1/2 -top-2 h-4 w-4 bg-white"
+            style={{ transform: "translateX(-50%) rotate(45deg)", boxShadow: "var(--shadow-card)" }}
+            aria-hidden
+          />
+          <h1
+            className="relative font-display text-charcoal"
+            style={{ fontSize: "clamp(30px, 8.5vw, 44px)", lineHeight: 1.12, fontWeight: 500, letterSpacing: "-0.015em" }}
+          >
+            Get your skincare routine that{" "}
+            <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", padding: "0 6px", borderRadius: 4 }}>
+              actually works
+            </span>
+          </h1>
+          <p className="relative mt-4 text-mid-gray" style={{ fontSize: 16, lineHeight: 1.55 }}>
+            Skincare is not one-size-fits-all. Our experts analyze your skin &amp; match it with the right products for you.
+          </p>
+        </div>
       </div>
     </section>
   );
@@ -152,9 +153,9 @@ function Hero() {
 /* ───────────────────────── How it works (auto-swipe) ───────────────────────── */
 
 const HIW_STEPS = [
-  { title: "Diagnosed online from a single photo", card: "diagnosis" }, // 사진을 보고 온라인으로 진단
-  { title: "Your skin distilled into clear keywords", card: "keywords" }, // 피부 분석 및 관리 키워드 도출
-  { title: "A custom routine, built for your skin", card: "routine" }, // 피부 맞춤 커스텀 루틴
+  { title: "Diagnosed online\nfrom just a single photo" }, // 사진을 보고 온라인으로 진단
+  { title: "Your skin,\ndistilled into clear keywords" }, // 피부 분석 및 관리 키워드 도출
+  { title: "A custom routine,\nbuilt just for your skin" }, // 피부 맞춤 커스텀 루틴
 ] as const;
 
 function DiagnosisCard() {
@@ -237,25 +238,51 @@ function RoutineCard() {
 
 function HowItWorks() {
   const [step, setStep] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setStep((s) => (s + 1) % HIW_STEPS.length), 2800);
-    return () => clearInterval(id);
-  }, []);
+  const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const stop = () => { if (timer.current) clearInterval(timer.current); };
+  const start = () => {
+    stop();
+    timer.current = setInterval(() => setStep((s) => (s + 1) % HIW_STEPS.length), 1800);
+  };
+  useEffect(() => { start(); return stop; }, []);
+
+  const go = (dir: number) => {
+    setStep((s) => (s + dir + HIW_STEPS.length) % HIW_STEPS.length);
+    start(); // restart autoplay after a manual swipe
+  };
+
+  const dragX = useRef<number | null>(null);
+  const onDown = (x: number) => { dragX.current = x; };
+  const onUp = (x: number) => {
+    if (dragX.current === null) return;
+    const dx = x - dragX.current;
+    dragX.current = null;
+    if (dx < -40) go(1);
+    else if (dx > 40) go(-1);
+  };
 
   const cards = [<DiagnosisCard key="d" />, <KeywordsCard key="k" />, <RoutineCard key="r" />];
 
   return (
     <section className="flex flex-col items-center px-5 pt-2 pb-16 text-center">
-      <Eyebrow>HOW IT WORKS</Eyebrow>
+      <Eyebrow>WHAT YOU GET</Eyebrow>
       <h2
         key={step}
         className="font-display text-charcoal mt-2 guide-bar-enter"
-        style={{ fontSize: 26, fontWeight: 500, lineHeight: 1.2, minHeight: 64 }}
+        style={{ fontSize: 26, fontWeight: 500, lineHeight: 1.25, minHeight: 76, whiteSpace: "pre-line" }}
       >
         {HIW_STEPS[step].title}
       </h2>
 
-      <div className="relative w-full" style={{ height: 360, maxWidth: 360 }}>
+      <div
+        className="relative w-full touch-pan-y select-none"
+        style={{ height: 360, maxWidth: 360, cursor: "grab" }}
+        onTouchStart={(e) => onDown(e.touches[0].clientX)}
+        onTouchEnd={(e) => onUp(e.changedTouches[0].clientX)}
+        onPointerDown={(e) => onDown(e.clientX)}
+        onPointerUp={(e) => onUp(e.clientX)}
+      >
         {cards.map((card, i) => {
           const pos = (i - step + cards.length) % cards.length; // 0 front, 1, 2 back
           const transforms = [
@@ -518,28 +545,25 @@ const REPORT_SECTIONS = [
   { id: "final-message", message: "I'm with you through the whole journey.", node: <FinalMessageSection /> },
 ];
 
-function SuminBar({ message, visible }: { message: string; visible: boolean }) {
+function SuminBar({ message, visible, slotRef }: { message: string; visible: boolean; slotRef: Ref<HTMLDivElement> }) {
   return (
     <div
-      className="fixed left-1/2 z-50 w-full px-4 transition-all duration-300"
-      style={{
-        bottom: 84,
-        maxWidth: 480,
-        transform: `translateX(-50%) translateY(${visible ? 0 : 16}px)`,
-        opacity: visible ? 1 : 0,
-        pointerEvents: visible ? "auto" : "none",
-      }}
+      className="fixed left-1/2 z-40 w-full px-4"
+      style={{ bottom: 84, maxWidth: 480, transform: "translateX(-50%)" }}
     >
       <div className="flex items-end gap-2.5">
-        <SuminAvatar size={56} />
+        {/* dock target for the traveling Sumin avatar */}
+        <div ref={slotRef} className="shrink-0" style={{ width: 56, height: 56 }} aria-hidden />
         <div
-          className="relative flex-1 rounded-[18px] rounded-bl-md bg-white px-4 py-3"
-          style={{ boxShadow: "0 4px 10px #22283318, 0 10px 30px #22283322" }}
+          className="relative flex-1 rounded-[18px] rounded-bl-md bg-white px-4 py-3 transition-all duration-300"
+          style={{
+            boxShadow: "0 4px 10px #22283318, 0 10px 30px #22283322",
+            opacity: visible ? 1 : 0,
+            transform: `translateY(${visible ? 0 : 8}px)`,
+            pointerEvents: visible ? "auto" : "none",
+          }}
         >
-          <span
-            className="absolute -left-[6px] bottom-3.5 h-3 w-3 rotate-45 bg-white"
-            aria-hidden
-          />
+          <span className="absolute -left-[6px] bottom-3.5 h-3 w-3 rotate-45 bg-white" aria-hidden />
           <div className="relative text-mid-gray" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.04em" }}>
             SUMIN · YOUR SKIN COACH
           </div>
@@ -558,6 +582,9 @@ export default function Landing() {
   const [activeMsg, setActiveMsg] = useState(REPORT_SECTIONS[0].message);
   const [barVisible, setBarVisible] = useState(false);
   const refs = useRef<(HTMLDivElement | null)[]>([]);
+  const heroSlotRef = useRef<HTMLDivElement>(null);
+  const barSlotRef = useRef<HTMLDivElement>(null);
+  const avatarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -578,9 +605,51 @@ export default function Landing() {
     return () => obs.disconnect();
   }, []);
 
+  // Traveling avatar: hero (large, centered) → docks bottom-left as you scroll, back on scroll up.
+  useEffect(() => {
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    const ease = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+    let threshold = 1;
+    let raf = 0;
+    const measure = () => {
+      const h = heroSlotRef.current;
+      if (h) {
+        const r = h.getBoundingClientRect();
+        threshold = Math.max(1, r.top + window.scrollY);
+      }
+    };
+    const update = () => {
+      raf = 0;
+      const h = heroSlotRef.current, b = barSlotRef.current, a = avatarRef.current;
+      if (!h || !b || !a) return;
+      const hr = h.getBoundingClientRect();
+      const br = b.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, window.scrollY / threshold));
+      const e = ease(p);
+      const left = lerp(hr.left, br.left, e);
+      const top = lerp(hr.top, br.top, e);
+      const s = lerp(1, 56 / 84, e);
+      a.style.transform = `translate3d(${left}px, ${top}px, 0) scale(${s})`;
+      a.style.opacity = "1";
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    const onResize = () => { measure(); update(); };
+    measure();
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    const t = setTimeout(onResize, 350); // re-measure after fonts/images settle
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      cancelAnimationFrame(raf);
+      clearTimeout(t);
+    };
+  }, []);
+
   return (
     <main className="mx-auto bg-white" style={{ maxWidth: 480 }}>
-      <Hero />
+      <Hero slotRef={heroSlotRef} />
       <HowItWorks />
       {REPORT_SECTIONS.map((s, i) => (
         <div key={s.id} id={s.id} ref={(el) => { refs.current[i] = el; }}>
@@ -588,7 +657,16 @@ export default function Landing() {
         </div>
       ))}
       <div style={{ height: 180 }} />
-      <SuminBar message={activeMsg} visible={barVisible} />
+      <SuminBar message={activeMsg} visible={barVisible} slotRef={barSlotRef} />
+
+      {/* Single traveling avatar (hero ⇄ docked bottom-left) */}
+      <div
+        ref={avatarRef}
+        className="fixed left-0 top-0 z-50"
+        style={{ width: 84, height: 84, transformOrigin: "top left", opacity: 0, pointerEvents: "none", willChange: "transform" }}
+      >
+        <SuminAvatar size={84} />
+      </div>
     </main>
   );
 }
