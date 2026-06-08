@@ -500,19 +500,19 @@ function FinalMessageVisual() {
 
 /* ───────────────────────── Report panel (title → Sumin bubble → reference) ───────────────────────── */
 
-function Glimpse({ children, max = 340 }: { children: React.ReactNode; max?: number }) {
+function Glimpse({ children, max = 420, boxed = false }: { children: React.ReactNode; max?: number; boxed?: boolean }) {
   return (
     <div>
       <div className="text-center text-mid-gray mb-2" style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em" }}>
         FROM YOUR FULL REPORT
       </div>
       <div
-        className="relative rounded-2xl border border-neutral-200 bg-white px-4 pt-4 overflow-hidden"
+        className={`relative overflow-hidden ${boxed ? "rounded-2xl border border-neutral-200 bg-[#fafafa] px-4 pt-4" : ""}`}
         style={{
           maxHeight: max,
           pointerEvents: "none",
-          WebkitMaskImage: "linear-gradient(to bottom, #000 76%, transparent)",
-          maskImage: "linear-gradient(to bottom, #000 76%, transparent)",
+          WebkitMaskImage: "linear-gradient(to bottom, #000 78%, transparent)",
+          maskImage: "linear-gradient(to bottom, #000 78%, transparent)",
         }}
       >
         {children}
@@ -521,139 +521,36 @@ function Glimpse({ children, max = 340 }: { children: React.ReactNode; max?: num
   );
 }
 
-function VariantTag({ v }: { v: string }) {
+type Panel = { id: string; num: string; title: string; message: string; boxed?: boolean; Visual: () => React.ReactElement };
+
+function ReportPanel({ panel }: { panel: Panel }) {
+  const { num, title, message, boxed, Visual } = panel;
   return (
-    <div className="absolute top-3 right-3 rounded-full text-white px-2 py-0.5" style={{ background: "rgba(17,17,17,0.78)", fontSize: 10, fontWeight: 700, letterSpacing: "0.1em" }}>
-      LAYOUT {v}
-    </div>
-  );
-}
-
-type Panel = { id: string; num: string; title: string; message: string; variant: "A" | "B" | "C"; Visual: () => React.ReactElement };
-
-function ReportPanel({ panel, panelRef }: { panel: Panel; panelRef: (el: HTMLElement | null) => void }) {
-  const { num, title, message, variant, Visual } = panel;
-  const sectionBase = "snap-start relative flex flex-col px-5";
-
-  // A — Expert card: coach speaks on top, source attached below, all in one centered white card.
-  if (variant === "A") {
-    return (
-      <section ref={panelRef} className={`${sectionBase} justify-center items-center py-12`} style={{ minHeight: "100svh", background: "var(--color-canvas)" }}>
-        <VariantTag v="A" />
-        <SuminAvatar size={64} />
-        <div className="mt-2 flex items-center gap-1.5">
-          <span className="text-midnight" style={{ fontSize: 13, fontWeight: 700 }}>Sumin</span>
-          <span className="text-mid-gray" style={{ fontSize: 13 }}>· your skin coach</span>
+    <section className="snap-start flex flex-col justify-center px-5 py-12" style={{ minHeight: "100svh" }}>
+      <Glimpse max={boxed ? 380 : 420} boxed={boxed}><Visual /></Glimpse>
+      <div className="mt-6 flex items-start gap-3">
+        <SuminAvatar size={52} />
+        <div className="flex-1">
+          <div className="text-mid-gray" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em" }}>{num} · SUMIN, YOUR SKIN COACH</div>
+          <h3 className="font-display text-midnight mt-0.5" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.15 }}>{title}</h3>
+          <p className="text-midnight mt-1" style={{ fontSize: 16, fontWeight: 500, lineHeight: 1.45 }}>{message}</p>
         </div>
-        <div className="mt-4 w-full rounded-3xl bg-white p-5" style={{ boxShadow: "var(--shadow-card)" }}>
-          <div className="text-mid-gray" style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.15em" }}>{num}</div>
-          <h3 className="font-display text-midnight" style={{ fontSize: 24, fontWeight: 500, lineHeight: 1.15 }}>{title}</h3>
-          <p className="text-midnight mt-2" style={{ fontSize: 17, fontWeight: 500, lineHeight: 1.5 }}>{message}</p>
-          <div className="mt-4"><Glimpse max={280}><Visual /></Glimpse></div>
-        </div>
-      </section>
-    );
-  }
-
-  // B — Source hero + coach caption: big source on top, expert caption grouped below.
-  if (variant === "B") {
-    return (
-      <section ref={panelRef} className={`${sectionBase} justify-center py-12`} style={{ minHeight: "100svh", background: "var(--color-canvas)" }}>
-        <VariantTag v="B" />
-        <Glimpse max={400}><Visual /></Glimpse>
-        <div className="mt-5 flex items-start gap-3">
-          <SuminAvatar size={52} />
-          <div className="flex-1">
-            <div className="text-mid-gray" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em" }}>{num} · SUMIN, YOUR SKIN COACH</div>
-            <h3 className="font-display text-midnight mt-0.5" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.15 }}>{title}</h3>
-            <p className="text-midnight mt-1" style={{ fontSize: 16, fontWeight: 500, lineHeight: 1.45 }}>{message}</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  // C — current structure (source top), title + bubble handled by the pinned bottom bar.
-  return (
-    <section ref={panelRef} className={`${sectionBase} justify-start pt-16`} style={{ minHeight: "100svh", background: "var(--color-canvas)" }}>
-      <VariantTag v="C" />
-      <Glimpse max={360}><Visual /></Glimpse>
+      </div>
     </section>
   );
 }
 
 const REPORT_PANELS: Panel[] = [
-  { id: "skin-condition", num: "01", title: "Skin Condition Check", message: "I read your skin condition from a single photo — no clinic visit needed.", variant: "A", Visual: SkinConditionVisual },
-  { id: "routine-check", num: "02", title: "Routine Check", message: "I check what's working in your current routine — and what to drop.", variant: "B", Visual: RoutineCheckVisual },
-  { id: "treatment-plan", num: "03", title: "Treatment Plan", message: "I lay out a treatment plan paced to your skin, step by step.", variant: "C", Visual: TreatmentPlanVisual },
-  { id: "custom-routine", num: "04", title: "Custom Routine", message: "I curate your K-beauty routine and have it delivered to your door.", variant: "A", Visual: CustomRoutineVisual },
-  { id: "final-message", num: "05", title: "Final Message", message: "And I'm with you through the whole journey — not just day one.", variant: "B", Visual: FinalMessageVisual },
+  { id: "skin-condition", num: "01", title: "Skin Condition Check", message: "I read your skin condition from a single photo — no clinic visit needed.", Visual: SkinConditionVisual },
+  { id: "routine-check", num: "02", title: "Routine Check", message: "I check what's working in your current routine — and what to drop.", Visual: RoutineCheckVisual },
+  { id: "treatment-plan", num: "03", title: "Treatment Plan", message: "I lay out a treatment plan paced to your skin, step by step.", Visual: TreatmentPlanVisual },
+  { id: "custom-routine", num: "04", title: "Custom Routine", message: "I curate your K-beauty routine and have it delivered to your door.", Visual: CustomRoutineVisual },
+  { id: "final-message", num: "05", title: "Final Message", message: "And I'm with you through the whole journey — not just day one.", boxed: true, Visual: FinalMessageVisual },
 ];
-
-/* ───────────────────────── Sumin coach bubble (pinned bottom, message per section) ───────────────────────── */
-
-function SuminBar({ num, title, message, visible }: { num: string; title: string; message: string; visible: boolean }) {
-  return (
-    <div className="fixed left-1/2 z-50 w-full px-4" style={{ bottom: 36, maxWidth: 480, transform: "translateX(-50%)" }}>
-      <div
-        className="transition-all duration-300"
-        style={{ opacity: visible ? 1 : 0, transform: `translateY(${visible ? 0 : 12}px)`, pointerEvents: visible ? "auto" : "none" }}
-      >
-        {/* section title, moved down next to the coach bubble */}
-        <div key={title} className="text-center mb-3 guide-bar-enter">
-          <div className="text-mid-gray" style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.15em" }}>{num}</div>
-          <h3 className="font-display text-midnight" style={{ fontSize: 24, fontWeight: 500, lineHeight: 1.15 }}>{title}</h3>
-        </div>
-        <div className="flex items-end gap-2.5">
-          <SuminAvatar size={56} />
-          <div
-            className="relative flex-1 rounded-[18px] rounded-bl-md bg-white px-4 py-3"
-            style={{ boxShadow: "0 6px 16px #2228331f, 0 12px 32px #22283326" }}
-          >
-            <span className="absolute -left-[6px] bottom-4 h-3 w-3 rotate-45 bg-white" aria-hidden />
-            <div className="text-mid-gray" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.04em" }}>
-              SUMIN · YOUR SKIN COACH
-            </div>
-            <div key={message} className="text-midnight guide-bar-enter" style={{ fontSize: 15, fontWeight: 500, lineHeight: 1.4 }}>
-              {message}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ───────────────────────── Page ───────────────────────── */
 
 export default function Landing() {
-  const [active, setActive] = useState(0);
-  const [barVisible, setBarVisible] = useState(false);
-  const refs = useRef<(HTMLElement | null)[]>([]);
-
-  useEffect(() => {
-    const shown = new Set<Element>();
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          const idx = refs.current.findIndex((r) => r === e.target);
-          if (e.isIntersecting) {
-            shown.add(e.target);
-            if (idx >= 0) setActive(idx);
-          } else {
-            shown.delete(e.target);
-          }
-        });
-        setBarVisible(shown.size > 0);
-      },
-      { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
-    );
-    refs.current.forEach((r) => r && obs.observe(r));
-    return () => obs.disconnect();
-  }, []);
-
-  const a = REPORT_PANELS[active];
-
   return (
     <main
       className="mx-auto bg-white snap-y snap-mandatory"
@@ -661,11 +558,9 @@ export default function Landing() {
     >
       <Hero />
       <HowItWorks />
-      {REPORT_PANELS.map((p, i) => (
-        <ReportPanel key={p.id} panel={p} panelRef={(el) => { refs.current[i] = el; }} />
+      {REPORT_PANELS.map((p) => (
+        <ReportPanel key={p.id} panel={p} />
       ))}
-      {/* pinned coach bubble is used by variant C only */}
-      <SuminBar num={a.num} title={a.title} message={a.message} visible={barVisible && a.variant === "C"} />
     </main>
   );
 }
