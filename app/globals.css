@@ -37,3 +37,49 @@
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
 }
+
+/* ───────── Landing: hero rolling product cards ───────── */
+.rolling-mask {
+  padding: 25px 10px;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 22%, rgba(0,0,0,1) 78%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 22%, rgba(0,0,0,1) 78%, rgba(0,0,0,0) 100%);
+}
+.rolling-col { position: relative; height: 100%; }
+.rolling-track {
+  display: flex; flex-direction: column; gap: 12px;
+  position: absolute; width: 100%; top: 50%; transform: translateY(-50%);
+}
+.snap-track-1 { animation: snapYoyo1 6.5s cubic-bezier(0.19,1,0.22,1) infinite; }
+.snap-track-2 { animation: snapYoyo2 6.5s cubic-bezier(0.19,1,0.22,1) infinite; }
+.target-card { animation: targetSnap 6.5s cubic-bezier(0.19,1,0.22,1) infinite; }
+
+@keyframes snapYoyo1 {
+  0%,20%,45%,70%,95%,100% { transform: translateY(-50%); }
+  32% { transform: translateY(-67%); }
+  82% { transform: translateY(-33%); }
+}
+@keyframes snapYoyo2 {
+  0%,20%,45%,70%,95%,100% { transform: translateY(-50%); }
+  32% { transform: translateY(-33%); }
+  82% { transform: translateY(-67%); }
+}
+@keyframes targetSnap {
+  0%,20%,45%,70%,95%,100% {
+    opacity: 1; background: #ffffff; border-color: #62d8f4;
+    box-shadow: 0 0 25px rgba(98,216,244,0.55), 0 0 10px rgba(98,216,244,0.3);
+  }
+  26%,38%,76%,88% {
+    opacity: 0.25; background: #f0f0f0; border-color: transparent; box-shadow: none;
+  }
+}
+
+/* ───────── Landing: how-it-works auto-swipe ───────── */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.guide-bar-enter { animation: fadeSlideIn 350ms cubic-bezier(0.19,1,0.22,1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .snap-track-1, .snap-track-2, .target-card, .guide-bar-enter { animation: none !important; }
+}
