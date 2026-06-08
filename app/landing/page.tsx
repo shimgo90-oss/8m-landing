@@ -529,7 +529,7 @@ function ReportPanel({ panel, panelRef }: { panel: Panel; panelRef: (el: HTMLEle
     <section
       ref={panelRef}
       className="snap-start flex flex-col justify-center px-5"
-      style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 224 }}
+      style={{ minHeight: "100svh", paddingTop: 168, paddingBottom: 120 }}
     >
       <Glimpse max={boxed ? 420 : 460} boxed={boxed}><Visual /></Glimpse>
     </section>
@@ -569,8 +569,8 @@ function Header() {
 // Fixed expert area (layout B caption) — only the text swaps per section.
 function CoachBubble({ num, title, message, visible }: { num: string; title: string; message: string; visible: boolean }) {
   return (
-    <div className="fixed left-1/2 z-40 w-full px-5" style={{ bottom: 120, maxWidth: 480, transform: "translateX(-50%)", pointerEvents: "none" }}>
-      <div className="transition-all duration-300" style={{ opacity: visible ? 1 : 0, transform: `translateY(${visible ? 0 : 10}px)` }}>
+    <div className="fixed left-1/2 z-40 w-full px-5" style={{ top: 60, maxWidth: 480, transform: "translateX(-50%)", pointerEvents: "none" }}>
+      <div className="transition-all duration-300" style={{ opacity: visible ? 1 : 0, transform: `translateY(${visible ? 0 : -10}px)` }}>
         <div key={title} className="flex items-start gap-3 text-left guide-bar-enter">
           <SuminAvatar size={52} />
           <div className="flex-1">
