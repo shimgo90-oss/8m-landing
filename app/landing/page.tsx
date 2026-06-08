@@ -500,23 +500,16 @@ function FinalMessageVisual() {
 
 /* ───────────────────────── Report panel (title → Sumin bubble → reference) ───────────────────────── */
 
-function ReportPanel({
-  children,
-  panelRef,
-}: {
-  children: React.ReactNode;
-  panelRef: (el: HTMLElement | null) => void;
-}) {
+function Glimpse({ children, max = 340 }: { children: React.ReactNode; max?: number }) {
   return (
-    <section ref={panelRef} className="snap-start flex flex-col justify-start px-5 pt-14" style={{ minHeight: "100svh" }}>
-      {/* the real report shown as a reference glimpse (sits near the top; title + coach bubble live at the bottom) */}
-      <div className="text-center text-mid-gray mb-3" style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em" }}>
+    <div>
+      <div className="text-center text-mid-gray mb-2" style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em" }}>
         FROM YOUR FULL REPORT
       </div>
       <div
-        className="relative rounded-2xl border border-neutral-200 bg-[#fafafa] px-4 pt-4 overflow-hidden"
+        className="relative rounded-2xl border border-neutral-200 bg-white px-4 pt-4 overflow-hidden"
         style={{
-          maxHeight: 380,
+          maxHeight: max,
           pointerEvents: "none",
           WebkitMaskImage: "linear-gradient(to bottom, #000 76%, transparent)",
           maskImage: "linear-gradient(to bottom, #000 76%, transparent)",
@@ -524,16 +517,77 @@ function ReportPanel({
       >
         {children}
       </div>
+    </div>
+  );
+}
+
+function VariantTag({ v }: { v: string }) {
+  return (
+    <div className="absolute top-3 right-3 rounded-full text-white px-2 py-0.5" style={{ background: "rgba(17,17,17,0.78)", fontSize: 10, fontWeight: 700, letterSpacing: "0.1em" }}>
+      LAYOUT {v}
+    </div>
+  );
+}
+
+type Panel = { id: string; num: string; title: string; message: string; variant: "A" | "B" | "C"; Visual: () => React.ReactElement };
+
+function ReportPanel({ panel, panelRef }: { panel: Panel; panelRef: (el: HTMLElement | null) => void }) {
+  const { num, title, message, variant, Visual } = panel;
+  const sectionBase = "snap-start relative flex flex-col px-5";
+
+  // A — Expert card: coach speaks on top, source attached below, all in one centered white card.
+  if (variant === "A") {
+    return (
+      <section ref={panelRef} className={`${sectionBase} justify-center items-center py-12`} style={{ minHeight: "100svh", background: "var(--color-canvas)" }}>
+        <VariantTag v="A" />
+        <SuminAvatar size={64} />
+        <div className="mt-2 flex items-center gap-1.5">
+          <span className="text-midnight" style={{ fontSize: 13, fontWeight: 700 }}>Sumin</span>
+          <span className="text-mid-gray" style={{ fontSize: 13 }}>· your skin coach</span>
+        </div>
+        <div className="mt-4 w-full rounded-3xl bg-white p-5" style={{ boxShadow: "var(--shadow-card)" }}>
+          <div className="text-mid-gray" style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.15em" }}>{num}</div>
+          <h3 className="font-display text-midnight" style={{ fontSize: 24, fontWeight: 500, lineHeight: 1.15 }}>{title}</h3>
+          <p className="text-midnight mt-2" style={{ fontSize: 17, fontWeight: 500, lineHeight: 1.5 }}>{message}</p>
+          <div className="mt-4"><Glimpse max={280}><Visual /></Glimpse></div>
+        </div>
+      </section>
+    );
+  }
+
+  // B — Source hero + coach caption: big source on top, expert caption grouped below.
+  if (variant === "B") {
+    return (
+      <section ref={panelRef} className={`${sectionBase} justify-center py-12`} style={{ minHeight: "100svh", background: "var(--color-canvas)" }}>
+        <VariantTag v="B" />
+        <Glimpse max={400}><Visual /></Glimpse>
+        <div className="mt-5 flex items-start gap-3">
+          <SuminAvatar size={52} />
+          <div className="flex-1">
+            <div className="text-mid-gray" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em" }}>{num} · SUMIN, YOUR SKIN COACH</div>
+            <h3 className="font-display text-midnight mt-0.5" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.15 }}>{title}</h3>
+            <p className="text-midnight mt-1" style={{ fontSize: 16, fontWeight: 500, lineHeight: 1.45 }}>{message}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // C — current structure (source top), title + bubble handled by the pinned bottom bar.
+  return (
+    <section ref={panelRef} className={`${sectionBase} justify-start pt-16`} style={{ minHeight: "100svh", background: "var(--color-canvas)" }}>
+      <VariantTag v="C" />
+      <Glimpse max={360}><Visual /></Glimpse>
     </section>
   );
 }
 
-const REPORT_PANELS = [
-  { id: "skin-condition", num: "01", title: "Skin Condition Check", message: "I read your skin condition from a single photo — no clinic visit needed.", Visual: SkinConditionVisual },
-  { id: "routine-check", num: "02", title: "Routine Check", message: "I check what's working in your current routine — and what to drop.", Visual: RoutineCheckVisual },
-  { id: "treatment-plan", num: "03", title: "Treatment Plan", message: "I lay out a treatment plan paced to your skin, step by step.", Visual: TreatmentPlanVisual },
-  { id: "custom-routine", num: "04", title: "Custom Routine", message: "I curate your K-beauty routine and have it delivered to your door.", Visual: CustomRoutineVisual },
-  { id: "final-message", num: "05", title: "Final Message", message: "And I'm with you through the whole journey — not just day one.", Visual: FinalMessageVisual },
+const REPORT_PANELS: Panel[] = [
+  { id: "skin-condition", num: "01", title: "Skin Condition Check", message: "I read your skin condition from a single photo — no clinic visit needed.", variant: "A", Visual: SkinConditionVisual },
+  { id: "routine-check", num: "02", title: "Routine Check", message: "I check what's working in your current routine — and what to drop.", variant: "B", Visual: RoutineCheckVisual },
+  { id: "treatment-plan", num: "03", title: "Treatment Plan", message: "I lay out a treatment plan paced to your skin, step by step.", variant: "C", Visual: TreatmentPlanVisual },
+  { id: "custom-routine", num: "04", title: "Custom Routine", message: "I curate your K-beauty routine and have it delivered to your door.", variant: "A", Visual: CustomRoutineVisual },
+  { id: "final-message", num: "05", title: "Final Message", message: "And I'm with you through the whole journey — not just day one.", variant: "B", Visual: FinalMessageVisual },
 ];
 
 /* ───────────────────────── Sumin coach bubble (pinned bottom, message per section) ───────────────────────── */
@@ -607,12 +661,11 @@ export default function Landing() {
     >
       <Hero />
       <HowItWorks />
-      {REPORT_PANELS.map(({ id, Visual }, i) => (
-        <ReportPanel key={id} panelRef={(el) => { refs.current[i] = el; }}>
-          <Visual />
-        </ReportPanel>
+      {REPORT_PANELS.map((p, i) => (
+        <ReportPanel key={p.id} panel={p} panelRef={(el) => { refs.current[i] = el; }} />
       ))}
-      <SuminBar num={a.num} title={a.title} message={a.message} visible={barVisible} />
+      {/* pinned coach bubble is used by variant C only */}
+      <SuminBar num={a.num} title={a.title} message={a.message} visible={barVisible && a.variant === "C"} />
     </main>
   );
 }
