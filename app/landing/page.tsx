@@ -103,8 +103,20 @@ function RollingColumn({ snap }: { snap: 1 | 2 }) {
 
 function Hero() {
   return (
-    <section className="flex flex-col items-center px-5 pt-14 pb-12 text-center">
-      <SuminAvatar size={84} />
+    <section className="flex flex-col items-center px-5 pt-10 pb-12 text-center">
+      {/* rolling animation — sits above the coach profile */}
+      <div className="rolling-mask w-full" style={{ maxWidth: 460 }}>
+        <div className="grid grid-cols-3 gap-3.5 overflow-visible" style={{ height: 154 }}>
+          <RollingColumn snap={1} />
+          <RollingColumn snap={2} />
+          <RollingColumn snap={1} />
+        </div>
+      </div>
+
+      {/* Sumin profile */}
+      <div className="mt-6">
+        <SuminAvatar size={84} />
+      </div>
       <div className="mt-3 flex items-center gap-1.5">
         <span className="text-midnight" style={{ fontSize: 13, fontWeight: 700 }}>Sumin</span>
         <span className="text-mid-gray" style={{ fontSize: 13 }}>· your skin coach</span>
@@ -112,7 +124,7 @@ function Hero() {
 
       {/* Speech bubble — Sumin is talking to you */}
       <div
-        className="relative mt-5 w-full rounded-[28px] bg-white px-6 py-8"
+        className="relative mt-5 w-full rounded-[28px] bg-white px-6 py-7"
         style={{ maxWidth: 440, boxShadow: "var(--shadow-card)" }}
       >
         <span
@@ -122,29 +134,17 @@ function Hero() {
         />
         <h1
           className="relative font-display text-charcoal"
-          style={{ fontSize: "clamp(34px, 9.5vw, 52px)", lineHeight: 1.08, fontWeight: 500, letterSpacing: "-0.015em" }}
+          style={{ fontSize: "clamp(30px, 8.5vw, 44px)", lineHeight: 1.12, fontWeight: 500, letterSpacing: "-0.015em" }}
         >
-          Skincare routines that{" "}
+          Get your skincare routine that{" "}
           <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", padding: "0 6px", borderRadius: 4 }}>
-            actually work.
+            actually works
           </span>
         </h1>
-        <p className="relative mt-5 text-mid-gray" style={{ fontSize: 17, lineHeight: 1.5 }}>
-          Personalized diagnosis. Curated products. Delivered.
+        <p className="relative mt-4 text-mid-gray" style={{ fontSize: 16, lineHeight: 1.55 }}>
+          Skincare is not one-size-fits-all. Our experts analyze your skin &amp; match it with the right products for you.
         </p>
       </div>
-
-      <div className="rolling-mask mt-8 w-full" style={{ maxWidth: 460 }}>
-        <div className="grid grid-cols-3 gap-3.5 overflow-visible" style={{ height: 154 }}>
-          <RollingColumn snap={1} />
-          <RollingColumn snap={2} />
-          <RollingColumn snap={1} />
-        </div>
-      </div>
-
-      <p className="mt-4 text-mid-gray" style={{ fontSize: 15 }}>
-        Just submit a photo, and your skin journey begins.
-      </p>
     </section>
   );
 }
