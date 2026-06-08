@@ -1,6 +1,27 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+
+function SuminAvatar({ size }: { size: number }) {
+  return (
+    <span
+      className="inline-block shrink-0 rounded-full overflow-hidden bg-neutral-200"
+      style={{ width: size, height: size, boxShadow: "0 0 0 3px #fff, 0 4px 12px rgba(34,42,53,0.18)" }}
+    >
+      <Image
+        src="/sumin.jpg"
+        alt="Sumin, your skin coach"
+        width={size * 2}
+        height={size * 2}
+        className="w-full h-full object-cover"
+        style={{ objectPosition: "center 26%" }}
+        unoptimized
+        priority
+      />
+    </span>
+  );
+}
 
 /* 8mirrors Landing — ported from 8m-26-05-13.pen "Landing Page" frame.
    Hero (rolling cards) → How it works (auto-swipe) → Report previews → Sumin sticky bar.
@@ -82,20 +103,36 @@ function RollingColumn({ snap }: { snap: 1 | 2 }) {
 
 function Hero() {
   return (
-    <section className="flex flex-col items-center px-5 pt-16 pb-12 text-center">
-      <h1
-        className="font-display text-charcoal"
-        style={{ fontSize: "clamp(32px, 9vw, 44px)", lineHeight: 1.1, fontWeight: 500, letterSpacing: "-0.01em" }}
+    <section className="flex flex-col items-center px-5 pt-14 pb-12 text-center">
+      <SuminAvatar size={84} />
+      <div className="mt-3 flex items-center gap-1.5">
+        <span className="text-midnight" style={{ fontSize: 13, fontWeight: 700 }}>Sumin</span>
+        <span className="text-mid-gray" style={{ fontSize: 13 }}>· your skin coach</span>
+      </div>
+
+      {/* Speech bubble — Sumin is talking to you */}
+      <div
+        className="relative mt-5 w-full rounded-[28px] bg-white px-6 py-8"
+        style={{ maxWidth: 440, boxShadow: "var(--shadow-card)" }}
       >
-        Skincare routines
-        <br />
-        that actually work.
-      </h1>
-      <p className="mt-6 text-mid-gray" style={{ fontSize: 17, lineHeight: 1.5 }}>
-        Personalized diagnosis. Curated products.
-        <br />
-        Delivered.
-      </p>
+        <span
+          className="absolute left-1/2 -top-2 h-4 w-4 rotate-45 bg-white"
+          style={{ transform: "translateX(-50%) rotate(45deg)", boxShadow: "var(--shadow-card)" }}
+          aria-hidden
+        />
+        <h1
+          className="relative font-display text-charcoal"
+          style={{ fontSize: "clamp(34px, 9.5vw, 52px)", lineHeight: 1.08, fontWeight: 500, letterSpacing: "-0.015em" }}
+        >
+          Skincare routines that{" "}
+          <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", padding: "0 6px", borderRadius: 4 }}>
+            actually work.
+          </span>
+        </h1>
+        <p className="relative mt-5 text-mid-gray" style={{ fontSize: 17, lineHeight: 1.5 }}>
+          Personalized diagnosis. Curated products. Delivered.
+        </p>
+      </div>
 
       <div className="rolling-mask mt-8 w-full" style={{ maxWidth: 460 }}>
         <div className="grid grid-cols-3 gap-3.5 overflow-visible" style={{ height: 154 }}>
@@ -484,24 +521,31 @@ const REPORT_SECTIONS = [
 function SuminBar({ message, visible }: { message: string; visible: boolean }) {
   return (
     <div
-      className="fixed left-1/2 bottom-4 z-50 w-full px-4 transition-all duration-300"
+      className="fixed left-1/2 z-50 w-full px-4 transition-all duration-300"
       style={{
+        bottom: 84,
         maxWidth: 480,
         transform: `translateX(-50%) translateY(${visible ? 0 : 16}px)`,
         opacity: visible ? 1 : 0,
         pointerEvents: visible ? "auto" : "none",
       }}
     >
-      <div className="flex items-center gap-3 rounded-2xl bg-white p-2.5 shadow-[var(--shadow-card)]" style={{ boxShadow: "0 4px 8px #22283314, 0 8px 24px #2228331f" }}>
-        <div className="shrink-0 rounded-full flex items-center justify-center" style={{ width: 40, height: 40, background: "var(--color-mirror-cyan)" }}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
-            <circle cx="12" cy="8" r="4" stroke="#111" strokeWidth="1.6" />
-            <path d="M4 20c0-3.5 3.6-6 8-6s8 2.5 8 6" stroke="#111" strokeWidth="1.6" strokeLinecap="round" />
-          </svg>
-        </div>
-        <div className="min-w-0">
-          <div className="text-mid-gray" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.04em" }}>SUMIN · YOUR SKIN COACH</div>
-          <div key={message} className="text-midnight guide-bar-enter" style={{ fontSize: 14, fontWeight: 500, lineHeight: 1.35 }}>{message}</div>
+      <div className="flex items-end gap-2.5">
+        <SuminAvatar size={56} />
+        <div
+          className="relative flex-1 rounded-[18px] rounded-bl-md bg-white px-4 py-3"
+          style={{ boxShadow: "0 4px 10px #22283318, 0 10px 30px #22283322" }}
+        >
+          <span
+            className="absolute -left-[6px] bottom-3.5 h-3 w-3 rotate-45 bg-white"
+            aria-hidden
+          />
+          <div className="relative text-mid-gray" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.04em" }}>
+            SUMIN · YOUR SKIN COACH
+          </div>
+          <div key={message} className="relative text-midnight guide-bar-enter" style={{ fontSize: 15, fontWeight: 500, lineHeight: 1.4 }}>
+            {message}
+          </div>
         </div>
       </div>
     </div>
@@ -543,7 +587,7 @@ export default function Landing() {
           {s.node}
         </div>
       ))}
-      <div style={{ height: 96 }} />
+      <div style={{ height: 180 }} />
       <SuminBar message={activeMsg} visible={barVisible} />
     </main>
   );
