@@ -529,9 +529,9 @@ function ReportPanel({ panel, panelRef }: { panel: Panel; panelRef: (el: HTMLEle
     <section
       ref={panelRef}
       className="snap-start flex flex-col justify-center px-5"
-      style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 168 }}
+      style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 224 }}
     >
-      <Glimpse max={boxed ? 440 : 480} boxed={boxed}><Visual /></Glimpse>
+      <Glimpse max={boxed ? 420 : 460} boxed={boxed}><Visual /></Glimpse>
     </section>
   );
 }
@@ -566,20 +566,17 @@ function Header() {
   );
 }
 
-// Fixed expert area — only the text swaps per section (sits just above the buy bar).
+// Fixed expert area (layout B caption) — only the text swaps per section.
 function CoachBubble({ num, title, message, visible }: { num: string; title: string; message: string; visible: boolean }) {
   return (
-    <div className="fixed left-1/2 z-40 w-full px-4" style={{ bottom: 100, maxWidth: 480, transform: "translateX(-50%)", pointerEvents: "none" }}>
+    <div className="fixed left-1/2 z-40 w-full px-5" style={{ bottom: 120, maxWidth: 480, transform: "translateX(-50%)", pointerEvents: "none" }}>
       <div className="transition-all duration-300" style={{ opacity: visible ? 1 : 0, transform: `translateY(${visible ? 0 : 10}px)` }}>
-        <div className="flex items-end gap-2.5">
-          <SuminAvatar size={48} />
-          <div className="relative rounded-[16px] rounded-bl-md bg-white px-3.5 py-2.5" style={{ boxShadow: "0 6px 16px #2228331f, 0 12px 30px #22283326" }}>
-            <span className="absolute -left-[5px] bottom-3.5 h-2.5 w-2.5 rotate-45 bg-white" aria-hidden />
-            <div key={title} className="guide-bar-enter">
-              <div className="text-mid-gray" style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.06em" }}>{num} · SUMIN, YOUR SKIN COACH</div>
-              <div className="font-display text-midnight" style={{ fontSize: 16, fontWeight: 500, lineHeight: 1.2 }}>{title}</div>
-              <div className="text-mid-gray mt-0.5" style={{ fontSize: 13, fontWeight: 400, lineHeight: 1.35 }}>{message}</div>
-            </div>
+        <div key={title} className="flex items-start gap-3 text-left guide-bar-enter">
+          <SuminAvatar size={52} />
+          <div className="flex-1">
+            <div className="text-mid-gray" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em" }}>{num} · SUMIN, YOUR SKIN COACH</div>
+            <h3 className="font-display text-midnight mt-0.5" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.15 }}>{title}</h3>
+            <p className="text-midnight mt-1" style={{ fontSize: 16, fontWeight: 500, lineHeight: 1.45 }}>{message}</p>
           </div>
         </div>
       </div>
