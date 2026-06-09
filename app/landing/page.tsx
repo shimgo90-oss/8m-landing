@@ -101,6 +101,17 @@ function RollingColumn({ snap }: { snap: 1 | 2 }) {
   );
 }
 
+// PLACEHOLDER numbers — replace with real rating/review data
+function StarRow({ rating = "4.8", count = "1,200+ reviews" }: { rating?: string; count?: string }) {
+  return (
+    <div className="flex items-center justify-center gap-1.5">
+      <span style={{ color: "#242424", letterSpacing: 1, fontSize: 13 }}>★★★★★</span>
+      <span className="text-midnight" style={{ fontSize: 13, fontWeight: 700 }}>{rating}</span>
+      <span className="text-mid-gray" style={{ fontSize: 13 }}>· {count}</span>
+    </div>
+  );
+}
+
 function Hero() {
   return (
     <section className="snap-start flex flex-col items-center justify-center px-5 text-center" style={{ minHeight: "100svh", paddingTop: 64, paddingBottom: 140 }}>
@@ -132,6 +143,12 @@ function Hero() {
             Skincare is not one-size-fits-all. Our experts analyze your skin &amp; match it with the right products for you.
           </p>
         </div>
+
+        <a href="#" className="mt-6 inline-flex items-center justify-center rounded-lg" style={{ background: "var(--color-mirror-cyan)", color: "#111111", padding: "15px 30px", fontSize: 16, fontWeight: 700 }}>
+          Get my custom report
+        </a>
+        <p className="mt-3 text-mid-gray" style={{ fontSize: 13 }}>1 photo · 2 min · reviewed by Seoul experts</p>
+        <div className="mt-3"><StarRow /></div>
       </div>
     </section>
   );
@@ -620,6 +637,88 @@ function EyeMaskFace({ size = 48 }: { size?: number }) {
   );
 }
 
+/* ───────────────────────── Real results (before & after) ───────────────────────── */
+
+const BEFORE_AFTER = [
+  "https://static.wixstatic.com/media/3987eb_9443f1a81e5b4a8fa363cd389cb30b84~mv2.png",
+  "https://static.wixstatic.com/media/3987eb_0648fdd7364c4ec68a39d10d9c46c322~mv2.png",
+  "https://static.wixstatic.com/media/3987eb_a255a356d091465e9a69f348f738a808~mv2.png",
+  "https://static.wixstatic.com/media/3987eb_a8aa54b09e95438aa8b6ea4d776fb0a7~mv2.png",
+  "https://static.wixstatic.com/media/3987eb_01978b53464f4520a332702e96307fcb~mv2.png",
+  "https://static.wixstatic.com/media/3987eb_923f48c5fe7e4e328a1a61d439cbeb7d~mv2.png",
+];
+
+function BeforeAfterSection() {
+  return (
+    <section className="snap-start flex flex-col justify-center" style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 150 }}>
+      <div className="px-6 text-center">
+        <Eyebrow>REAL RESULTS</Eyebrow>
+        <h2 className="font-display text-charcoal mt-2" style={{ fontSize: "clamp(26px, 7.5vw, 34px)", fontWeight: 500, lineHeight: 1.15, letterSpacing: "-0.01em" }}>
+          Skin that actually
+          <br />
+          changed
+        </h2>
+        <p className="text-mid-gray mt-4 mx-auto" style={{ fontSize: 16, lineHeight: 1.55, maxWidth: 380 }}>
+          Real customers, real routines — before &amp; after following their 8mirrors plan.
+        </p>
+        <div className="mt-4"><StarRow /></div>
+      </div>
+      <div className="mt-6 flex gap-3 overflow-x-auto px-6 pb-1" style={{ scrollSnapType: "x mandatory" }}>
+        {BEFORE_AFTER.map((u, i) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img key={i} src={u} alt="Before and after" loading="lazy" className="shrink-0 rounded-xl border border-neutral-200" style={{ width: 264, scrollSnapAlign: "center" }} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────────────── Offer (anchored price) ───────────────────────── */
+
+function OfferSection() {
+  return (
+    <section className="snap-start flex flex-col justify-center px-6" style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 150 }}>
+      <Eyebrow>THE FULL REPORT</Eyebrow>
+      <h2 className="font-display text-charcoal mt-2" style={{ fontSize: "clamp(26px, 7.5vw, 34px)", fontWeight: 500, lineHeight: 1.15, letterSpacing: "-0.01em" }}>
+        Your custom routine,
+        <br />
+        built by experts
+      </h2>
+
+      <div className="mt-5 flex items-baseline gap-3">
+        <span className="font-display text-midnight" style={{ fontSize: 44, lineHeight: 1, letterSpacing: "-0.02em" }}>$9.99</span>
+        <span className="text-mid-gray line-through" style={{ fontSize: 15 }}>$24.99</span>
+        <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 4, padding: "3px 8px", fontSize: 12, fontWeight: 700, lineHeight: 1 }}>60% OFF · SAVE $15</span>
+      </div>
+
+      <ul className="mt-5 flex flex-col gap-2.5">
+        {["Detailed skin analysis report", "Custom AM & PM routine", "2 weeks of expert coaching", "K-beauty products shipped from Seoul"].map((t) => (
+          <li key={t} className="flex gap-2.5 text-[#444]" style={{ fontSize: 16, lineHeight: 1.5 }}>
+            <span style={{ color: "#62d8f4", fontWeight: 700 }}>✓</span>
+            <span>{t}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-6 flex items-center gap-3">
+        <EyeMaskFace size={44} />
+        <p className="text-mid-gray text-left" style={{ fontSize: 13, lineHeight: 1.4 }}>
+          Starts with one photo — we <span className="text-midnight font-semibold">auto-blur your eyes</span>, and your photo is never shared or sold.
+        </p>
+      </div>
+
+      {/* PLACEHOLDER testimonial — replace with a real review */}
+      <div className="mt-6 rounded-xl border border-neutral-200 p-4">
+        <StarRow count="verified customer" />
+        <p className="text-midnight mt-2" style={{ fontSize: 15, lineHeight: 1.5 }}>
+          &ldquo;My skin finally calmed down in a few weeks — the routine actually made sense for me.&rdquo;
+        </p>
+        <p className="text-mid-gray mt-1" style={{ fontSize: 13 }}>— Sarah J., verified customer</p>
+      </div>
+    </section>
+  );
+}
+
 const PAYPAL_URL = "https://www.paypal.com/ncp/payment/NFWM2BSB77C86";
 
 // Menu items → internalized in-app pages at /landing/<slug>
@@ -777,18 +876,19 @@ function BuyBar() {
     <>
       <div className="fixed inset-x-0 bottom-0 z-50 pointer-events-none">
         <div className="mx-auto w-full bg-white pointer-events-auto" style={{ maxWidth: 480, borderTop: "1px solid #e0e0e0", boxShadow: "0 -4px 16px rgba(0,0,0,0.06)" }}>
-          <div className="flex items-center gap-2.5 px-4 pt-3">
-            <EyeMaskFace size={40} />
-            <p className="text-mid-gray text-left" style={{ fontSize: 12, lineHeight: 1.35 }}>
-              We automatically <span className="text-midnight font-semibold">blur your eyes</span> in every photo — try it with confidence.
-            </p>
+          <div className="flex items-center justify-center gap-2 px-4 pt-3 text-mid-gray" style={{ fontSize: 12 }}>
+            <span className="line-through">$24.99</span>
+            <span className="text-midnight" style={{ fontSize: 16, fontWeight: 700 }}>$9.99</span>
+            <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 4, padding: "2px 6px", fontSize: 10, fontWeight: 700, lineHeight: 1 }}>60% OFF</span>
+            <span aria-hidden>·</span>
+            <span>4–5 day delivery</span>
           </div>
           <div className="flex gap-2 px-4 pt-2.5" style={{ paddingBottom: 16 }}>
-            <button type="button" onClick={() => setOpen(true)} className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-white px-4 py-3 text-midnight" style={{ fontSize: 14, fontWeight: 600, boxShadow: "var(--shadow-card)" }}>
+            <button type="button" onClick={() => setOpen(true)} className="flex items-center justify-center gap-1.5 rounded-lg bg-white px-4 py-3 text-midnight" style={{ fontSize: 14, fontWeight: 600, boxShadow: "var(--shadow-card)" }}>
               <InfoIcon /> How it works
             </button>
             <a href="#" className="flex flex-1 items-center justify-center rounded-lg px-4 py-3 text-midnight" style={{ fontSize: 14, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
-              Try it free
+              Get my custom report
             </a>
           </div>
         </div>
@@ -838,7 +938,9 @@ export default function Landing() {
         {REPORT_PANELS.map((p, i) => (
           <ReportPanel key={p.id} panel={p} panelRef={(el) => { refs.current[i] = el; }} />
         ))}
+        <BeforeAfterSection />
         <ReportArchiveSection />
+        <OfferSection />
       </main>
       <CoachBubble num={a.num} title={a.title} message={a.message} visible={coachVisible} />
       <BuyBar />
