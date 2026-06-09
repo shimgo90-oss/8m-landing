@@ -622,13 +622,14 @@ function EyeMaskFace({ size = 48 }: { size?: number }) {
 
 const PAYPAL_URL = "https://www.paypal.com/ncp/payment/NFWM2BSB77C86";
 
+// Menu items → internalized in-app pages at /landing/<slug>
 const MENU: [string, string][] = [
-  ["About Us", "https://www.8-mirrors.com/post/8mirrors-your-go-to-skincare-guide-for-custom-skincare-routines"],
-  ["What You Get", "https://www.8-mirrors.com/post/8mirrors-what-you-get"],
-  ["How It Works", "https://www.8-mirrors.com/post/8mirrors-how-it-works"],
-  ["Before and Afters", "https://www.8-mirrors.com/post/8mirrors-before-afters"],
-  ["FAQs", "https://www.8-mirrors.com/post/8mirrors-faq-guide"],
-  ["Contact Us", "https://www.8-mirrors.com/post/8mirrors-contact-us"],
+  ["About Us", "about"],
+  ["What You Get", "what-you-get"],
+  ["How It Works", "how-it-works"],
+  ["Before and Afters", "before-afters"],
+  ["FAQs", "faqs"],
+  ["Contact Us", "contact"],
 ];
 
 function Header() {
@@ -668,12 +669,10 @@ function Header() {
           className={`bg-white border-b border-neutral-200 transition-transform duration-300 ease-out ${open ? "translate-y-0" : "-translate-y-[130%]"}`}
           style={{ boxShadow: "0 14px 28px rgba(0,0,0,0.1)" }}
         >
-          {MENU.map(([title, href], i) => (
+          {MENU.map(([title, slug], i) => (
             <a
               key={title}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`/landing/${slug}`}
               onClick={() => setOpen(false)}
               className="flex items-center justify-between px-5 py-4 text-midnight"
               style={{ fontSize: 16, fontWeight: 500, borderBottom: i < MENU.length - 1 ? "1px solid #f0f0f0" : "none" }}
