@@ -113,24 +113,12 @@ function Hero() {
         </div>
       </div>
 
-      {/* Coach block — pulled up to overlap the animation */}
-      <div className="relative z-10 flex flex-col items-center w-full" style={{ marginTop: -44 }}>
-        <SuminAvatar size={84} />
-        <div className="mt-3 flex items-center gap-1.5">
-          <span className="text-midnight" style={{ fontSize: 13, fontWeight: 700 }}>Sumin</span>
-          <span className="text-mid-gray" style={{ fontSize: 13 }}>· your skin coach</span>
-        </div>
-
-        {/* Speech bubble — Sumin is talking to you */}
+      {/* Statement card — pulled up to overlap the animation */}
+      <div className="relative z-10 flex flex-col items-center w-full" style={{ marginTop: -28 }}>
         <div
-          className="relative mt-5 w-full rounded-[28px] bg-white px-6 py-7"
+          className="relative w-full rounded-[28px] bg-white px-6 py-7"
           style={{ maxWidth: 440, boxShadow: "var(--shadow-card)" }}
         >
-          <span
-            className="absolute left-1/2 -top-2 h-4 w-4 bg-white"
-            style={{ transform: "translateX(-50%) rotate(45deg)", boxShadow: "var(--shadow-card)" }}
-            aria-hidden
-          />
           <h1
             className="relative font-display text-charcoal"
             style={{ fontSize: "clamp(30px, 8.5vw, 44px)", lineHeight: 1.12, fontWeight: 500, letterSpacing: "-0.015em" }}
@@ -537,14 +525,51 @@ function ReportPanel({ panel, panelRef }: { panel: Panel; panelRef: (el: HTMLEle
 }
 
 const REPORT_PANELS: Panel[] = [
-  { id: "skin-condition", num: "01", title: "Skin Condition Check", message: "I read your skin condition from a single photo — no clinic visit needed.", Visual: SkinConditionVisual },
-  { id: "routine-check", num: "02", title: "Routine Check", message: "I check what's working in your current routine — and what to drop.", Visual: RoutineCheckVisual },
-  { id: "treatment-plan", num: "03", title: "Treatment Plan", message: "I lay out a treatment plan paced to your skin, step by step.", Visual: TreatmentPlanVisual },
-  { id: "custom-routine", num: "04", title: "Custom Routine", message: "I curate your K-beauty routine and have it delivered to your door.", Visual: CustomRoutineVisual },
-  { id: "final-message", num: "05", title: "Final Message", message: "And I'm with you through the whole journey — not just day one.", boxed: true, Visual: FinalMessageVisual },
+  { id: "skin-condition", num: "01", title: "Skin Condition Check", message: "Our experts read your skin from a single photo — no clinic visit needed.", Visual: SkinConditionVisual },
+  { id: "routine-check", num: "02", title: "Routine Check", message: "We check what's working in your current routine — and what to drop.", Visual: RoutineCheckVisual },
+  { id: "treatment-plan", num: "03", title: "Treatment Plan", message: "We map out a treatment plan paced to your skin, step by step.", Visual: TreatmentPlanVisual },
+  { id: "custom-routine", num: "04", title: "Custom Routine", message: "We curate your K-beauty routine and ship it to your door.", Visual: CustomRoutineVisual },
+  { id: "final-message", num: "05", title: "Final Message", message: "And we're with you through the whole journey — not just day one.", boxed: true, Visual: FinalMessageVisual },
 ];
 
 /* ───────────────────────── Fixed chrome: header, coach bubble, buy bar ───────────────────────── */
+
+/* ───────────────────────── Expert team ───────────────────────── */
+
+const TEAM = ["/team1.jpg", "/team2.jpg", "/team3.jpg"];
+
+function TeamAvatars({ size = 48 }: { size?: number }) {
+  return (
+    <div className="flex shrink-0">
+      {TEAM.map((src, i) => (
+        <span
+          key={src}
+          className="inline-block rounded-full overflow-hidden bg-neutral-200"
+          style={{ width: size, height: size, marginLeft: i === 0 ? 0 : -Math.round(size * 0.3), boxShadow: "0 0 0 3px #fff", zIndex: TEAM.length - i, position: "relative" }}
+        >
+          <Image src={src} alt="" width={size * 2} height={size * 2} className="w-full h-full object-cover" style={{ objectPosition: "center 20%" }} unoptimized />
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function TeamSection() {
+  return (
+    <section className="snap-start flex flex-col items-center justify-center px-6 text-center" style={{ minHeight: "100svh", paddingTop: 64, paddingBottom: 120 }}>
+      <Eyebrow>MEET YOUR EXPERTS</Eyebrow>
+      <div className="mt-6"><TeamAvatars size={74} /></div>
+      <h2 className="font-display text-charcoal mt-7" style={{ fontSize: "clamp(26px, 7.5vw, 34px)", fontWeight: 500, lineHeight: 1.15, letterSpacing: "-0.01em" }}>
+        Designed by Korean
+        <br />
+        skincare experts
+      </h2>
+      <p className="text-mid-gray mt-4" style={{ fontSize: 16, lineHeight: 1.55, maxWidth: 380 }}>
+        A team of Korean skincare experts — including Sumin — analyzes your skin and designs a routine made just for you.
+      </p>
+    </section>
+  );
+}
 
 const PAYPAL_URL = "https://www.paypal.com/ncp/payment/NFWM2BSB77C86";
 
@@ -572,9 +597,9 @@ function CoachBubble({ num, title, message, visible }: { num: string; title: str
     <div className="fixed left-1/2 z-40 w-full px-5" style={{ top: 60, maxWidth: 480, transform: "translateX(-50%)", pointerEvents: "none" }}>
       <div className="transition-all duration-300" style={{ opacity: visible ? 1 : 0, transform: `translateY(${visible ? 0 : -10}px)` }}>
         <div key={title} className="flex items-start gap-3 text-left guide-bar-enter">
-          <SuminAvatar size={52} />
+          <TeamAvatars size={44} />
           <div className="flex-1">
-            <div className="text-mid-gray" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em" }}>{num} · SUMIN, YOUR SKIN COACH</div>
+            <div className="text-mid-gray" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em" }}>{num} · YOUR 8MIRRORS EXPERTS</div>
             <h3 className="font-display text-midnight mt-0.5" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.15 }}>{title}</h3>
             <p className="text-midnight mt-1" style={{ fontSize: 16, fontWeight: 500, lineHeight: 1.45 }}>{message}</p>
           </div>
@@ -711,6 +736,7 @@ export default function Landing() {
       <Header />
       <main className="mx-auto bg-white snap-y snap-mandatory" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}>
         <Hero />
+        <TeamSection />
         <HowItWorks />
         {REPORT_PANELS.map((p, i) => (
           <ReportPanel key={p.id} panel={p} panelRef={(el) => { refs.current[i] = el; }} />
