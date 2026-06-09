@@ -80,6 +80,17 @@
 }
 .guide-bar-enter { animation: fadeSlideIn 350ms cubic-bezier(0.19,1,0.22,1); }
 
+/* ───────── Landing: report archive marquee (infinite left) ───────── */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 36s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .snap-track-1, .snap-track-2, .target-card, .guide-bar-enter { animation: none !important; }
+  .snap-track-1, .snap-track-2, .target-card, .guide-bar-enter, .marquee-track { animation: none !important; }
 }

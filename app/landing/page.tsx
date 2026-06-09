@@ -517,9 +517,9 @@ function ReportPanel({ panel, panelRef }: { panel: Panel; panelRef: (el: HTMLEle
     <section
       ref={panelRef}
       className="snap-start flex flex-col justify-center px-5"
-      style={{ minHeight: "100svh", paddingTop: 168, paddingBottom: 120 }}
+      style={{ minHeight: "100svh", paddingTop: 168, paddingBottom: 150 }}
     >
-      <Glimpse max={boxed ? 420 : 460} boxed={boxed}><Visual /></Glimpse>
+      <Glimpse max={boxed ? 400 : 440} boxed={boxed}><Visual /></Glimpse>
     </section>
   );
 }
@@ -568,6 +568,55 @@ function TeamSection() {
         A team of Korean skincare experts — including Sumin — analyzes your skin and designs a routine made just for you.
       </p>
     </section>
+  );
+}
+
+/* ───────────────────────── Full report archive (marquee) ───────────────────────── */
+
+const REPORT_PAGES = ["o1B2I", "aTDHd", "caInY", "fYz7t", "LQX50", "A9QXft", "aiIAQ", "OKhdI"];
+
+function ReportArchiveSection() {
+  const pages = [...REPORT_PAGES, ...REPORT_PAGES]; // duplicated for a seamless loop
+  return (
+    <section className="snap-start flex flex-col justify-center overflow-hidden" style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 150 }}>
+      <div className="px-6 text-center">
+        <Eyebrow>YOUR FULL REPORT</Eyebrow>
+        <h2 className="font-display text-charcoal mt-2" style={{ fontSize: "clamp(26px, 7.5vw, 34px)", fontWeight: 500, lineHeight: 1.15, letterSpacing: "-0.01em" }}>
+          All of it, in one
+          <br />
+          organized report
+        </h2>
+        <p className="text-mid-gray mt-4 mx-auto" style={{ fontSize: 16, lineHeight: 1.55, maxWidth: 380 }}>
+          Every finding is compiled into a detailed, easy-to-read report — delivered straight to your inbox.
+        </p>
+      </div>
+      <div
+        className="mt-8 overflow-hidden"
+        style={{ WebkitMaskImage: "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)", maskImage: "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)" }}
+      >
+        <div className="marquee-track" style={{ gap: 14 }}>
+          {pages.map((id, i) => (
+            <div key={i} className="shrink-0 rounded-lg overflow-hidden border border-neutral-200 bg-white" style={{ width: 118, aspectRatio: "595 / 842" }}>
+              <Image src={`/report/${id}.webp`} alt="Report page" width={236} height={334} className="w-full h-full object-cover" unoptimized />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────────────── Photo privacy reassurance ───────────────────────── */
+
+function EyeMaskFace({ size = 48 }: { size?: number }) {
+  return (
+    <div className="relative shrink-0 overflow-hidden bg-neutral-200" style={{ width: size, height: size, borderRadius: 12 }}>
+      <Image src="/face/front.png" alt="" width={size * 2} height={size * 2} className="w-full h-full object-cover" unoptimized />
+      <div
+        className="absolute"
+        style={{ left: "14%", right: "14%", top: "35%", height: "18%", borderRadius: 999, backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)", background: "rgba(255,255,255,0.4)" }}
+      />
+    </div>
   );
 }
 
@@ -679,19 +728,18 @@ function BuyBar() {
     <>
       <div className="fixed inset-x-0 bottom-0 z-50 pointer-events-none">
         <div className="mx-auto w-full bg-white pointer-events-auto" style={{ maxWidth: 480, borderTop: "1px solid #e0e0e0", boxShadow: "0 -4px 16px rgba(0,0,0,0.06)" }}>
-          <div className="flex items-center justify-center gap-2 px-4 pt-3 text-mid-gray" style={{ fontSize: 12 }}>
-            <span className="line-through">$24.99</span>
-            <span className="text-midnight" style={{ fontSize: 16, fontWeight: 600 }}>$9.99</span>
-            <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 4, padding: "2px 6px", fontSize: 10, fontWeight: 700, lineHeight: 1 }}>60% OFF</span>
-            <span aria-hidden>·</span>
-            <span>4–5 day delivery</span>
+          <div className="flex items-center gap-2.5 px-4 pt-3">
+            <EyeMaskFace size={40} />
+            <p className="text-mid-gray text-left" style={{ fontSize: 12, lineHeight: 1.35 }}>
+              We automatically <span className="text-midnight font-semibold">blur your eyes</span> in every photo — try it with confidence.
+            </p>
           </div>
-          <div className="flex gap-2 px-4 pt-2" style={{ paddingBottom: 16 }}>
+          <div className="flex gap-2 px-4 pt-2.5" style={{ paddingBottom: 16 }}>
             <button type="button" onClick={() => setOpen(true)} className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-white px-4 py-3 text-midnight" style={{ fontSize: 14, fontWeight: 600, boxShadow: "var(--shadow-card)" }}>
               <InfoIcon /> How it works
             </button>
-            <a href={PAYPAL_URL} target="_blank" rel="noopener noreferrer" className="flex flex-1 items-center justify-center rounded-lg px-4 py-3 text-midnight" style={{ fontSize: 14, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
-              Buy now
+            <a href="#" className="flex flex-1 items-center justify-center rounded-lg px-4 py-3 text-midnight" style={{ fontSize: 14, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
+              Try it free
             </a>
           </div>
         </div>
@@ -741,6 +789,7 @@ export default function Landing() {
         {REPORT_PANELS.map((p, i) => (
           <ReportPanel key={p.id} panel={p} panelRef={(el) => { refs.current[i] = el; }} />
         ))}
+        <ReportArchiveSection />
       </main>
       <CoachBubble num={a.num} title={a.title} message={a.message} visible={coachVisible} />
       <BuyBar />
