@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { LocaleProvider, useI18n, LOCALES, type Locale } from "./_i18n";
 
 function SuminAvatar({ size }: { size: number }) {
   return (
@@ -113,6 +114,7 @@ function StarRow({ rating = "4.8", count = "1,200+ reviews" }: { rating?: string
 }
 
 function Hero() {
+  const { t } = useI18n();
   return (
     <section className="snap-start flex flex-col items-center justify-center px-5 text-center" style={{ minHeight: "100svh", paddingTop: 64, paddingBottom: 140 }}>
       {/* rolling animation — sits above the coach profile */}
@@ -134,21 +136,21 @@ function Hero() {
             className="relative font-display text-charcoal"
             style={{ fontSize: "clamp(30px, 8.5vw, 44px)", lineHeight: 1.12, fontWeight: 500, letterSpacing: "-0.015em" }}
           >
-            Get your skincare routine that{" "}
+            {t("hero.titleA")}{" "}
             <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", padding: "0 6px", borderRadius: 4 }}>
-              actually works
+              {t("hero.titleB")}
             </span>
           </h1>
           <p className="relative mt-4 text-mid-gray" style={{ fontSize: 16, lineHeight: 1.55 }}>
-            Skincare is not one-size-fits-all. Our experts analyze your skin &amp; match it with the right products for you.
+            {t("hero.sub")}
           </p>
         </div>
 
         <a href="#" className="mt-6 inline-flex items-center justify-center rounded-lg" style={{ background: "var(--color-mirror-cyan)", color: "#111111", padding: "15px 30px", fontSize: 16, fontWeight: 700 }}>
-          Get my custom report
+          {t("hero.cta")}
         </a>
-        <p className="mt-3 text-mid-gray" style={{ fontSize: 13 }}>1 photo · 2 min · reviewed by Seoul experts</p>
-        <div className="mt-3"><StarRow /></div>
+        <p className="mt-3 text-mid-gray" style={{ fontSize: 13 }}>{t("hero.micro")}</p>
+        <div className="mt-3"><StarRow count={t("trust.reviews")} /></div>
       </div>
     </section>
   );
@@ -241,6 +243,7 @@ function RoutineCard() {
 }
 
 function HowItWorks() {
+  const { t } = useI18n();
   const [step, setStep] = useState(0);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -270,7 +273,7 @@ function HowItWorks() {
 
   return (
     <section className="snap-start flex flex-col items-center justify-center px-5 text-center" style={{ minHeight: "100svh", paddingTop: 64, paddingBottom: 140 }}>
-      <Eyebrow>WHAT YOU GET</Eyebrow>
+      <Eyebrow>{t("wyg.eyebrow")}</Eyebrow>
       <h2
         key={step}
         className="font-display text-charcoal mt-2 guide-bar-enter"
@@ -572,17 +575,18 @@ function TeamAvatars({ size = 48 }: { size?: number }) {
 }
 
 function TeamSection() {
+  const { t } = useI18n();
   return (
     <section className="snap-start flex flex-col items-center justify-center px-6 text-center" style={{ minHeight: "100svh", paddingTop: 64, paddingBottom: 120 }}>
-      <Eyebrow>MEET YOUR EXPERTS</Eyebrow>
+      <Eyebrow>{t("team.eyebrow")}</Eyebrow>
       <div className="mt-6"><TeamAvatars size={74} /></div>
       <h2 className="font-display text-charcoal mt-7" style={{ fontSize: "clamp(26px, 7.5vw, 34px)", fontWeight: 500, lineHeight: 1.15, letterSpacing: "-0.01em" }}>
-        Designed by Korean
+        {t("team.titleA")}
         <br />
-        skincare experts
+        {t("team.titleB")}
       </h2>
       <p className="text-mid-gray mt-4" style={{ fontSize: 16, lineHeight: 1.55, maxWidth: 380 }}>
-        A team of Korean skincare experts — including Sumin — analyzes your skin and designs a routine made just for you.
+        {t("team.body")}
       </p>
     </section>
   );
@@ -593,18 +597,19 @@ function TeamSection() {
 const REPORT_PAGES = ["o1B2I", "aTDHd", "caInY", "fYz7t", "LQX50", "A9QXft", "aiIAQ", "OKhdI"];
 
 function ReportArchiveSection() {
+  const { t } = useI18n();
   const pages = [...REPORT_PAGES, ...REPORT_PAGES]; // duplicated for a seamless loop
   return (
     <section className="snap-start flex flex-col justify-center overflow-hidden" style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 150 }}>
       <div className="px-6 text-center">
-        <Eyebrow>YOUR FULL REPORT</Eyebrow>
+        <Eyebrow>{t("full.eyebrow")}</Eyebrow>
         <h2 className="font-display text-charcoal mt-2" style={{ fontSize: "clamp(26px, 7.5vw, 34px)", fontWeight: 500, lineHeight: 1.15, letterSpacing: "-0.01em" }}>
-          All of it, in one
+          {t("full.titleA")}
           <br />
-          organized report
+          {t("full.titleB")}
         </h2>
         <p className="text-mid-gray mt-4 mx-auto" style={{ fontSize: 16, lineHeight: 1.55, maxWidth: 380 }}>
-          Every finding is compiled into a detailed, easy-to-read report — delivered straight to your inbox.
+          {t("full.body")}
         </p>
       </div>
       <div
@@ -649,19 +654,20 @@ const BEFORE_AFTER = [
 ];
 
 function BeforeAfterSection() {
+  const { t } = useI18n();
   return (
     <section className="snap-start flex flex-col justify-center" style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 150 }}>
       <div className="px-6 text-center">
-        <Eyebrow>REAL RESULTS</Eyebrow>
+        <Eyebrow>{t("results.eyebrow")}</Eyebrow>
         <h2 className="font-display text-charcoal mt-2" style={{ fontSize: "clamp(26px, 7.5vw, 34px)", fontWeight: 500, lineHeight: 1.15, letterSpacing: "-0.01em" }}>
-          Skin that actually
+          {t("results.titleA")}
           <br />
-          changed
+          {t("results.titleB")}
         </h2>
         <p className="text-mid-gray mt-4 mx-auto" style={{ fontSize: 16, lineHeight: 1.55, maxWidth: 380 }}>
-          Real customers, real routines — before &amp; after following their 8mirrors plan.
+          {t("results.body")}
         </p>
-        <div className="mt-4"><StarRow /></div>
+        <div className="mt-4"><StarRow count={t("trust.reviews")} /></div>
       </div>
       <div className="mt-6 flex gap-3 overflow-x-auto px-6 pb-1" style={{ scrollSnapType: "x mandatory" }}>
         {BEFORE_AFTER.map((u, i) => (
@@ -676,26 +682,27 @@ function BeforeAfterSection() {
 /* ───────────────────────── Offer (anchored price) ───────────────────────── */
 
 function OfferSection() {
+  const { t } = useI18n();
   return (
     <section className="snap-start flex flex-col justify-center px-6" style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 150 }}>
-      <Eyebrow>THE FULL REPORT</Eyebrow>
+      <Eyebrow>{t("offer.eyebrow")}</Eyebrow>
       <h2 className="font-display text-charcoal mt-2" style={{ fontSize: "clamp(26px, 7.5vw, 34px)", fontWeight: 500, lineHeight: 1.15, letterSpacing: "-0.01em" }}>
-        Your custom routine,
+        {t("offer.titleA")}
         <br />
-        built by experts
+        {t("offer.titleB")}
       </h2>
 
       <div className="mt-5 flex items-baseline gap-3">
         <span className="font-display text-midnight" style={{ fontSize: 44, lineHeight: 1, letterSpacing: "-0.02em" }}>$9.99</span>
         <span className="text-mid-gray line-through" style={{ fontSize: 15 }}>$24.99</span>
-        <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 4, padding: "3px 8px", fontSize: 12, fontWeight: 700, lineHeight: 1 }}>60% OFF · SAVE $15</span>
+        <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 4, padding: "3px 8px", fontSize: 12, fontWeight: 700, lineHeight: 1 }}>{t("offer.save")}</span>
       </div>
 
       <ul className="mt-5 flex flex-col gap-2.5">
-        {["Detailed skin analysis report", "Custom AM & PM routine", "2 weeks of expert coaching", "K-beauty products shipped from Seoul"].map((t) => (
-          <li key={t} className="flex gap-2.5 text-[#444]" style={{ fontSize: 16, lineHeight: 1.5 }}>
+        {[t("offer.inc1"), t("offer.inc2"), t("offer.inc3"), t("offer.inc4")].map((item) => (
+          <li key={item} className="flex gap-2.5 text-[#444]" style={{ fontSize: 16, lineHeight: 1.5 }}>
             <span style={{ color: "#62d8f4", fontWeight: 700 }}>✓</span>
-            <span>{t}</span>
+            <span>{item}</span>
           </li>
         ))}
       </ul>
@@ -703,7 +710,7 @@ function OfferSection() {
       <div className="mt-6 flex items-center gap-3">
         <EyeMaskFace size={44} />
         <p className="text-mid-gray text-left" style={{ fontSize: 13, lineHeight: 1.4 }}>
-          Starts with one photo — we <span className="text-midnight font-semibold">auto-blur your eyes</span>, and your photo is never shared or sold.
+          {t("offer.privacyA")} <span className="text-midnight font-semibold">{t("offer.privacyB")}</span>{t("offer.privacyC")}
         </p>
       </div>
 
@@ -733,6 +740,8 @@ const MENU: [string, string][] = [
 
 function Header() {
   const [open, setOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const { locale, setLocale } = useI18n();
   return (
     <>
       <header className="fixed top-0 inset-x-0 z-[55]">
@@ -741,7 +750,24 @@ function Header() {
           style={{ maxWidth: 480, height: 52, background: "#ffffff", borderBottom: "1px solid #eee" }}
         >
           <Image src="/logo.png" alt="8mirrors" width={76} height={18} unoptimized priority style={{ height: 18, width: "auto" }} />
-          <button type="button" aria-label="Menu" aria-expanded={open} onClick={() => setOpen((v) => !v)} className="-mr-2 p-2">
+          <div className="flex items-center gap-1">
+            <div className="relative">
+              <button type="button" aria-label="Language" onClick={() => { setLangOpen((v) => !v); setOpen(false); }} className="flex items-center gap-1 p-2 text-midnight" style={{ fontSize: 13, fontWeight: 600 }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden><circle cx="12" cy="12" r="9" stroke="#111" strokeWidth="1.6" /><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18" stroke="#111" strokeWidth="1.6" /></svg>
+                {locale.toUpperCase()}
+              </button>
+              {langOpen && (
+                <div className="absolute right-0 mt-1 rounded-xl bg-white py-1" style={{ minWidth: 132, boxShadow: "0 10px 24px rgba(0,0,0,0.12)", border: "1px solid #eee" }}>
+                  {LOCALES.map(([code, label]) => (
+                    <button key={code} type="button" onClick={() => { setLocale(code as Locale); setLangOpen(false); }} className="flex w-full items-center justify-between px-4 py-2.5 text-left text-midnight" style={{ fontSize: 14, fontWeight: locale === code ? 700 : 400 }}>
+                      {label}
+                      {locale === code && <span style={{ color: "#62d8f4" }}>✓</span>}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <button type="button" aria-label="Menu" aria-expanded={open} onClick={() => { setOpen((v) => !v); setLangOpen(false); }} className="-mr-2 p-2">
             {open ? (
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
                 <path d="M5 5l14 14M19 5L5 19" stroke="#111" strokeWidth="2" strokeLinecap="round" />
@@ -752,6 +778,7 @@ function Header() {
               </svg>
             )}
           </button>
+          </div>
         </div>
       </header>
 
@@ -790,13 +817,14 @@ function Header() {
 
 // Fixed expert area (layout B caption) — only the text swaps per section.
 function CoachBubble({ num, title, message, visible }: { num: string; title: string; message: string; visible: boolean }) {
+  const { t } = useI18n();
   return (
     <div className="fixed left-1/2 z-40 w-full px-5" style={{ top: 60, maxWidth: 480, transform: "translateX(-50%)", pointerEvents: "none" }}>
       <div className="transition-all duration-300" style={{ opacity: visible ? 1 : 0, transform: `translateY(${visible ? 0 : -10}px)` }}>
         <div key={title} className="flex items-start gap-3 text-left guide-bar-enter">
           <TeamAvatars size={44} />
           <div className="flex-1">
-            <div className="text-mid-gray" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em" }}>{num} · YOUR 8MIRRORS EXPERTS</div>
+            <div className="text-mid-gray" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em" }}>{num} · {t("coach.label")}</div>
             <h3 className="font-display text-midnight mt-0.5" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.15 }}>{title}</h3>
             <p className="text-midnight mt-1" style={{ fontSize: 16, fontWeight: 500, lineHeight: 1.45 }}>{message}</p>
           </div>
@@ -871,6 +899,7 @@ function HowItWorksSheet({ open, onClose }: { open: boolean; onClose: () => void
 }
 
 function BuyBar() {
+  const { t } = useI18n();
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -881,14 +910,14 @@ function BuyBar() {
             <span className="text-midnight" style={{ fontSize: 16, fontWeight: 700 }}>$9.99</span>
             <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 4, padding: "2px 6px", fontSize: 10, fontWeight: 700, lineHeight: 1 }}>60% OFF</span>
             <span aria-hidden>·</span>
-            <span>4–5 day delivery</span>
+            <span>{t("bar.delivery")}</span>
           </div>
           <div className="flex gap-2 px-4 pt-2.5" style={{ paddingBottom: 16 }}>
             <button type="button" onClick={() => setOpen(true)} className="flex items-center justify-center gap-1.5 rounded-lg bg-white px-4 py-3 text-midnight" style={{ fontSize: 14, fontWeight: 600, boxShadow: "var(--shadow-card)" }}>
-              <InfoIcon /> How it works
+              <InfoIcon /> {t("bar.how")}
             </button>
             <a href="#" className="flex flex-1 items-center justify-center rounded-lg px-4 py-3 text-midnight" style={{ fontSize: 14, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
-              Get my custom report
+              {t("bar.cta")}
             </a>
           </div>
         </div>
@@ -929,7 +958,7 @@ export default function Landing() {
   const a = REPORT_PANELS[active];
 
   return (
-    <>
+    <LocaleProvider>
       <Header />
       <main className="mx-auto bg-white snap-y snap-mandatory" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}>
         <Hero />
@@ -944,6 +973,6 @@ export default function Landing() {
       </main>
       <CoachBubble num={a.num} title={a.title} message={a.message} visible={coachVisible} />
       <BuyBar />
-    </>
+    </LocaleProvider>
   );
 }
