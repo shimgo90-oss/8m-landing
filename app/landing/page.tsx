@@ -148,8 +148,8 @@ function Hero() {
 /* ───────────────────────── How it works (auto-swipe) ───────────────────────── */
 
 const HIW_STEPS = [
-  { title: "Diagnosed online\nfrom just a single photo" }, // 사진을 보고 온라인으로 진단
   { title: "Your skin,\ndistilled into clear keywords" }, // 피부 분석 및 관리 키워드 도출
+  { title: "A treatment plan\npaced to your skin" }, // 트리트먼트 플랜
   { title: "A custom routine,\nbuilt just for your skin" }, // 피부 맞춤 커스텀 루틴
 ] as const;
 
@@ -231,6 +231,22 @@ function RoutineCard() {
   );
 }
 
+function TreatmentCard() {
+  return (
+    <div className="h-full w-full rounded-[20px] bg-white overflow-hidden flex flex-col" style={{ boxShadow: "var(--shadow-card)" }}>
+      <div className="bg-neutral-200" style={{ height: 128 }} />
+      <div className="p-4 flex-1">
+        <div className="text-midnight" style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.2 }}>Reset &amp; Stabilize</div>
+        <div className="flex items-center gap-2 mt-2.5"><Eyebrow>DURATION</Eyebrow><span className="text-[#525252]" style={{ fontSize: 13, fontWeight: 600 }}>4–6 weeks</span></div>
+        <div className="mt-2.5">
+          <Eyebrow>CARE STRATEGY</Eyebrow>
+          <p className="truncate text-[#525252] mt-1" style={{ fontSize: 13 }}>Bring skin back to a calm baseline first…</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function HowItWorks() {
   const { t } = useI18n();
   const [step, setStep] = useState(0);
@@ -258,7 +274,7 @@ function HowItWorks() {
     else if (dx > 40) go(-1);
   };
 
-  const cards = [<DiagnosisCard key="d" />, <KeywordsCard key="k" />, <RoutineCard key="r" />];
+  const cards = [<KeywordsCard key="k" />, <TreatmentCard key="t" />, <RoutineCard key="r" />];
 
   return (
     <section className="snap-start flex flex-col items-center justify-center px-5 text-center" style={{ minHeight: "100svh", paddingTop: 64, paddingBottom: 140 }}>
@@ -387,15 +403,15 @@ function SkinConditionVisual() {
   );
 }
 
-function ScoreDonut({ score }: { score: number }) {
+function ScoreDonut({ score, size = 160 }: { score: number; size?: number }) {
   return (
-    <div className="relative mx-auto" style={{ width: 160, height: 160 }}>
+    <div className="relative mx-auto" style={{ width: size, height: size }}>
       <div
         className="absolute inset-0 rounded-full"
         style={{ background: `conic-gradient(#62d8f4 0 ${score}%, #e5e5e5 0)` }}
       />
-      <div className="absolute rounded-full bg-white flex items-center justify-center" style={{ inset: 14 }}>
-        <span className="text-midnight" style={{ fontSize: 56, fontWeight: 700 }}>{score}</span>
+      <div className="absolute rounded-full bg-white flex items-center justify-center" style={{ inset: Math.round(size * 0.088) }}>
+        <span className="text-midnight" style={{ fontSize: Math.round(size * 0.35), fontWeight: 700 }}>{score}</span>
       </div>
     </div>
   );
@@ -404,19 +420,17 @@ function ScoreDonut({ score }: { score: number }) {
 function RoutineCheckVisual() {
   return (
     <div>
-      <ScoreDonut score={72} />
+      <div className="text-center text-mid-gray" style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>
+        We check your current routine
+      </div>
+      <div className="mt-3"><ScoreDonut score={72} size={128} /></div>
       <div className="text-center mt-2">
         <div className="text-midnight" style={{ fontSize: 14, fontWeight: 700 }}>Routine Score</div>
         <div className="text-mid-gray" style={{ fontSize: 12 }}>Okay to Use 4 · Stop Using 2</div>
       </div>
-      <div className="mt-5">
-        <div className="text-midnight" style={{ fontSize: 16, fontWeight: 700 }}>✅ What You&apos;re Doing Well</div>
-        <Truncate className="mt-1">Hydration and barrier care are aligned with your skin…</Truncate>
-      </div>
-      <div className="h-px bg-neutral-200 my-4" />
-      <div>
-        <div className="text-midnight" style={{ fontSize: 16, fontWeight: 700 }}>⚠️ What&apos;s Holding Your Results Back</div>
-        <Truncate className="mt-1">Overlapping actives may be slowing barrier repair…</Truncate>
+      <div className="mt-4 flex flex-col gap-2">
+        <div className="flex items-center gap-2"><span style={{ color: "#1a9d3c", fontWeight: 700 }}>✓</span><span className="truncate text-[#444]" style={{ fontSize: 14 }}>Hydration &amp; barrier care are on track…</span></div>
+        <div className="flex items-center gap-2"><span style={{ color: "#d24d4d", fontWeight: 700 }}>✕</span><span className="truncate text-[#444]" style={{ fontSize: 14 }}>Overlapping actives may slow repair…</span></div>
       </div>
     </div>
   );
@@ -534,11 +548,9 @@ function ReportPanel({ panel, panelRef }: { panel: Panel; panelRef: (el: HTMLEle
 }
 
 const REPORT_PANELS: Panel[] = [
-  { id: "skin-condition", num: "01", title: "Skin Condition Check", message: "Our experts read your skin from a single photo — no clinic visit needed.", Visual: SkinConditionVisual },
-  { id: "routine-check", num: "02", title: "Routine Check", message: "We check what's working in your current routine — and what to drop.", Visual: RoutineCheckVisual },
-  { id: "treatment-plan", num: "03", title: "Treatment Plan", message: "We map out a treatment plan paced to your skin, step by step.", Visual: TreatmentPlanVisual },
-  { id: "custom-routine", num: "04", title: "Custom Routine", message: "We curate your K-beauty routine and ship it to your door.", Visual: CustomRoutineVisual },
-  { id: "final-message", num: "05", title: "Final Message", message: "And we're with you through the whole journey — not just day one.", boxed: true, Visual: FinalMessageVisual },
+  { id: "routine-check", num: "01", title: "Routine Check", message: "We check what's working in your current routine — and what to drop.", Visual: RoutineCheckVisual },
+  { id: "custom-routine", num: "02", title: "Custom Routine", message: "We curate your K-beauty routine and ship it to your door.", Visual: CustomRoutineVisual },
+  { id: "final-message", num: "03", title: "Final Message", message: "And we're with you through the whole journey — not just day one.", boxed: true, Visual: FinalMessageVisual },
 ];
 
 /* ───────────────────────── Fixed chrome: header, coach bubble, buy bar ───────────────────────── */
