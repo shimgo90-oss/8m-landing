@@ -1261,7 +1261,37 @@ function AiIcon() {
   );
 }
 
-function BuyBar({ show = true }: { show?: boolean }) {
+function EyeMaskTip({ visible }: { visible: boolean }) {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: 4,
+        right: 4,
+        bottom: "100%",
+        marginBottom: 12,
+        pointerEvents: "none",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(8px)",
+        transition: "opacity 0.28s ease, transform 0.28s ease",
+      }}
+    >
+      <div className="relative flex items-center gap-3 rounded-2xl bg-white p-3" style={{ boxShadow: "var(--shadow-card)" }}>
+        <EyeMaskFace size={42} />
+        <div className="flex flex-col">
+          <p className="text-midnight" style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.25 }}>Your eyes stay private</p>
+          <p className="text-mid-gray" style={{ fontSize: 12.5, lineHeight: 1.35 }}>We auto-blur them before you submit — only your skin team sees the photo.</p>
+        </div>
+        <span
+          aria-hidden
+          style={{ position: "absolute", left: 46, bottom: -5, width: 12, height: 12, background: "#fff", transform: "rotate(45deg)", boxShadow: "3px 3px 5px rgba(34,42,53,0.05)" }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function BuyBar({ show = true, tip = false }: { show?: boolean; tip?: boolean }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
   return (
@@ -1270,7 +1300,8 @@ function BuyBar({ show = true }: { show?: boolean }) {
         <div className="mx-auto w-full" style={{ maxWidth: 480 }}>
           <div style={{ height: 56, background: "linear-gradient(to top, #ffffff, rgba(255,255,255,0))" }} />
           <div className="pointer-events-auto" style={{ background: "#ffffff" }}>
-            <div className="flex items-stretch gap-2 px-4 pt-3" style={{ paddingBottom: 16 }}>
+            <div className="relative flex items-stretch gap-2 px-4 pt-3" style={{ paddingBottom: 16 }}>
+              <EyeMaskTip visible={show && tip} />
               <a href="#" className="flex flex-1 items-center justify-center rounded-lg px-4 py-3.5 text-midnight" style={{ fontSize: 15, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
                 {t("bar.cta")}
               </a>
@@ -1292,6 +1323,29 @@ export default function Landing() {
   const mainRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [count, setCount] = useState(0);
+  const [tip, setTip] = useState(false);
+
+  // Show the eye-mask reassurance tooltip when the user pauses or scrolls up.
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    let last = main.scrollTop;
+    let idle: ReturnType<typeof setTimeout>;
+    const onScroll = () => {
+      const cur = main.scrollTop;
+      const dy = cur - last;
+      last = cur;
+      clearTimeout(idle);
+      if (dy < -3) setTip(true); // scrolling up → reassure
+      else if (dy > 5) setTip(false); // actively scrolling down → get out of the way
+      idle = setTimeout(() => setTip(true), 650); // paused → reassure
+    };
+    main.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      main.removeEventListener("scroll", onScroll);
+      clearTimeout(idle);
+    };
+  }, []);
 
   useEffect(() => {
     const main = mainRef.current;
@@ -1324,7 +1378,7 @@ export default function Landing() {
         <StoriesSection />
         <OfferSection />
       </main>
-      <BuyBar show={active !== 0 && active !== count - 1} />
+      <BuyBar show={active !== 0 && active !== count - 1} tip={tip} />
     </LocaleProvider>
   );
 }
