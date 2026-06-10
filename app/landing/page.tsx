@@ -209,28 +209,36 @@ function RoutineThumbSquare({ size }: { size: number }) {
   );
 }
 
-function RoutineCard() {
+function RoutineMiniCard({ title, count, popular, items }: { title: string; count: string; popular?: boolean; items: [string, string][] }) {
   return (
-    <div className="flex items-start gap-3">
-      <div className="rounded-2xl bg-white p-3 flex flex-col items-center gap-2.5" style={{ boxShadow: "var(--shadow-card)" }}>
-        <div className="flex items-baseline gap-1">
-          <span className="text-midnight" style={{ fontSize: 13, fontWeight: 700 }}>Daily</span>
-          <span className="text-mid-gray" style={{ fontSize: 10 }}>5</span>
-        </div>
-        <div className="flex flex-col gap-1.5">
-          {Array.from({ length: 5 }).map((_, i) => <RoutineThumbSquare key={i} size={32} />)}
-        </div>
+    <div className="flex-1 rounded-2xl bg-white p-3" style={{ boxShadow: "var(--shadow-card)" }}>
+      <div className="flex items-center gap-1">
+        <span className="text-midnight" style={{ fontSize: 13, fontWeight: 700 }}>{title}</span>
+        <span className="text-mid-gray" style={{ fontSize: 10 }}>{count}</span>
+        {popular && <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 3, padding: "1px 4px", fontSize: 8, fontWeight: 700 }}>POPULAR</span>}
       </div>
-      <div className="rounded-2xl bg-white p-3 flex flex-col items-center gap-2.5" style={{ boxShadow: "var(--shadow-card)" }}>
-        <div className="flex items-center gap-1">
-          <span className="text-midnight" style={{ fontSize: 13, fontWeight: 700 }}>Special</span>
-          <span className="text-mid-gray" style={{ fontSize: 10 }}>7</span>
-          <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 3, padding: "1px 4px", fontSize: 8, fontWeight: 700 }}>POPULAR</span>
-        </div>
-        <div className="flex flex-col gap-1.5">
-          {Array.from({ length: 7 }).map((_, i) => <RoutineThumbSquare key={i} size={32} />)}
-        </div>
+      <div className="mt-2.5 flex flex-col gap-2">
+        {items.map(([step, cat]) => (
+          <div key={step} className="flex items-center gap-2">
+            <RoutineThumbSquare size={28} />
+            <div className="flex flex-col text-left" style={{ lineHeight: 1.1 }}>
+              <span className="text-midnight" style={{ fontSize: 11, fontWeight: 700 }}>{step}</span>
+              <span className="text-mid-gray" style={{ fontSize: 8.5, fontWeight: 600, letterSpacing: "0.03em" }}>{cat}</span>
+            </div>
+          </div>
+        ))}
       </div>
+    </div>
+  );
+}
+
+function RoutineCard() {
+  const daily: [string, string][] = [["01", "Cleanser"], ["02", "Toner"], ["03", "Serum"], ["04", "Moisturizer"], ["05", "Sunscreen"]];
+  const special: [string, string][] = [...daily, ["06", "Eye cream"], ["07", "Mask"]];
+  return (
+    <div className="flex w-full items-start gap-3">
+      <RoutineMiniCard title="Daily" count="5" items={daily} />
+      <RoutineMiniCard title="Special" count="7" popular items={special} />
     </div>
   );
 }
@@ -370,6 +378,11 @@ function WhatYouGetStory() {
     <section ref={sectionRef} className="snap-start flex flex-col" style={{ minHeight: "100svh", paddingTop: 60, paddingBottom: 16, paddingLeft: 32, paddingRight: 32 }}>
       <div className="text-center text-charcoal" style={{ fontSize: 13, fontWeight: 700, letterSpacing: "0.14em", marginBottom: 14 }}>{t("wyg.eyebrow")}</div>
       <div
+        onClick={(e) => {
+          const r = e.currentTarget.getBoundingClientRect();
+          if (e.clientX - r.left < r.width * 0.32) go(-1);
+          else go(1);
+        }}
         className="relative flex flex-1 flex-col items-center justify-center overflow-hidden rounded-[28px] px-6 text-center"
         style={{ background: "#121212", paddingTop: 44, paddingBottom: 40, opacity: visible ? 1 : 0, transition: "opacity 650ms ease" }}
       >
@@ -385,15 +398,11 @@ function WhatYouGetStory() {
           ))}
         </div>
 
-        {/* tap zones: left = prev, right = next */}
-        <button aria-label="Previous" onClick={() => go(-1)} className="absolute inset-y-0 left-0 z-10" style={{ width: "32%", touchAction: "pan-y" }} />
-        <button aria-label="Next" onClick={() => go(1)} className="absolute inset-y-0 right-0 z-10" style={{ width: "68%", touchAction: "pan-y" }} />
-
-        <div key={frame} className="guide-bar-enter flex flex-col items-center" style={{ pointerEvents: "none" }}>
+        <div key={frame} className="guide-bar-enter flex w-full flex-col items-center" style={{ pointerEvents: "none" }}>
           <h2 className="font-display" style={{ fontSize: "clamp(26px, 7.5vw, 32px)", fontWeight: 500, lineHeight: 1.2, whiteSpace: "pre-line", minHeight: 78, letterSpacing: "-0.01em", color: "#ffffff" }}>
             {HIW_STEPS[frame].title}
           </h2>
-          <div className="mt-7">{visuals[frame]}</div>
+          <div className="mt-7 w-full">{visuals[frame]}</div>
         </div>
       </div>
     </section>
@@ -1086,21 +1095,24 @@ function BuyBar({ show = true }: { show?: boolean }) {
   return (
     <>
       <div className="fixed inset-x-0 bottom-0 z-50 pointer-events-none" style={{ opacity: show ? 1 : 0, transform: show ? "translateY(0)" : "translateY(110%)", transition: "opacity 0.3s ease, transform 0.3s ease" }}>
-        <div className="mx-auto w-full pointer-events-auto" style={{ maxWidth: 480, background: "linear-gradient(to top, #ffffff 58%, rgba(255,255,255,0.92) 78%, rgba(255,255,255,0) 100%)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", paddingTop: 8 }}>
-          <div className="flex items-center justify-center gap-2 px-4 pt-3 text-mid-gray" style={{ fontSize: 12 }}>
-            <span className="line-through">$24.99</span>
-            <span className="text-midnight" style={{ fontSize: 16, fontWeight: 700 }}>$9.99</span>
-            <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 4, padding: "2px 6px", fontSize: 10, fontWeight: 700, lineHeight: 1 }}>60% OFF</span>
-            <span aria-hidden>·</span>
-            <span>{t("bar.delivery")}</span>
-          </div>
-          <div className="flex gap-2 px-4 pt-2.5" style={{ paddingBottom: 16 }}>
-            <button type="button" onClick={() => setOpen(true)} className="flex items-center justify-center gap-1.5 rounded-lg bg-white px-4 py-3 text-midnight" style={{ fontSize: 14, fontWeight: 600, boxShadow: "var(--shadow-card)" }}>
-              <InfoIcon /> {t("bar.how")}
-            </button>
-            <a href="#" className="flex flex-1 items-center justify-center rounded-lg px-4 py-3 text-midnight" style={{ fontSize: 14, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
-              {t("bar.cta")}
-            </a>
+        <div className="mx-auto w-full" style={{ maxWidth: 480 }}>
+          <div style={{ height: 56, background: "linear-gradient(to top, #ffffff, rgba(255,255,255,0))" }} />
+          <div className="pointer-events-auto" style={{ background: "#ffffff" }}>
+            <div className="flex items-center justify-center gap-2 px-4 text-mid-gray" style={{ fontSize: 12 }}>
+              <span className="line-through">$24.99</span>
+              <span className="text-midnight" style={{ fontSize: 16, fontWeight: 700 }}>$9.99</span>
+              <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 4, padding: "2px 6px", fontSize: 10, fontWeight: 700, lineHeight: 1 }}>60% OFF</span>
+              <span aria-hidden>·</span>
+              <span>{t("bar.delivery")}</span>
+            </div>
+            <div className="flex gap-2 px-4 pt-2.5" style={{ paddingBottom: 16 }}>
+              <button type="button" onClick={() => setOpen(true)} className="flex items-center justify-center gap-1.5 rounded-lg bg-white px-4 py-3 text-midnight" style={{ fontSize: 14, fontWeight: 600, boxShadow: "var(--shadow-card)" }}>
+                <InfoIcon /> {t("bar.how")}
+              </button>
+              <a href="#" className="flex flex-1 items-center justify-center rounded-lg px-4 py-3 text-midnight" style={{ fontSize: 14, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
+                {t("bar.cta")}
+              </a>
+            </div>
           </div>
         </div>
       </div>
