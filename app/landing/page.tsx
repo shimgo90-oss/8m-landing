@@ -332,10 +332,11 @@ function WhatYouGetStory() {
   const visuals = [<RoutineCheckFrame key="rc" />, <div key="r" style={{ width: 226 }}><RoutineCard /></div>, <PlanFrame key="p" />];
 
   return (
-    <section ref={sectionRef} className="snap-start flex" style={{ minHeight: "100svh", paddingTop: 60, paddingBottom: 100, paddingLeft: 32, paddingRight: 32 }}>
+    <section ref={sectionRef} className="snap-start flex flex-col" style={{ minHeight: "100svh", paddingTop: 60, paddingBottom: 100, paddingLeft: 32, paddingRight: 32 }}>
+      <div className="text-center text-charcoal" style={{ fontSize: 13, fontWeight: 700, letterSpacing: "0.14em", marginBottom: 14 }}>{t("wyg.eyebrow")}</div>
       <div
         className="relative flex flex-1 flex-col items-center justify-center overflow-hidden rounded-[28px] px-6 text-center"
-        style={{ background: "#121212", paddingTop: 64, paddingBottom: 40, opacity: visible ? 1 : 0, transition: "opacity 650ms ease" }}
+        style={{ background: "#121212", paddingTop: 44, paddingBottom: 40, opacity: visible ? 1 : 0, transition: "opacity 650ms ease" }}
       >
         {/* story progress segments — gauge fills up */}
         <div className="absolute left-0 right-0 flex gap-1 px-5" style={{ top: 18 }}>
@@ -344,11 +345,6 @@ function WhatYouGetStory() {
               <div style={{ height: "100%", background: "var(--color-mirror-cyan)", width: i < frame ? "100%" : i === frame ? `${fillW}%` : "0%", transition: i === frame ? "width 3600ms linear" : "none" }} />
             </div>
           ))}
-        </div>
-
-        {/* section title */}
-        <div className="absolute left-0 right-0 text-center" style={{ top: 34, color: "rgba(255,255,255,0.5)", fontSize: 11, fontWeight: 700, letterSpacing: "0.16em" }}>
-          {t("wyg.eyebrow")}
         </div>
 
         {/* tap zones: left = prev, right = next */}
