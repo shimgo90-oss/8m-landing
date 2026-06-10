@@ -676,7 +676,7 @@ function TeamSection() {
         </div>
         <div className="bg-neutral-200" style={{ width: 1, height: 36 }} />
         <div className="flex flex-col items-center">
-          <span className="font-display text-midnight" style={{ fontSize: 30, fontWeight: 500, lineHeight: 1 }}>30+</span>
+          <span className="font-display text-midnight" style={{ fontSize: 30, fontWeight: 500, lineHeight: 1 }}>70+</span>
           <span className="text-mid-gray mt-1" style={{ fontSize: 12 }}>{t("team.statNatsLabel")}</span>
         </div>
       </div>
@@ -931,26 +931,36 @@ function RoutineThumb({ kind, size = 28 }: { kind: string; size?: number }) {
   );
 }
 
-type Story = { who: string; quote: string; img: string; concerns: string[]; goals: string[]; am: number; pm: number };
+type Story = { who: string; quote: string; before: string; after: string; concerns: string[] };
 
 const STORIES: Story[] = [
   {
     who: "ma****  ·  22  ·  USA",
     quote: "Switched my toner and the redness was gone in 3 weeks.",
-    img: BEFORE_AFTER[0],
+    before: "/reviews/r1-before.jpg",
+    after: "/reviews/r1-after.jpg",
     concerns: ["Oily", "Acne", "Pores", "Redness"],
-    goals: ["Calming inflammation", "Return to baseline"],
-    am: 5,
-    pm: 4,
   },
   {
     who: "je**  ·  31  ·  UK",
     quote: "My breakouts slowed down and my skin feels calm.",
-    img: BEFORE_AFTER[2],
+    before: "/reviews/r2-before.jpeg",
+    after: "/reviews/r2-after.jpeg",
     concerns: ["Combination", "Breakouts", "Dryness"],
-    goals: ["Reduce breakouts", "Restore the barrier"],
-    am: 4,
-    pm: 5,
+  },
+  {
+    who: "so****  ·  28  ·  USA",
+    quote: "My texture smoothed out and my skin looks even now.",
+    before: "/reviews/r3-before.jpg",
+    after: "/reviews/r3-after.jpeg",
+    concerns: ["Dryness", "Texture", "Dullness"],
+  },
+  {
+    who: "le**  ·  34  ·  Canada",
+    quote: "The spots faded and my skin finally looks clear.",
+    before: "/reviews/r4-before.jpeg",
+    after: "/reviews/r4-after.jpg",
+    concerns: ["Sensitive", "Dark spots", "Redness"],
   },
 ];
 
@@ -968,10 +978,15 @@ function StoryCard({ s }: { s: Story }) {
         </p>
       </div>
 
-      {/* before / after */}
-      <div className="overflow-hidden rounded-lg" style={{ height: 112, background: "#f0f0f0" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={s.img} alt="Before and after" loading="lazy" className="w-full h-full object-cover" />
+      {/* before / after — side by side */}
+      <div className="flex gap-1.5">
+        {([["Before", s.before], ["After", s.after]] as const).map(([label, src]) => (
+          <div key={label} className="relative flex-1 overflow-hidden rounded-lg" style={{ height: 124, background: "#f0f0f0" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={src} alt={label} loading="lazy" className="w-full h-full object-cover" />
+            <span className="absolute text-white" style={{ top: 6, left: 6, background: "rgba(0,0,0,0.55)", borderRadius: 5, padding: "2px 7px", fontSize: 9, fontWeight: 700, letterSpacing: "0.03em" }}>{label}</span>
+          </div>
+        ))}
       </div>
 
       {/* concern chips */}
@@ -1007,8 +1022,8 @@ function StoriesSection() {
           <div key={i} style={{ scrollSnapAlign: "start" }}><StoryCard s={s} /></div>
         ))}
       </div>
-      <div className="mt-4 px-5">
-        <a href="/landing/before-afters" className="inline-flex items-center gap-1.5 rounded-lg bg-white px-5 py-2.5 text-midnight" style={{ fontSize: 14, fontWeight: 600, boxShadow: "var(--shadow-card)" }}>
+      <div className="mt-5 flex justify-center px-5">
+        <a href="/landing/before-afters" className="inline-flex items-center gap-1.5 text-midnight" style={{ fontSize: 14, fontWeight: 600 }}>
           See all before &amp; afters <span aria-hidden>→</span>
         </a>
       </div>
