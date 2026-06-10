@@ -550,7 +550,6 @@ function ReportPanel({ panel, panelRef }: { panel: Panel; panelRef: (el: HTMLEle
 const REPORT_PANELS: Panel[] = [
   { id: "routine-check", num: "01", title: "Routine Check", message: "We check what's working in your current routine — and what to drop.", Visual: RoutineCheckVisual },
   { id: "custom-routine", num: "02", title: "Custom Routine", message: "We curate your K-beauty routine and ship it to your door.", Visual: CustomRoutineVisual },
-  { id: "final-message", num: "03", title: "Final Message", message: "And we're with you through the whole journey — not just day one.", boxed: true, Visual: FinalMessageVisual },
 ];
 
 /* ───────────────────────── Fixed chrome: header, coach bubble, buy bar ───────────────────────── */
