@@ -73,8 +73,11 @@ function LimeChip({ children, className = "" }: { children: React.ReactNode; cla
 
 /* ───────────────────────── Hero ───────────────────────── */
 
-function RollingColumn({ snap }: { snap: 1 | 2 }) {
+const ROLLING_PRODUCTS = Array.from({ length: 13 }, (_, i) => `/products/prod${i + 1}.png`);
+
+function RollingColumn({ snap, col = 0 }: { snap: 1 | 2; col?: number }) {
   const slots: ("side" | "target")[] = ["side", "side", "target", "side", "side"];
+  const src = (i: number) => ROLLING_PRODUCTS[(col * 5 + i) % ROLLING_PRODUCTS.length];
   return (
     <div className="rolling-col">
       <div className={`rolling-track ${snap === 1 ? "snap-track-1" : "snap-track-2"}`}>
@@ -82,18 +85,18 @@ function RollingColumn({ snap }: { snap: 1 | 2 }) {
           kind === "target" ? (
             <div
               key={i}
-              className="target-card flex items-center justify-center rounded-[18px] border-2 border-transparent"
-              style={{ aspectRatio: "1 / 1.1", padding: 10 }}
+              className="target-card flex items-center justify-center rounded-[18px] border-2 border-transparent bg-white"
+              style={{ aspectRatio: "1 / 1.1", padding: 8 }}
             >
-              <BottleIcon color="#62d8f4" />
+              <Image src={src(i)} alt="" width={120} height={120} className="w-full h-full object-contain" unoptimized />
             </div>
           ) : (
             <div
               key={i}
-              className="flex items-center justify-center rounded-[18px] bg-neutral-100 opacity-25"
-              style={{ aspectRatio: "1 / 1.1", padding: 10 }}
+              className="flex items-center justify-center rounded-[18px] bg-neutral-100 opacity-30"
+              style={{ aspectRatio: "1 / 1.1", padding: 8 }}
             >
-              <BottleIcon />
+              <Image src={src(i)} alt="" width={120} height={120} className="w-full h-full object-contain" unoptimized />
             </div>
           )
         )}
@@ -144,9 +147,9 @@ function Hero() {
       {/* rolling animation (0.7×) */}
       <div className="rolling-mask w-full mt-8" style={{ maxWidth: 322 }}>
         <div className="grid grid-cols-3 gap-2.5 overflow-visible" style={{ height: 105 }}>
-          <RollingColumn snap={1} />
-          <RollingColumn snap={2} />
-          <RollingColumn snap={1} />
+          <RollingColumn snap={1} col={0} />
+          <RollingColumn snap={2} col={1} />
+          <RollingColumn snap={1} col={2} />
         </div>
       </div>
     </section>
