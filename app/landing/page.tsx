@@ -744,6 +744,114 @@ function OfferSection() {
   );
 }
 
+/* ───────────────────────── Customer stories (reused StoryCard UI) ───────────────────────── */
+
+function SunIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden className="shrink-0">
+      <circle cx="12" cy="12" r="4" stroke="#111" strokeWidth="1.5" />
+      <path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19" stroke="#111" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+function MoonIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden className="shrink-0">
+      <path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z" stroke="#111" strokeWidth="1.5" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function StepBar({ swap }: { swap?: boolean }) {
+  return <div className="shrink-0 rounded" style={{ height: 44, width: 34, background: swap ? "var(--color-mirror-cyan)" : "#fff", boxShadow: "inset 0 0 0 1px #e0e0e0" }} />;
+}
+
+type Story = { who: string; quote: string; img: string; concerns: string[]; goals: string[]; am: boolean[]; pm: boolean[] };
+
+const STORIES: Story[] = [
+  {
+    who: "ma****  ·  22  ·  USA",
+    quote: "Switched my toner and the redness on my cheeks was gone in 3 weeks. Wish I'd done this sooner.",
+    img: BEFORE_AFTER[0],
+    concerns: ["Oily", "Acne", "Pores", "Redness"],
+    goals: ["Calming inflammation", "Return to baseline function"],
+    am: [false, true, true, true, true],
+    pm: [false, true, true, true],
+  },
+  {
+    who: "je**  ·  31  ·  UK",
+    quote: "My breakouts finally slowed down and my skin feels calm. The routine actually made sense for me.",
+    img: BEFORE_AFTER[2],
+    concerns: ["Combination", "Breakouts", "Dryness"],
+    goals: ["Reduce breakouts", "Restore the barrier"],
+    am: [false, false, true, true],
+    pm: [false, true, true, true, true],
+  },
+];
+
+function StoryCard({ s }: { s: Story }) {
+  return (
+    <article className="flex shrink-0 flex-col gap-4 rounded-2xl bg-white p-5" style={{ width: 300, boxShadow: "var(--shadow-card)" }}>
+      <p className="text-center text-midnight" style={{ fontSize: 15, fontWeight: 600 }}>{s.who}</p>
+      <p className="text-center text-midnight" style={{ fontSize: 15, lineHeight: 1.5 }}>&ldquo;{s.quote}&rdquo;</p>
+
+      <div className="overflow-hidden rounded-lg" style={{ height: 150, background: "#f0f0f0" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={s.img} alt="Before and after" loading="lazy" className="w-full h-full object-cover" />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <span className="text-mid-gray" style={{ fontSize: 13, fontWeight: 500 }}>Concerns</span>
+        <div className="flex flex-wrap gap-2">
+          {s.concerns.map((c) => (
+            <span key={c} className="rounded-full bg-white text-midnight" style={{ fontSize: 12, fontWeight: 500, padding: "4px 12px", boxShadow: "inset 0 0 0 1px #e0e0e0" }}>{c}</span>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <span className="text-mid-gray" style={{ fontSize: 13, fontWeight: 500 }}>Goal</span>
+        {s.goals.map((g, i) => (
+          <p key={g} className="text-midnight" style={{ fontSize: 15, fontWeight: 500, lineHeight: 1.35 }}>{i + 1}. {g}</p>
+        ))}
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center justify-between">
+          <span className="text-mid-gray" style={{ fontSize: 13, fontWeight: 500 }}>Custom Routine</span>
+          <span className="flex items-center gap-1 text-mid-gray" style={{ fontSize: 12, fontWeight: 500 }}>
+            <span className="block rounded-sm" style={{ height: 13, width: 13, background: "var(--color-mirror-cyan)" }} /> = swap
+          </span>
+        </div>
+        <div className="flex flex-col gap-3 rounded-lg p-3" style={{ background: "var(--color-canvas)" }}>
+          <div className="flex items-center gap-2"><SunIcon />{s.am.map((sw, i) => <StepBar key={i} swap={sw} />)}</div>
+          <div className="flex items-center gap-2"><MoonIcon />{s.pm.map((sw, i) => <StepBar key={i} swap={sw} />)}</div>
+        </div>
+      </div>
+
+      <a href="#" className="mt-1 w-full rounded-lg text-center text-white" style={{ background: "#242424", padding: "12px 0", fontSize: 15, fontWeight: 500 }}>Get this routine</a>
+    </article>
+  );
+}
+
+function StoriesSection() {
+  return (
+    <section className="snap-start flex flex-col justify-center" style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 140 }}>
+      <div className="px-5 text-left">
+        <Eyebrow>CUSTOMER STORIES</Eyebrow>
+        <h2 className="font-display text-charcoal mt-1.5" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2, letterSpacing: "-0.01em" }}>
+          Real skin, rebuilt in weeks
+        </h2>
+      </div>
+      <div className="mt-5 flex gap-3 overflow-x-auto px-5 pb-2" style={{ scrollSnapType: "x mandatory" }}>
+        {STORIES.map((s, i) => (
+          <div key={i} style={{ scrollSnapAlign: "start" }}><StoryCard s={s} /></div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 const PAYPAL_URL = "https://www.paypal.com/ncp/payment/NFWM2BSB77C86";
 
 // Menu items → internalized in-app pages at /landing/<slug>
@@ -981,11 +1089,11 @@ export default function Landing() {
       <main className="mx-auto bg-white snap-y snap-mandatory" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}>
         <Hero />
         <TeamSection />
+        <StoriesSection />
         <HowItWorks />
         {REPORT_PANELS.map((p, i) => (
           <ReportPanel key={p.id} panel={p} panelRef={(el) => { refs.current[i] = el; }} />
         ))}
-        <BeforeAfterSection />
         <ReportArchiveSection />
         <OfferSection />
       </main>
