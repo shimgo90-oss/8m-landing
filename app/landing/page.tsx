@@ -633,7 +633,7 @@ function ReportArchiveSection() {
         className="mt-8 overflow-hidden"
         style={{ WebkitMaskImage: "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)", maskImage: "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)" }}
       >
-        <div className="marquee-track" style={{ gap: 14 }}>
+        <div className="marquee-track" style={{ display: "flex", flexDirection: "row", width: "max-content", gap: 14, animation: "marquee-left 36s linear infinite" }}>
           {pages.map((id, i) => (
             <div key={i} className="shrink-0 rounded-lg overflow-hidden border border-neutral-200 bg-white" style={{ width: 118, aspectRatio: "595 / 842" }}>
               <Image src={`/report/${id}.webp`} alt="Report page" width={236} height={334} className="w-full h-full object-cover" unoptimized />
@@ -761,40 +761,42 @@ function MoonIcon() {
   );
 }
 
-function StepBar({ swap }: { swap?: boolean }) {
-  return <div className="shrink-0 rounded" style={{ height: 44, width: 34, background: swap ? "var(--color-mirror-cyan)" : "#fff", boxShadow: "inset 0 0 0 1px #e0e0e0" }} />;
+function RoutineThumb() {
+  return <div className="shrink-0 rounded" style={{ width: 30, height: 30, background: "#fff", boxShadow: "inset 0 0 0 1px #e0e0e0" }} />;
 }
 
-type Story = { who: string; quote: string; img: string; concerns: string[]; goals: string[]; am: boolean[]; pm: boolean[] };
+type Story = { who: string; quote: string; img: string; concerns: string[]; goals: string[]; am: number; pm: number };
 
 const STORIES: Story[] = [
   {
     who: "ma****  ·  22  ·  USA",
-    quote: "Switched my toner and the redness on my cheeks was gone in 3 weeks. Wish I'd done this sooner.",
+    quote: "Switched my toner and the redness was gone in 3 weeks.",
     img: BEFORE_AFTER[0],
     concerns: ["Oily", "Acne", "Pores", "Redness"],
-    goals: ["Calming inflammation", "Return to baseline function"],
-    am: [false, true, true, true, true],
-    pm: [false, true, true, true],
+    goals: ["Calming inflammation", "Return to baseline"],
+    am: 5,
+    pm: 4,
   },
   {
     who: "je**  ·  31  ·  UK",
-    quote: "My breakouts finally slowed down and my skin feels calm. The routine actually made sense for me.",
+    quote: "My breakouts slowed down and my skin feels calm.",
     img: BEFORE_AFTER[2],
     concerns: ["Combination", "Breakouts", "Dryness"],
     goals: ["Reduce breakouts", "Restore the barrier"],
-    am: [false, false, true, true],
-    pm: [false, true, true, true, true],
+    am: 4,
+    pm: 5,
   },
 ];
 
 function StoryCard({ s }: { s: Story }) {
   return (
-    <article className="flex shrink-0 flex-col gap-4 rounded-2xl bg-white p-5" style={{ width: 300, boxShadow: "var(--shadow-card)" }}>
-      <p className="text-center text-midnight" style={{ fontSize: 15, fontWeight: 600 }}>{s.who}</p>
-      <p className="text-center text-midnight" style={{ fontSize: 15, lineHeight: 1.5 }}>&ldquo;{s.quote}&rdquo;</p>
+    <article className="flex shrink-0 flex-col gap-2.5 rounded-2xl bg-white p-3" style={{ width: 268, boxShadow: "var(--shadow-card)" }}>
+      <div className="flex flex-col gap-0.5">
+        <p className="text-mid-gray" style={{ fontSize: 11 }}>{s.who}</p>
+        <p className="text-midnight" style={{ fontSize: 13, lineHeight: 1.4 }}>&ldquo;{s.quote}&rdquo;</p>
+      </div>
 
-      <div className="overflow-hidden rounded-lg" style={{ height: 150, background: "#f0f0f0" }}>
+      <div className="overflow-hidden rounded-lg" style={{ height: 140, background: "#f0f0f0" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={s.img} alt="Before and after" loading="lazy" className="w-full h-full object-cover" />
       </div>
@@ -815,20 +817,13 @@ function StoryCard({ s }: { s: Story }) {
         ))}
       </div>
 
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between">
-          <span className="text-mid-gray" style={{ fontSize: 13, fontWeight: 500 }}>Custom Routine</span>
-          <span className="flex items-center gap-1 text-mid-gray" style={{ fontSize: 12, fontWeight: 500 }}>
-            <span className="block rounded-sm" style={{ height: 13, width: 13, background: "var(--color-mirror-cyan)" }} /> = swap
-          </span>
-        </div>
-        <div className="flex flex-col gap-3 rounded-lg p-3" style={{ background: "var(--color-canvas)" }}>
-          <div className="flex items-center gap-2"><SunIcon />{s.am.map((sw, i) => <StepBar key={i} swap={sw} />)}</div>
-          <div className="flex items-center gap-2"><MoonIcon />{s.pm.map((sw, i) => <StepBar key={i} swap={sw} />)}</div>
+      <div className="flex flex-col gap-1.5">
+        <span className="text-mid-gray" style={{ fontSize: 11, fontWeight: 600 }}>Custom Routine</span>
+        <div className="flex flex-col gap-1.5 rounded-lg p-2.5" style={{ background: "var(--color-canvas)" }}>
+          <div className="flex items-center gap-1.5"><SunIcon />{Array.from({ length: s.am }).map((_, i) => <RoutineThumb key={i} />)}</div>
+          <div className="flex items-center gap-1.5"><MoonIcon />{Array.from({ length: s.pm }).map((_, i) => <RoutineThumb key={i} />)}</div>
         </div>
       </div>
-
-      <a href="#" className="mt-1 w-full rounded-lg text-center text-white" style={{ background: "#242424", padding: "12px 0", fontSize: 15, fontWeight: 500 }}>Get this routine</a>
     </article>
   );
 }
