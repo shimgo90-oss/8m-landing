@@ -729,7 +729,7 @@ function BeforeAfterSection() {
 function OfferSection() {
   const { t } = useI18n();
   return (
-    <section className="snap-start flex flex-col px-6" style={{ paddingTop: 40, paddingBottom: 150 }}>
+    <section className="snap-start flex flex-col justify-center px-6" style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 150 }}>
       <Eyebrow>{t("offer.eyebrow")}</Eyebrow>
       <h2 className="font-display text-charcoal mt-1.5" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2, letterSpacing: "-0.01em" }}>
         {t("offer.titleA")} {t("offer.titleB")}
@@ -1075,11 +1075,50 @@ function BuyBar() {
 
 /* ───────────────────────── Page ───────────────────────── */
 
+function StoryProgress({ count, active }: { count: number; active: number }) {
+  return (
+    <div className="fixed left-1/2 z-[52] w-full px-3" style={{ top: 56, maxWidth: 480, transform: "translateX(-50%)", pointerEvents: "none" }}>
+      <div className="flex gap-1">
+        {Array.from({ length: count }).map((_, i) => (
+          <div key={i} className="flex-1 overflow-hidden rounded-full" style={{ height: 3, background: "#e0e0e0" }}>
+            <div style={{ height: "100%", width: i <= active ? "100%" : "0%", background: "var(--color-mirror-cyan)", transition: "width 0.35s ease" }} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Landing() {
+  const mainRef = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(0);
+  const [count, setCount] = useState(5);
+
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const sections = Array.from(main.querySelectorAll(":scope > section")) as HTMLElement[];
+    setCount(sections.length);
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            const idx = sections.indexOf(e.target as HTMLElement);
+            if (idx >= 0) setActive(idx);
+          }
+        });
+      },
+      { root: main, threshold: 0.55 }
+    );
+    sections.forEach((s) => obs.observe(s));
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <LocaleProvider>
       <Header />
-      <main className="mx-auto bg-white snap-y snap-mandatory" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}>
+      <StoryProgress count={count} active={active} />
+      <main ref={mainRef} className="mx-auto bg-white snap-y snap-mandatory" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}>
         <Hero />
         <TeamSection />
         <StoriesSection />
