@@ -341,7 +341,6 @@ function WhatYouGetStory() {
   const { t } = useI18n();
   const N = HIW_STEPS.length;
   const [frame, setFrame] = useState(0);
-  const [fillW, setFillW] = useState(0);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -356,14 +355,6 @@ function WhatYouGetStory() {
     timer.current = setInterval(() => setFrame((f) => (f + 1) % N), 3600);
     return () => { if (timer.current) clearInterval(timer.current); };
   }, [visible, N]);
-
-  // progress gauge: animate fill 0 -> 100% for the active frame (only while visible)
-  useEffect(() => {
-    if (!visible) return;
-    setFillW(0);
-    const id = requestAnimationFrame(() => requestAnimationFrame(() => setFillW(100)));
-    return () => cancelAnimationFrame(id);
-  }, [frame, visible]);
 
   // dissolve the dark panel in/out as it enters view
   useEffect(() => {
@@ -387,7 +378,10 @@ function WhatYouGetStory() {
         <div className="absolute left-0 right-0 flex gap-1 px-5" style={{ top: 18 }}>
           {Array.from({ length: N }).map((_, i) => (
             <div key={i} className="flex-1 overflow-hidden rounded-full" style={{ height: 3, background: "rgba(255,255,255,0.22)" }}>
-              <div style={{ height: "100%", background: "var(--color-mirror-cyan)", width: i < frame ? "100%" : i === frame ? `${fillW}%` : "0%", transition: i === frame ? "width 3600ms linear" : "none" }} />
+              <div
+                key={`${i}-${frame}-${visible}`}
+                style={{ height: "100%", background: "var(--color-mirror-cyan)", width: i < frame ? "100%" : "0%", animation: visible && i === frame ? "storyfill 3600ms linear forwards" : "none" }}
+              />
             </div>
           ))}
         </div>
