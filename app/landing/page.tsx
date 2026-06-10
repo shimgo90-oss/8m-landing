@@ -680,7 +680,7 @@ function TeamSection() {
 
 /* ───────────────────────── Full report archive (marquee) ───────────────────────── */
 
-const REPORT_PAGES = ["o1B2I", "aTDHd", "caInY", "fYz7t", "LQX50", "A9QXft", "aiIAQ", "OKhdI"];
+const REPORT_PAGES = ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8"];
 
 function ReportArchiveSection() {
   const { t } = useI18n();
@@ -705,7 +705,7 @@ function ReportArchiveSection() {
         <div className="marquee-track" style={{ display: "flex", flexDirection: "row", width: "max-content", gap: 14, animation: "marquee-left 36s linear infinite" }}>
           {pages.map((id, i) => (
             <div key={i} className="shrink-0 rounded-lg overflow-hidden border border-neutral-200 bg-white" style={{ width: 118, aspectRatio: "595 / 842" }}>
-              <Image src={`/report/${id}.webp`} alt="Report page" width={236} height={334} className="w-full h-full object-cover" unoptimized />
+              <Image src={`/report-pdf/${id}.png`} alt="Report page" width={236} height={334} className="w-full h-full object-cover" unoptimized />
             </div>
           ))}
         </div>
