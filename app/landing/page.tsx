@@ -1098,7 +1098,7 @@ function Header({ hidden = false }: { hidden?: boolean }) {
       />
 
       {/* slide-down menu (drops from behind the header bar) */}
-      <div className="fixed left-1/2 z-[54] w-full" style={{ top: 52, maxWidth: 480, transform: "translateX(-50%)" }}>
+      <div className="fixed left-1/2 z-[54] w-full" style={{ top: 52, maxWidth: 480, transform: "translateX(-50%)", pointerEvents: open ? "auto" : "none" }}>
         <nav
           className={`bg-white border-b border-neutral-200 transition-transform duration-300 ease-out ${open ? "translate-y-0" : "-translate-y-[130%]"}`}
           style={{ boxShadow: "0 14px 28px rgba(0,0,0,0.1)" }}
