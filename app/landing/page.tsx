@@ -201,29 +201,36 @@ function KeywordsCard() {
   );
 }
 
-function RoutineCard() {
-  const steps = [
-    ["01", "CLEANSER"],
-    ["02", "TONER"],
-    ["03", "SERUM"],
-    ["04", "CREAM"],
-  ];
+function RoutineThumbSquare({ size }: { size: number }) {
   return (
-    <div className="h-full w-full rounded-[20px] bg-white p-4 shadow-[var(--shadow-card)]">
-      <Eyebrow>CUSTOM ROUTINE</Eyebrow>
-      <div className="text-midnight mt-1 mb-3" style={{ fontSize: 13, fontWeight: 700 }}>
-        DAILY <span className="text-mid-gray">5</span>
+    <div className="shrink-0 rounded-md bg-neutral-100 border border-neutral-200 flex items-center justify-center" style={{ width: size, height: size }}>
+      <BottleIcon color="#cccccc" size={Math.round(size * 0.55)} />
+    </div>
+  );
+}
+
+function RoutineCard() {
+  return (
+    <div className="h-full w-full rounded-[20px] bg-white p-4 flex flex-col justify-center gap-4" style={{ boxShadow: "var(--shadow-card)" }}>
+      <div>
+        <div className="flex items-baseline gap-1.5">
+          <span className="text-midnight" style={{ fontSize: 15, fontWeight: 700 }}>Daily</span>
+          <span className="text-mid-gray" style={{ fontSize: 11 }}>5</span>
+        </div>
+        <div className="flex gap-1.5 mt-2">
+          {Array.from({ length: 5 }).map((_, i) => <RoutineThumbSquare key={i} size={30} />)}
+        </div>
       </div>
-      <div className="flex flex-col gap-2.5">
-        {steps.map(([n, label]) => (
-          <div key={n} className="flex items-center gap-2.5">
-            <div className="rounded-lg bg-neutral-100 border border-neutral-200" style={{ width: 38, height: 38 }} />
-            <div>
-              <div className="text-midnight" style={{ fontSize: 12, fontWeight: 700 }}>{n}</div>
-              <div className="text-mid-gray" style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.1em" }}>{label}</div>
-            </div>
-          </div>
-        ))}
+      <div className="h-px bg-neutral-200" />
+      <div>
+        <div className="flex items-center gap-1.5">
+          <span className="text-midnight" style={{ fontSize: 15, fontWeight: 700 }}>Special</span>
+          <span className="text-mid-gray" style={{ fontSize: 11 }}>7</span>
+          <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 3, padding: "1px 5px", fontSize: 9, fontWeight: 700 }}>POPULAR</span>
+        </div>
+        <div className="flex gap-1 mt-2">
+          {Array.from({ length: 7 }).map((_, i) => <RoutineThumbSquare key={i} size={22} />)}
+        </div>
       </div>
     </div>
   );
@@ -274,11 +281,25 @@ function PlanCard() {
 
 // Story frame visuals — only the custom-routine frame stays a block/card.
 function RoutineCheckFrame() {
+  const flags = [true, true, false, true, true, false, true, true];
+  const row = [...flags, ...flags];
+  const fade = "linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)";
   return (
     <div className="flex flex-col items-center">
-      <ScoreDonut score={72} size={168} />
-      <div className="mt-4" style={{ color: "#fff", fontSize: 14, fontWeight: 700 }}>Routine Score</div>
-      <div style={{ color: "rgba(255,255,255,0.6)", fontSize: 12 }}>Okay to Use 4 · Stop Using 2</div>
+      <div className="overflow-hidden" style={{ width: 282, WebkitMaskImage: fade, maskImage: fade }}>
+        <div className="flex gap-3" style={{ width: "max-content", animation: "marquee-left 16s linear infinite" }}>
+          {row.map((ok, i) => (
+            <div key={i} className="relative shrink-0 flex items-center justify-center rounded-xl" style={{ width: 66, height: 66, background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)" }}>
+              <BottleIcon color="rgba(255,255,255,0.5)" size={26} />
+              <span className="absolute flex items-center justify-center rounded-full" style={{ right: -6, top: -6, width: 22, height: 22, background: ok ? "#1ec96b" : "#ff5a5a", color: "#fff", fontSize: 12, fontWeight: 700, border: "2px solid #121212" }}>{ok ? "✓" : "✕"}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="mt-6 flex items-center gap-4" style={{ color: "rgba(255,255,255,0.6)", fontSize: 11 }}>
+        <span className="flex items-center gap-1"><span style={{ color: "#1ec96b", fontWeight: 700 }}>✓</span> Okay to use</span>
+        <span className="flex items-center gap-1"><span style={{ color: "#ff5a5a", fontWeight: 700 }}>✕</span> Stop using</span>
+      </div>
     </div>
   );
 }
