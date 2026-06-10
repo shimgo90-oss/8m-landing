@@ -1089,6 +1089,15 @@ function HowItWorksSheet({ open, onClose }: { open: boolean; onClose: () => void
   );
 }
 
+function AiIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path d="M12 3l1.7 4.6L18.5 9.3 13.7 11 12 15.6 10.3 11 5.5 9.3 10.3 7.6 12 3Z" fill="#111" />
+      <path d="M18.5 14l.9 2.4 2.6.9-2.6.9-.9 2.4-.9-2.4-2.6-.9 2.6-.9.9-2.4Z" fill="#111" />
+    </svg>
+  );
+}
+
 function BuyBar({ show = true }: { show?: boolean }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
@@ -1098,20 +1107,13 @@ function BuyBar({ show = true }: { show?: boolean }) {
         <div className="mx-auto w-full" style={{ maxWidth: 480 }}>
           <div style={{ height: 56, background: "linear-gradient(to top, #ffffff, rgba(255,255,255,0))" }} />
           <div className="pointer-events-auto" style={{ background: "#ffffff" }}>
-            <div className="flex items-center justify-center gap-2 px-4 text-mid-gray" style={{ fontSize: 12 }}>
-              <span className="line-through">$24.99</span>
-              <span className="text-midnight" style={{ fontSize: 16, fontWeight: 700 }}>$9.99</span>
-              <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 4, padding: "2px 6px", fontSize: 10, fontWeight: 700, lineHeight: 1 }}>60% OFF</span>
-              <span aria-hidden>·</span>
-              <span>{t("bar.delivery")}</span>
-            </div>
-            <div className="flex gap-2 px-4 pt-2.5" style={{ paddingBottom: 16 }}>
-              <button type="button" onClick={() => setOpen(true)} className="flex items-center justify-center gap-1.5 rounded-lg bg-white px-4 py-3 text-midnight" style={{ fontSize: 14, fontWeight: 600, boxShadow: "var(--shadow-card)" }}>
-                <InfoIcon /> {t("bar.how")}
-              </button>
-              <a href="#" className="flex flex-1 items-center justify-center rounded-lg px-4 py-3 text-midnight" style={{ fontSize: 14, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
+            <div className="flex items-stretch gap-2 px-4 pt-3" style={{ paddingBottom: 16 }}>
+              <a href="#" className="flex flex-1 items-center justify-center rounded-lg px-4 py-3.5 text-midnight" style={{ fontSize: 15, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
                 {t("bar.cta")}
               </a>
+              <button type="button" onClick={() => setOpen(true)} className="flex shrink-0 items-center justify-center gap-1 rounded-lg bg-white px-3 text-midnight" style={{ fontSize: 12, fontWeight: 600, boxShadow: "var(--shadow-card)" }}>
+                <AiIcon /> Summary
+              </button>
             </div>
           </div>
         </div>
