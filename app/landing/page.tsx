@@ -1118,8 +1118,72 @@ function InfoIcon() {
   );
 }
 
+type SummaryBlock = { type: "p" | "h" | "li"; text: string };
+
+const SUMMARY_BLOCKS: SummaryBlock[] = [
+  { type: "p", text: "Here's the short version of this page 👇" },
+  { type: "p", text: "8mirrors builds a skincare routine made for your skin — not a one-size-fits-all kit. You send one photo, a team of Korean skin experts in Seoul reads your skin, and you get a custom AM & PM routine you can order in a tap." },
+  { type: "h", text: "How it works" },
+  { type: "li", text: "Send 1 photo — your eyes are auto-masked and kept private" },
+  { type: "li", text: "Experts in Seoul analyze your skin condition" },
+  { type: "li", text: "Get a skin-condition graph + a routine built around it" },
+  { type: "h", text: "Two ways to start" },
+  { type: "li", text: "Free — your skin graph, concern keywords, and a 2-step routine preview" },
+  { type: "li", text: "Full plan ($9.99) — complete routine, in-depth team analysis, treatment plan, full report PDF, plus 40% off your products with free worldwide shipping" },
+];
+
+const SUMMARY_TOTAL = SUMMARY_BLOCKS.reduce((a, b) => a + b.text.length, 0);
+
+function TypeCursor() {
+  return (
+    <span
+      aria-hidden
+      style={{ display: "inline-block", width: 2, height: "1.05em", verticalAlign: "text-bottom", marginLeft: 2, background: "#62d8f4", animation: "blink 1s step-end infinite" }}
+    />
+  );
+}
+
 function HowItWorksSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const labelCss: React.CSSProperties = { fontSize: 12, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" };
+  const [revealed, setRevealed] = useState(0);
+  const done = revealed >= SUMMARY_TOTAL;
+
+  useEffect(() => {
+    if (!open) {
+      setRevealed(0);
+      return;
+    }
+    setRevealed(0);
+    const start = setTimeout(() => {
+      const id = setInterval(() => {
+        setRevealed((n) => {
+          const next = n + 2;
+          if (next >= SUMMARY_TOTAL) {
+            clearInterval(id);
+            return SUMMARY_TOTAL;
+          }
+          return next;
+        });
+      }, 16);
+      // store on the closure so cleanup can clear it
+      cleanup = () => clearInterval(id);
+    }, 350); // brief "thinking" pause
+    let cleanup = () => {};
+    return () => {
+      clearTimeout(start);
+      cleanup();
+    };
+  }, [open]);
+
+  // map the global revealed-count onto each block
+  let acc = 0;
+  const rendered = SUMMARY_BLOCKS.map((b) => {
+    const startAt = acc;
+    acc += b.text.length;
+    const shown = Math.max(0, Math.min(b.text.length, revealed - startAt));
+    const active = revealed >= startAt && revealed < startAt + b.text.length;
+    return { ...b, shown, active };
+  }).filter((b) => b.shown > 0);
+
   return (
     <div
       className={`fixed inset-0 z-[60] mx-auto transition-opacity duration-300 ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
@@ -1129,48 +1193,59 @@ function HowItWorksSheet({ open, onClose }: { open: boolean; onClose: () => void
       <div
         className={`absolute bottom-0 inset-x-0 bg-white rounded-t-3xl overflow-y-auto transition-transform duration-300 ease-out ${open ? "translate-y-0" : "translate-y-full"}`}
         style={{ maxHeight: "88vh" }}
+        onClick={() => { if (!done) setRevealed(SUMMARY_TOTAL); }}
       >
         <div className="sticky top-0 bg-white pt-3 pb-2 flex justify-center"><div className="w-12 rounded-full bg-neutral-200" style={{ height: 6 }} /></div>
-        <div className="flex flex-col gap-6 px-6 pb-8 pt-3">
-          <div className="flex flex-col gap-1">
-            <div className="flex items-baseline gap-3">
-              <span className="font-display text-midnight" style={{ fontSize: 36, lineHeight: 1, letterSpacing: "-0.02em" }}>$9.99</span>
-              <span className="text-mid-gray line-through" style={{ fontSize: 14 }}>$24.99</span>
-              <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 4, padding: "2px 8px", fontSize: 12, fontWeight: 700, lineHeight: 1 }}>60% OFF</span>
+
+        <div className="flex flex-col px-6 pb-8 pt-2">
+          {/* AI assistant header */}
+          <div className="flex items-center gap-2.5 pb-4">
+            <span className="flex items-center justify-center rounded-full" style={{ width: 30, height: 30, background: "var(--color-mirror-cyan-subtle)" }}>
+              <AiIcon />
+            </span>
+            <div className="flex flex-col">
+              <span className="text-midnight" style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.1 }}>AI summary</span>
+              <span className="text-mid-gray" style={{ fontSize: 11, lineHeight: 1.2 }}>{done ? "Summarized this page" : "Reading this page…"}</span>
             </div>
-            <p className="text-mid-gray" style={{ fontSize: 14 }}>Skin Analysis &amp; Custom Routine — Phase 1</p>
-            <div className="mt-2 flex flex-col gap-1.5">
-              <div className="flex"><StarRow /></div>
-              <p className="text-mid-gray" style={{ fontSize: 12 }}>1 photo · 2 min · reviewed by Seoul experts</p>
+            <span className="ml-auto text-mid-gray" style={{ fontSize: 11 }}>{done ? "" : "tap to skip"}</span>
+          </div>
+
+          {/* streamed answer */}
+          <div className="flex flex-col gap-3">
+            {rendered.map((b, i) => {
+              const txt = b.text.slice(0, b.shown);
+              if (b.type === "h") {
+                return (
+                  <h3 key={i} className="text-mid-gray" style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", marginTop: 6 }}>
+                    {txt}{b.active && <TypeCursor />}
+                  </h3>
+                );
+              }
+              if (b.type === "li") {
+                return (
+                  <div key={i} className="flex items-start gap-2.5">
+                    <span className="mt-2 shrink-0 rounded-full" style={{ width: 6, height: 6, background: "#62d8f4" }} />
+                    <p className="text-[#2a2a2a]" style={{ fontSize: 14.5, lineHeight: 1.5 }}>{txt}{b.active && <TypeCursor />}</p>
+                  </div>
+                );
+              }
+              return (
+                <p key={i} className="text-[#1c1c1c]" style={{ fontSize: 15.5, lineHeight: 1.6 }}>{txt}{b.active && <TypeCursor />}</p>
+              );
+            })}
+          </div>
+
+          {/* CTAs appear once the summary finishes */}
+          {done && (
+            <div className="mt-7 flex flex-col gap-3" style={{ animation: "aiFadeUp 0.4s ease-out both" }}>
+              <a href="#" className="flex items-center justify-center rounded-lg text-midnight" style={{ height: 52, fontSize: 16, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
+                Try it free
+              </a>
+              <a href={PAYPAL_URL} target="_blank" rel="noopener noreferrer" className="text-center text-mid-gray" style={{ fontSize: 13.5, fontWeight: 600 }}>
+                Or get the full plan · $9.99 →
+              </a>
             </div>
-          </div>
-          <div className="h-px bg-neutral-200" />
-          <div className="flex flex-col gap-3">
-            <h3 className="text-mid-gray" style={labelCss}>What you get</h3>
-            <ul className="flex flex-col gap-3">
-              {[["📋", "A full read of your skin"], ["✨", "Custom AM & PM routine"], ["👩‍💼", "2 weeks of online skin coaching directly from our team"]].map(([e, t]) => (
-                <li key={t} className="flex items-start gap-3 text-midnight" style={{ fontSize: 16, lineHeight: 1.35 }}>
-                  <span style={{ fontSize: 20, lineHeight: 1 }}>{e}</span><span>{t}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="h-px bg-neutral-200" />
-          <div className="flex flex-col gap-3">
-            <h3 className="text-mid-gray" style={labelCss}>How it works</h3>
-            <ol className="flex flex-col gap-3">
-              {[["1", "Upload photos of your skin"], ["2", "Sumin — Korean skin expert & 8mirrors CEO — analyzes your skin"], ["3", "Receive your custom routine by email — 4 to 5 business days"]].map(([n, t]) => (
-                <li key={n} className="flex items-start gap-3 text-midnight" style={{ fontSize: 16, lineHeight: 1.35 }}>
-                  <span className="flex shrink-0 items-center justify-center rounded-full text-midnight" style={{ width: 24, height: 24, fontSize: 12, fontWeight: 600, background: "var(--color-mirror-cyan-subtle)" }}>{n}</span>
-                  <span>{t}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-          <p className="text-center text-mid-gray" style={{ fontSize: 12, lineHeight: 1.6 }}>Payment via PayPal or credit card · Delivered to your email</p>
-          <a href={PAYPAL_URL} target="_blank" rel="noopener noreferrer" className="rounded-lg px-6 py-4 text-center text-midnight" style={{ fontSize: 16, fontWeight: 700, background: "var(--color-mirror-cyan)", boxShadow: "var(--shadow-card)" }}>
-            Continue to PayPal · $9.99
-          </a>
+          )}
         </div>
       </div>
     </div>
