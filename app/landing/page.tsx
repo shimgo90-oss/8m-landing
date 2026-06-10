@@ -116,7 +116,7 @@ function StarRow({ rating = "4.8", count = "1,200+ reviews" }: { rating?: string
 function Hero() {
   const { t } = useI18n();
   return (
-    <section className="snap-start flex flex-col items-center justify-center px-6 text-center" style={{ minHeight: "100svh", paddingTop: 96, paddingBottom: 140 }}>
+    <section className="snap-start flex flex-col items-center justify-center px-6 text-center" style={{ minHeight: "100svh", paddingTop: 116, paddingBottom: 40 }}>
       <h1 className="font-display text-charcoal" style={{ fontSize: "clamp(28px, 7.5vw, 38px)", lineHeight: 1.15, fontWeight: 500, letterSpacing: "-0.015em", maxWidth: 420 }}>
         {t("hero.titleA")}{" "}
         <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", padding: "0 6px", borderRadius: 4 }}>
@@ -211,25 +211,24 @@ function RoutineThumbSquare({ size }: { size: number }) {
 
 function RoutineCard() {
   return (
-    <div className="h-full w-full rounded-[20px] bg-white p-4 flex flex-col justify-center gap-4" style={{ boxShadow: "var(--shadow-card)" }}>
-      <div>
-        <div className="flex items-baseline gap-1.5">
-          <span className="text-midnight" style={{ fontSize: 15, fontWeight: 700 }}>Daily</span>
-          <span className="text-mid-gray" style={{ fontSize: 11 }}>5</span>
+    <div className="flex items-start gap-3">
+      <div className="rounded-2xl bg-white p-3 flex flex-col items-center gap-2.5" style={{ boxShadow: "var(--shadow-card)" }}>
+        <div className="flex items-baseline gap-1">
+          <span className="text-midnight" style={{ fontSize: 13, fontWeight: 700 }}>Daily</span>
+          <span className="text-mid-gray" style={{ fontSize: 10 }}>5</span>
         </div>
-        <div className="flex gap-1.5 mt-2">
-          {Array.from({ length: 5 }).map((_, i) => <RoutineThumbSquare key={i} size={30} />)}
+        <div className="flex flex-col gap-1.5">
+          {Array.from({ length: 5 }).map((_, i) => <RoutineThumbSquare key={i} size={32} />)}
         </div>
       </div>
-      <div className="h-px bg-neutral-200" />
-      <div>
-        <div className="flex items-center gap-1.5">
-          <span className="text-midnight" style={{ fontSize: 15, fontWeight: 700 }}>Special</span>
-          <span className="text-mid-gray" style={{ fontSize: 11 }}>7</span>
-          <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 3, padding: "1px 5px", fontSize: 9, fontWeight: 700 }}>POPULAR</span>
+      <div className="rounded-2xl bg-white p-3 flex flex-col items-center gap-2.5" style={{ boxShadow: "var(--shadow-card)" }}>
+        <div className="flex items-center gap-1">
+          <span className="text-midnight" style={{ fontSize: 13, fontWeight: 700 }}>Special</span>
+          <span className="text-mid-gray" style={{ fontSize: 10 }}>7</span>
+          <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 3, padding: "1px 4px", fontSize: 8, fontWeight: 700 }}>POPULAR</span>
         </div>
-        <div className="flex gap-1 mt-2">
-          {Array.from({ length: 7 }).map((_, i) => <RoutineThumbSquare key={i} size={22} />)}
+        <div className="flex flex-col gap-1.5">
+          {Array.from({ length: 7 }).map((_, i) => <RoutineThumbSquare key={i} size={32} />)}
         </div>
       </div>
     </div>
@@ -365,10 +364,10 @@ function WhatYouGetStory() {
     return () => obs.disconnect();
   }, []);
 
-  const visuals = [<div key="r" style={{ width: 226 }}><RoutineCard /></div>, <SpectrumFrame key="sp" />, <RoutineCheckFrame key="rc" />];
+  const visuals = [<RoutineCard key="r" />, <SpectrumFrame key="sp" />, <RoutineCheckFrame key="rc" />];
 
   return (
-    <section ref={sectionRef} className="snap-start flex flex-col" style={{ minHeight: "100svh", paddingTop: 60, paddingBottom: 100, paddingLeft: 32, paddingRight: 32 }}>
+    <section ref={sectionRef} className="snap-start flex flex-col" style={{ minHeight: "100svh", paddingTop: 60, paddingBottom: 16, paddingLeft: 32, paddingRight: 32 }}>
       <div className="text-center text-charcoal" style={{ fontSize: 13, fontWeight: 700, letterSpacing: "0.14em", marginBottom: 14 }}>{t("wyg.eyebrow")}</div>
       <div
         className="relative flex flex-1 flex-col items-center justify-center overflow-hidden rounded-[28px] px-6 text-center"
