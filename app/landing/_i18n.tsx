@@ -53,7 +53,7 @@ const EN: Dict = {
   "coach.label": "YOUR 8MIRRORS EXPERTS",
   "bar.delivery": "4–5 day delivery",
   "bar.how": "How it works",
-  "bar.cta": "Get my custom report",
+  "bar.cta": "Try it free",
 };
 
 const FR: Dict = {
@@ -93,7 +93,7 @@ const FR: Dict = {
   "coach.label": "VOS EXPERTES 8MIRRORS",
   "bar.delivery": "Livraison 4–5 jours",
   "bar.how": "Comment ça marche",
-  "bar.cta": "Obtenir mon rapport",
+  "bar.cta": "Essayer gratuitement",
 };
 
 const ES: Dict = {
@@ -133,7 +133,7 @@ const ES: Dict = {
   "coach.label": "TUS EXPERTAS 8MIRRORS",
   "bar.delivery": "Entrega en 4–5 días",
   "bar.how": "Cómo funciona",
-  "bar.cta": "Obtener mi informe",
+  "bar.cta": "Pruébalo gratis",
 };
 
 const HI: Dict = {
@@ -173,7 +173,7 @@ const HI: Dict = {
   "coach.label": "आपके 8MIRRORS विशेषज्ञ",
   "bar.delivery": "4–5 दिन में डिलीवरी",
   "bar.how": "यह कैसे काम करता है",
-  "bar.cta": "मेरी रिपोर्ट पाएँ",
+  "bar.cta": "मुफ़्त आज़माएँ",
 };
 
 const STRINGS: Record<Locale, Dict> = { en: EN, fr: FR, es: ES, hi: HI };

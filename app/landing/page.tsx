@@ -701,12 +701,10 @@ function BeforeAfterSection() {
 function OfferSection() {
   const { t } = useI18n();
   return (
-    <section className="snap-start flex flex-col justify-center px-6" style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 150 }}>
+    <section className="snap-start flex flex-col px-6" style={{ paddingTop: 40, paddingBottom: 150 }}>
       <Eyebrow>{t("offer.eyebrow")}</Eyebrow>
-      <h2 className="font-display text-charcoal mt-2" style={{ fontSize: "clamp(26px, 7.5vw, 34px)", fontWeight: 500, lineHeight: 1.15, letterSpacing: "-0.01em" }}>
-        {t("offer.titleA")}
-        <br />
-        {t("offer.titleB")}
+      <h2 className="font-display text-charcoal mt-1.5" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2, letterSpacing: "-0.01em" }}>
+        {t("offer.titleA")} {t("offer.titleB")}
       </h2>
 
       <div className="mt-5 flex items-baseline gap-3">
