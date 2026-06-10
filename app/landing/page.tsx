@@ -1020,13 +1020,16 @@ const MENU: [string, string][] = [
   ["Contact Us", "contact"],
 ];
 
-function Header() {
+function Header({ hidden = false }: { hidden?: boolean }) {
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const { locale, setLocale } = useI18n();
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-[55]">
+      <header
+        className="fixed top-0 inset-x-0 z-[55]"
+        style={{ transform: hidden && !open ? "translateY(-100%)" : "translateY(0)", transition: "transform 0.3s ease" }}
+      >
         <div
           className="mx-auto flex items-center justify-between px-4"
           style={{ maxWidth: 480, height: 52, background: "#ffffff", borderBottom: "1px solid #eee" }}
@@ -1299,6 +1302,23 @@ export default function Landing() {
   const mainRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [count, setCount] = useState(0);
+  const [hideHeader, setHideHeader] = useState(false);
+
+  // Hide the top bar when scrolling down, reveal when scrolling up or near the top.
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    let last = main.scrollTop;
+    const onScroll = () => {
+      const cur = main.scrollTop;
+      if (cur < 8) setHideHeader(false);
+      else if (cur - last > 6) setHideHeader(true);
+      else if (last - cur > 6) setHideHeader(false);
+      last = cur;
+    };
+    main.addEventListener("scroll", onScroll, { passive: true });
+    return () => main.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const main = mainRef.current;
@@ -1322,7 +1342,7 @@ export default function Landing() {
 
   return (
     <LocaleProvider>
-      <Header />
+      <Header hidden={hideHeader} />
       <main ref={mainRef} className="mx-auto bg-white snap-y snap-mandatory" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}>
         <Hero />
         <WhatYouGetStory />
