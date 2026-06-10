@@ -117,7 +117,7 @@ function Hero() {
   const { t } = useI18n();
   return (
     <section
-      className="snap-start flex flex-col items-center justify-center px-6 text-center"
+      className="flex flex-col items-center justify-center px-6 text-center"
       style={{
         minHeight: "100svh",
         paddingTop: 116,
@@ -618,7 +618,7 @@ function ReportPanel({ panel, panelRef }: { panel: Panel; panelRef: (el: HTMLEle
   return (
     <section
       ref={panelRef}
-      className="snap-start flex flex-col justify-center px-5"
+      className="flex flex-col justify-center px-5"
       style={{ minHeight: "100svh", paddingTop: 168, paddingBottom: 150 }}
     >
       <Glimpse max={boxed ? 400 : 440} boxed={boxed}><Visual /></Glimpse>
@@ -656,7 +656,7 @@ function TeamAvatars({ size = 48 }: { size?: number }) {
 function TeamSection() {
   const { t } = useI18n();
   return (
-    <section className="snap-start flex flex-col items-center justify-center px-6 text-center" style={{ minHeight: "100svh", paddingTop: 64, paddingBottom: 120 }}>
+    <section className="flex flex-col items-center justify-center px-6 text-center" style={{ minHeight: "100svh", paddingTop: 64, paddingBottom: 120 }}>
       <Eyebrow>{t("team.eyebrow")}</Eyebrow>
       <div className="mt-6"><TeamAvatars size={74} /></div>
       <h2 className="font-display text-charcoal mt-7" style={{ fontSize: "clamp(26px, 7.5vw, 34px)", fontWeight: 500, lineHeight: 1.15, letterSpacing: "-0.01em" }}>
@@ -696,7 +696,7 @@ function ReportArchiveSection() {
   const { t } = useI18n();
   const pages = [...REPORT_PAGES, ...REPORT_PAGES]; // duplicated for a seamless loop
   return (
-    <section className="snap-start flex flex-col justify-center overflow-hidden" style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 150 }}>
+    <section className="flex flex-col justify-center overflow-hidden" style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 150 }}>
       <div className="px-6 text-center">
         <Eyebrow>{t("full.eyebrow")}</Eyebrow>
         <h2 className="font-display text-charcoal mt-2" style={{ fontSize: "clamp(26px, 7.5vw, 34px)", fontWeight: 500, lineHeight: 1.15, letterSpacing: "-0.01em" }}>
@@ -752,7 +752,7 @@ const BEFORE_AFTER = [
 function BeforeAfterSection() {
   const { t } = useI18n();
   return (
-    <section className="snap-start flex flex-col justify-center" style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 150 }}>
+    <section className="flex flex-col justify-center" style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 150 }}>
       <div className="px-6 text-center">
         <Eyebrow>{t("results.eyebrow")}</Eyebrow>
         <h2 className="font-display text-charcoal mt-2" style={{ fontSize: "clamp(26px, 7.5vw, 34px)", fontWeight: 500, lineHeight: 1.15, letterSpacing: "-0.01em" }}>
@@ -849,11 +849,13 @@ function OfferSection() {
   const hair = { boxShadow: "inset 0 -1px 0 #f1f1f1" } as React.CSSProperties;
 
   return (
-    <section className="snap-start flex flex-col justify-center px-5" style={{ minHeight: "100svh", paddingTop: 56, paddingBottom: 40 }}>
-      <Eyebrow>CHOOSE YOUR PLAN</Eyebrow>
-      <h2 className="font-display text-charcoal mt-1.5" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2, letterSpacing: "-0.01em" }}>
-        Start free, or get the full plan
-      </h2>
+    <section className="flex flex-col justify-center px-5" style={{ minHeight: "100svh", paddingTop: 56, paddingBottom: 40 }}>
+      <div className="text-center">
+        <Eyebrow>CHOOSE YOUR PLAN</Eyebrow>
+        <h2 className="font-display text-charcoal mt-1.5" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2, letterSpacing: "-0.01em" }}>
+          Start free, or get the full plan
+        </h2>
+      </div>
 
       <div className="relative mt-5">
         {/* highlighted Full column */}
@@ -994,7 +996,7 @@ function StoryCard({ s }: { s: Story }) {
 
 function StoriesSection() {
   return (
-    <section className="snap-start flex flex-col justify-center" style={{ minHeight: "100svh", paddingTop: 52, paddingBottom: 116, background: "#f4f4f6" }}>
+    <section className="flex flex-col justify-center" style={{ minHeight: "100svh", paddingTop: 52, paddingBottom: 116, background: "#f4f4f6" }}>
       <div className="px-5 text-left">
         <Eyebrow>CUSTOMER STORIES</Eyebrow>
         <h2 className="font-display text-charcoal mt-1.5" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2, letterSpacing: "-0.01em" }}>
@@ -1307,7 +1309,7 @@ function BuyBar({ show = true }: { show?: boolean }) {
 
 function Footer() {
   return (
-    <section className="snap-start flex flex-col" style={{ minHeight: "100svh", background: "#111111", paddingTop: 92, paddingBottom: 40, paddingLeft: 24, paddingRight: 24 }}>
+    <section className="flex flex-col" style={{ minHeight: "100svh", background: "#111111", paddingTop: 92, paddingBottom: 40, paddingLeft: 24, paddingRight: 24 }}>
       <Image
         src="/logo.png"
         alt="8mirrors"
@@ -1390,7 +1392,7 @@ export default function Landing() {
   return (
     <LocaleProvider>
       <Header hidden={hideHeader} />
-      <main ref={mainRef} className="mx-auto bg-white snap-y snap-mandatory" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}>
+      <main ref={mainRef} className="mx-auto bg-white snap-y snap-proximity" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}>
         <Hero />
         <WhatYouGetStory />
         <ReportArchiveSection />
