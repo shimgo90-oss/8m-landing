@@ -786,16 +786,16 @@ type PlanRow = { label: string; free: boolean | string; full: boolean | string }
 const PLAN_ROWS: PlanRow[] = [
   { label: "Skin photos", free: "1", full: "3" },
   { label: "In-depth questionnaire", free: false, full: true },
-  { label: "Skin graph + concern keywords", free: true, full: true },
+  { label: "Skin graph + keywords", free: true, full: true },
   { label: "Custom routine", free: "2 steps", full: "Full" },
-  { label: "Current routine product check", free: false, full: true },
-  { label: "In-depth 8mirrors team analysis", free: false, full: true },
-  { label: "Treatment plan + report PDF", free: false, full: true },
-  { label: "40% off products + free shipping", free: false, full: true },
+  { label: "Current routine check", free: false, full: true },
+  { label: "8mirrors team analysis", free: false, full: true },
+  { label: "Treatment plan + PDF", free: false, full: true },
+  { label: "40% off + free shipping", free: false, full: true },
 ];
 
-const FREE_W = 70;
-const FULL_W = 104;
+const FREE_W = 112;
+const FULL_W = 124;
 
 function PlanCell({ v }: { v: boolean | string }) {
   if (typeof v === "string") {
@@ -822,20 +822,33 @@ function OfferSection() {
           style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: FULL_W, borderRadius: 14, background: "rgba(98,216,244,0.07)", boxShadow: "inset 0 0 0 1.5px #62d8f4", pointerEvents: "none" }}
         />
 
-        <div style={{ display: "grid", gridTemplateColumns: `1fr ${FREE_W}px ${FULL_W}px` }}>
-          {/* header */}
-          <div className={cell} style={{ ...hair, justifyContent: "flex-start" }} />
-          <div className={`${cell} flex-col gap-0.5`} style={hair}>
+        <div style={{ display: "grid", gridTemplateColumns: `1fr ${FREE_W}px ${FULL_W}px`, alignItems: "stretch" }}>
+          {/* header: name + price */}
+          <div className="flex items-end" />
+          <div className="flex flex-col items-center gap-0.5 pt-1">
             <span className="text-mid-gray" style={{ fontSize: 12, fontWeight: 700 }}>Free</span>
-            <span className="font-display text-midnight" style={{ fontSize: 18, lineHeight: 1 }}>$0</span>
+            <span className="font-display text-midnight" style={{ fontSize: 20, lineHeight: 1 }}>$0</span>
           </div>
-          <div className={`${cell} flex-col gap-0.5`} style={{ ...hair, paddingTop: 14 }}>
+          <div className="flex flex-col items-center gap-0.5" style={{ paddingTop: 12 }}>
             <span className="text-midnight" style={{ background: "#242424", color: "#fff", borderRadius: 999, padding: "2px 7px", fontSize: 9, fontWeight: 700, letterSpacing: "0.04em" }}>BEST VALUE</span>
             <span className="text-midnight" style={{ fontSize: 12, fontWeight: 700, marginTop: 1 }}>Full</span>
             <div className="flex items-baseline gap-1">
-              <span className="font-display text-midnight" style={{ fontSize: 18, lineHeight: 1 }}>$9.99</span>
+              <span className="font-display text-midnight" style={{ fontSize: 20, lineHeight: 1 }}>$9.99</span>
               <span className="text-mid-gray line-through" style={{ fontSize: 10 }}>$24.99</span>
             </div>
+          </div>
+
+          {/* header: CTA under each plan title */}
+          <div />
+          <div className="flex items-center justify-center" style={{ padding: "10px 7px 14px" }}>
+            <a href="#" className="flex w-full items-center justify-center rounded-lg bg-white text-midnight" style={{ height: 38, fontSize: 13, fontWeight: 700, whiteSpace: "nowrap", boxShadow: "inset 0 0 0 1.5px #e3e3e3" }}>
+              Try it free
+            </a>
+          </div>
+          <div className="flex items-center justify-center" style={{ padding: "10px 7px 14px" }}>
+            <a href={PAYPAL_URL} target="_blank" rel="noopener noreferrer" className="flex w-full items-center justify-center rounded-lg text-midnight" style={{ height: 38, fontSize: 13, fontWeight: 700, whiteSpace: "nowrap", background: "var(--color-mirror-cyan)" }}>
+              Get plan
+            </a>
           </div>
 
           {/* rows */}
@@ -851,17 +864,7 @@ function OfferSection() {
         </div>
       </div>
 
-      {/* CTAs */}
-      <div className="mt-4 flex gap-2.5">
-        <a href="#" className="flex flex-1 items-center justify-center rounded-lg bg-white text-midnight" style={{ height: 50, fontSize: 15, fontWeight: 700, boxShadow: "inset 0 0 0 1.5px #e3e3e3" }}>
-          Try it free
-        </a>
-        <a href={PAYPAL_URL} target="_blank" rel="noopener noreferrer" className="flex flex-1 items-center justify-center rounded-lg text-midnight" style={{ height: 50, fontSize: 15, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
-          Get full plan
-        </a>
-      </div>
-
-      <p className="text-mid-gray mt-3 text-center" style={{ fontSize: 11.5, lineHeight: 1.4 }}>
+      <p className="text-mid-gray mt-4 text-center" style={{ fontSize: 11.5, lineHeight: 1.4 }}>
         Your eyes are auto-masked — <span className="text-midnight font-semibold">photos stay private</span>, seen only by your skin team.
       </p>
     </section>
@@ -886,8 +889,27 @@ function MoonIcon() {
   );
 }
 
-function RoutineThumb() {
-  return <div className="shrink-0 rounded" style={{ width: 30, height: 30, background: "#fff", boxShadow: "inset 0 0 0 1px #e0e0e0" }} />;
+const PRODUCT_SRC: Record<string, string> = {
+  cleanser: "/products/cleanser.png",
+  toner: "/products/toner.png",
+  serum: "/products/serum.png",
+  cream: "/products/cream.png",
+};
+// Cleanser → Toner → Serum → Cream → Sunscreen. PM drops sunscreen.
+const AM_ROUTINE = ["cleanser", "toner", "serum", "cream", "sunscreen"];
+const PM_ROUTINE = ["cleanser", "toner", "serum", "cream"];
+
+function RoutineThumb({ kind }: { kind: string }) {
+  const src = PRODUCT_SRC[kind];
+  return (
+    <div className="shrink-0 overflow-hidden rounded" style={{ width: 30, height: 30, background: "#fff", boxShadow: "inset 0 0 0 1px #e6e6e6" }}>
+      {src ? (
+        <Image src={src} alt={kind} width={60} height={60} className="w-full h-full object-contain" style={{ padding: 2 }} unoptimized />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center" style={{ fontSize: 8, fontWeight: 700, color: "#9a9a9a" }}>SPF</div>
+      )}
+    </div>
+  );
 }
 
 type Story = { who: string; quote: string; img: string; concerns: string[]; goals: string[]; am: number; pm: number };
@@ -915,13 +937,13 @@ const STORIES: Story[] = [
 
 function StoryCard({ s }: { s: Story }) {
   return (
-    <article className="flex shrink-0 flex-col gap-2.5 rounded-2xl bg-white p-3" style={{ width: 268, boxShadow: "var(--shadow-card)" }}>
+    <article className="flex shrink-0 flex-col gap-2 rounded-2xl bg-white p-3" style={{ width: 268, boxShadow: "var(--shadow-card)" }}>
       <div className="flex flex-col gap-0.5">
         <p className="text-mid-gray" style={{ fontSize: 11 }}>{s.who}</p>
         <p className="text-midnight" style={{ fontSize: 13, lineHeight: 1.4 }}>&ldquo;{s.quote}&rdquo;</p>
       </div>
 
-      <div className="overflow-hidden rounded-lg" style={{ height: 140, background: "#f0f0f0" }}>
+      <div className="overflow-hidden rounded-lg" style={{ height: 126, background: "#f0f0f0" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={s.img} alt="Before and after" loading="lazy" className="w-full h-full object-cover" />
       </div>
@@ -945,8 +967,8 @@ function StoryCard({ s }: { s: Story }) {
       <div className="flex flex-col gap-1.5">
         <span className="text-mid-gray" style={{ fontSize: 11, fontWeight: 600 }}>Custom Routine</span>
         <div className="flex flex-col gap-1.5 rounded-lg p-2.5" style={{ background: "var(--color-canvas)" }}>
-          <div className="flex items-center gap-1.5"><SunIcon />{Array.from({ length: s.am }).map((_, i) => <RoutineThumb key={i} />)}</div>
-          <div className="flex items-center gap-1.5"><MoonIcon />{Array.from({ length: s.pm }).map((_, i) => <RoutineThumb key={i} />)}</div>
+          <div className="flex items-center gap-1.5"><SunIcon />{AM_ROUTINE.map((k, i) => <RoutineThumb key={i} kind={k} />)}</div>
+          <div className="flex items-center gap-1.5"><MoonIcon />{PM_ROUTINE.map((k, i) => <RoutineThumb key={i} kind={k} />)}</div>
         </div>
       </div>
     </article>
@@ -955,7 +977,7 @@ function StoryCard({ s }: { s: Story }) {
 
 function StoriesSection() {
   return (
-    <section className="snap-start flex flex-col justify-center" style={{ minHeight: "100svh", paddingTop: 72, paddingBottom: 140 }}>
+    <section className="snap-start flex flex-col justify-center" style={{ minHeight: "100svh", paddingTop: 52, paddingBottom: 116, background: "#f4f4f6" }}>
       <div className="px-5 text-left">
         <Eyebrow>CUSTOMER STORIES</Eyebrow>
         <h2 className="font-display text-charcoal mt-1.5" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2, letterSpacing: "-0.01em" }}>
@@ -966,6 +988,11 @@ function StoriesSection() {
         {STORIES.map((s, i) => (
           <div key={i} style={{ scrollSnapAlign: "start" }}><StoryCard s={s} /></div>
         ))}
+      </div>
+      <div className="mt-4 px-5">
+        <a href="/landing/before-afters" className="inline-flex items-center gap-1.5 rounded-lg bg-white px-5 py-2.5 text-midnight" style={{ fontSize: 14, fontWeight: 600, boxShadow: "var(--shadow-card)" }}>
+          See all before &amp; afters <span aria-hidden>→</span>
+        </a>
       </div>
     </section>
   );
