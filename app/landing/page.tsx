@@ -987,7 +987,7 @@ function HowItWorksSheet({ open, onClose }: { open: boolean; onClose: () => void
           <div className="flex flex-col gap-3">
             <h3 className="text-mid-gray" style={labelCss}>What you get</h3>
             <ul className="flex flex-col gap-3">
-              {[["📋", "Detailed skin analysis report"], ["✨", "Custom AM & PM routine"], ["👩‍💼", "2 weeks of online skin coaching directly from our team"]].map(([e, t]) => (
+              {[["📋", "A full read of your skin"], ["✨", "Custom AM & PM routine"], ["👩‍💼", "2 weeks of online skin coaching directly from our team"]].map(([e, t]) => (
                 <li key={t} className="flex items-start gap-3 text-midnight" style={{ fontSize: 16, lineHeight: 1.35 }}>
                   <span style={{ fontSize: 20, lineHeight: 1 }}>{e}</span><span>{t}</span>
                 </li>
