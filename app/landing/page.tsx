@@ -814,6 +814,36 @@ function PlanCell({ v }: { v: boolean | string }) {
   return v ? <PlanCheck /> : <span style={{ color: "#cfcfcf", fontSize: 16, lineHeight: 1 }}>–</span>;
 }
 
+function PlanHeader({
+  name, price, oldPrice, badge, ctaLabel, ctaHref, newTab, accent,
+}: {
+  name: string; price: string; oldPrice?: string; badge?: boolean;
+  ctaLabel: string; ctaHref: string; newTab?: boolean; accent?: boolean;
+}) {
+  return (
+    <div className="flex flex-col items-center" style={{ paddingTop: 12, paddingBottom: 14, paddingLeft: 7, paddingRight: 7 }}>
+      {badge ? (
+        <span style={{ background: "#242424", color: "#fff", borderRadius: 999, padding: "2px 7px", fontSize: 9, fontWeight: 700, letterSpacing: "0.04em" }}>BEST VALUE</span>
+      ) : (
+        <span aria-hidden style={{ height: 15 }} />
+      )}
+      <span className="text-midnight" style={{ fontSize: 12, fontWeight: 700, marginTop: 6 }}>{name}</span>
+      <div className="flex items-baseline gap-1" style={{ marginTop: 3, height: 20 }}>
+        <span className="font-display text-midnight" style={{ fontSize: 20, lineHeight: 1 }}>{price}</span>
+        {oldPrice && <span className="text-mid-gray line-through" style={{ fontSize: 10 }}>{oldPrice}</span>}
+      </div>
+      <a
+        href={ctaHref}
+        {...(newTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        className="mt-3.5 flex w-full items-center justify-center rounded-lg text-midnight"
+        style={{ height: 38, fontSize: 13, fontWeight: 700, whiteSpace: "nowrap", ...(accent ? { background: "var(--color-mirror-cyan)" } : { background: "#fff", boxShadow: "inset 0 0 0 1.5px #e3e3e3" }) }}
+      >
+        {ctaLabel}
+      </a>
+    </div>
+  );
+}
+
 function OfferSection() {
   const cell = "flex items-center justify-center py-2.5";
   const hair = { boxShadow: "inset 0 -1px 0 #f1f1f1" } as React.CSSProperties;
@@ -833,33 +863,10 @@ function OfferSection() {
         />
 
         <div style={{ display: "grid", gridTemplateColumns: `1fr ${FREE_W}px ${FULL_W}px`, alignItems: "stretch" }}>
-          {/* header: name + price */}
-          <div className="flex items-end" />
-          <div className="flex flex-col items-center gap-0.5 pt-1">
-            <span className="text-mid-gray" style={{ fontSize: 12, fontWeight: 700 }}>Free</span>
-            <span className="font-display text-midnight" style={{ fontSize: 20, lineHeight: 1 }}>$0</span>
-          </div>
-          <div className="flex flex-col items-center gap-0.5" style={{ paddingTop: 12 }}>
-            <span className="text-midnight" style={{ background: "#242424", color: "#fff", borderRadius: 999, padding: "2px 7px", fontSize: 9, fontWeight: 700, letterSpacing: "0.04em" }}>BEST VALUE</span>
-            <span className="text-midnight" style={{ fontSize: 12, fontWeight: 700, marginTop: 1 }}>Full</span>
-            <div className="flex items-baseline gap-1">
-              <span className="font-display text-midnight" style={{ fontSize: 20, lineHeight: 1 }}>$9.99</span>
-              <span className="text-mid-gray line-through" style={{ fontSize: 10 }}>$24.99</span>
-            </div>
-          </div>
-
-          {/* header: CTA under each plan title */}
+          {/* header: name + price + CTA (one cell per plan so lines align) */}
           <div />
-          <div className="flex items-center justify-center" style={{ padding: "10px 7px 14px" }}>
-            <a href="#" className="flex w-full items-center justify-center rounded-lg bg-white text-midnight" style={{ height: 38, fontSize: 13, fontWeight: 700, whiteSpace: "nowrap", boxShadow: "inset 0 0 0 1.5px #e3e3e3" }}>
-              Try it free
-            </a>
-          </div>
-          <div className="flex items-center justify-center" style={{ padding: "10px 7px 14px" }}>
-            <a href={PAYPAL_URL} target="_blank" rel="noopener noreferrer" className="flex w-full items-center justify-center rounded-lg text-midnight" style={{ height: 38, fontSize: 13, fontWeight: 700, whiteSpace: "nowrap", background: "var(--color-mirror-cyan)" }}>
-              Get plan
-            </a>
-          </div>
+          <PlanHeader name="Free" price="$0" ctaLabel="Try it free" ctaHref="#" />
+          <PlanHeader name="Full" price="$9.99" oldPrice="$24.99" badge accent ctaLabel="Get plan" ctaHref={PAYPAL_URL} newTab />
 
           {/* rows */}
           {PLAN_ROWS.map((r) => (
@@ -1296,6 +1303,46 @@ function BuyBar({ show = true }: { show?: boolean }) {
   );
 }
 
+/* ───────────────────────── Footer ───────────────────────── */
+
+function Footer() {
+  return (
+    <section className="snap-start flex flex-col" style={{ minHeight: "100svh", background: "#111111", paddingTop: 92, paddingBottom: 40, paddingLeft: 24, paddingRight: 24 }}>
+      <Image
+        src="/logo.png"
+        alt="8mirrors"
+        width={440}
+        height={90}
+        unoptimized
+        style={{ width: 232, height: "auto", filter: "brightness(0) invert(1)" }}
+      />
+      <p style={{ color: "#8c8c8c", fontSize: 14, lineHeight: 1.55, marginTop: 18, maxWidth: 300 }}>
+        Custom K-beauty routines — read and built by Seoul skin experts, shipped worldwide.
+      </p>
+
+      <a href="#" className="mt-7 inline-flex w-fit items-center justify-center rounded-lg text-midnight" style={{ background: "var(--color-mirror-cyan)", padding: "12px 22px", fontSize: 15, fontWeight: 700 }}>
+        Try it free
+      </a>
+
+      <nav className="mt-10 grid grid-cols-2" style={{ rowGap: 15, columnGap: 16 }}>
+        {MENU.map(([label, slug]) => (
+          <a key={slug} href={`/landing/${slug}`} style={{ color: "#b6b6b6", fontSize: 14 }}>
+            {label}
+          </a>
+        ))}
+      </nav>
+
+      <div className="mt-auto">
+        <div style={{ height: 1, background: "#272727" }} />
+        <div className="flex flex-col pt-5" style={{ rowGap: 4 }}>
+          <p style={{ color: "#6f6f6f", fontSize: 12 }}>© 2026 8mirrors. All rights reserved.</p>
+          <p style={{ color: "#6f6f6f", fontSize: 12 }}>Designed in Seoul · Shipped worldwide.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ───────────────────────── Page ───────────────────────── */
 
 export default function Landing() {
@@ -1350,8 +1397,9 @@ export default function Landing() {
         <TeamSection />
         <StoriesSection />
         <OfferSection />
+        <Footer />
       </main>
-      <BuyBar show={active !== 0 && active !== count - 1} />
+      <BuyBar show={active > 0 && active < count - 2} />
     </LocaleProvider>
   );
 }
