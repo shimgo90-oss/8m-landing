@@ -385,7 +385,7 @@ function WhatYouGetStory() {
   const visuals = [<RoutineCard key="r" />, <SpectrumFrame key="sp" />, <RoutineCheckFrame key="rc" />];
 
   return (
-    <section ref={sectionRef} data-snap-story className="flex flex-col" style={{ minHeight: "100svh", paddingTop: 60, paddingBottom: 16, paddingLeft: 32, paddingRight: 32 }}>
+    <section ref={sectionRef} data-snap-story className="snap-start flex flex-col" style={{ minHeight: "100svh", paddingTop: 60, paddingBottom: 16, paddingLeft: 32, paddingRight: 32 }}>
       <div className="text-center text-charcoal" style={{ fontSize: 13, fontWeight: 700, letterSpacing: "0.14em", marginBottom: 14 }}>{t("wyg.eyebrow")}</div>
       <div
         onClick={(e) => {
@@ -1406,7 +1406,7 @@ export default function Landing() {
   return (
     <LocaleProvider>
       <Header hidden={hideHeader} />
-      <main ref={mainRef} className="mx-auto bg-white" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}>
+      <main ref={mainRef} className="mx-auto bg-white snap-y snap-proximity" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}>
         <Hero />
         <WhatYouGetStory />
         <ReportArchiveSection />
