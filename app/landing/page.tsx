@@ -799,19 +799,19 @@ function StoryCard({ s }: { s: Story }) {
         <img src={s.img} alt="Before and after" loading="lazy" className="w-full h-full object-cover" />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <span className="text-mid-gray" style={{ fontSize: 13, fontWeight: 500 }}>Concerns</span>
-        <div className="flex flex-wrap gap-2">
+      <div className="flex flex-col gap-1.5">
+        <span className="text-mid-gray" style={{ fontSize: 11, fontWeight: 600 }}>Concerns</span>
+        <div className="flex flex-wrap gap-1.5">
           {s.concerns.map((c) => (
-            <span key={c} className="rounded-full bg-white text-midnight" style={{ fontSize: 12, fontWeight: 500, padding: "4px 12px", boxShadow: "inset 0 0 0 1px #e0e0e0" }}>{c}</span>
+            <span key={c} className="rounded-full bg-white text-midnight" style={{ fontSize: 10, fontWeight: 500, padding: "2px 8px", boxShadow: "inset 0 0 0 1px #e0e0e0" }}>{c}</span>
           ))}
         </div>
       </div>
 
-      <div className="flex flex-col gap-1.5">
-        <span className="text-mid-gray" style={{ fontSize: 13, fontWeight: 500 }}>Goal</span>
+      <div className="flex flex-col gap-1">
+        <span className="text-mid-gray" style={{ fontSize: 11, fontWeight: 600 }}>Goal</span>
         {s.goals.map((g, i) => (
-          <p key={g} className="text-midnight" style={{ fontSize: 15, fontWeight: 500, lineHeight: 1.35 }}>{i + 1}. {g}</p>
+          <p key={g} className="text-midnight" style={{ fontSize: 12, fontWeight: 500, lineHeight: 1.3 }}>{i + 1}. {g}</p>
         ))}
       </div>
 
