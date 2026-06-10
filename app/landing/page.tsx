@@ -352,18 +352,42 @@ function PlanFrame() {
   );
 }
 
+// spectrum-radar/Mini (DS catalog "radar compact"): rings + 10 axes/dots + organic
+// cyan plot + soft radial glow, with lime keyword chips stacked below.
 function SpectrumFrame() {
+  const S = 184;
+  const c = S / 2;
+  const R = 82;
+  const deg = (i: number) => (i * 36 - 90) * (Math.PI / 180);
+  const pt = (i: number, r: number): [number, number] => [c + r * Math.cos(deg(i)), c + r * Math.sin(deg(i))];
+  const plot = [0.92, 0.72, 0.55, 0.5, 0.62, 0.9, 0.66, 0.46, 0.6, 0.82];
+  const poly = plot.map((f, i) => pt(i, R * f).join(",")).join(" ");
   return (
     <div className="flex flex-col items-center">
-      <div className="relative" style={{ width: 184, height: 184 }}>
-        {[184, 132, 84].map((d) => (
-          <div key={d} className="absolute rounded-full" style={{ width: d, height: d, left: (184 - d) / 2, top: (184 - d) / 2, border: "1px solid rgba(255,255,255,0.16)" }} />
+      <svg width={S} height={S} viewBox={`0 0 ${S} ${S}`} aria-hidden>
+        <defs>
+          <radialGradient id="specGlow">
+            <stop offset="0%" stopColor="#62d8f4" stopOpacity="0.5" />
+            <stop offset="78%" stopColor="#62d8f4" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        <circle cx={c} cy={c} r={R + 8} fill="url(#specGlow)" />
+        {[0.34, 0.62, 0.86, 1].map((f, i) => (
+          <circle key={i} cx={c} cy={c} r={R * f} fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth={1} />
         ))}
-        <div className="absolute rounded-full" style={{ width: 122, height: 104, left: 31, top: 44, background: "#62d8f433", border: "2px solid #62d8f4" }} />
-      </div>
-      <div className="mt-5 flex gap-1.5">
-        {["Hydration", "Sebum", "Redness"].map((k) => (
-          <span key={k} className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 4, padding: "2px 8px", fontSize: 10, fontWeight: 600 }}>{k}</span>
+        {plot.map((_, i) => {
+          const [x, y] = pt(i, R);
+          return <line key={`l${i}`} x1={c} y1={c} x2={x} y2={y} stroke="rgba(255,255,255,0.1)" strokeWidth={1} />;
+        })}
+        <polygon points={poly} fill="#62d8f455" stroke="#62d8f4" strokeWidth={2} strokeLinejoin="round" />
+        {plot.map((_, i) => {
+          const [x, y] = pt(i, R);
+          return <circle key={`d${i}`} cx={x} cy={y} r={3} fill="rgba(255,255,255,0.45)" />;
+        })}
+      </svg>
+      <div className="mt-4 flex flex-col items-center gap-1.5">
+        {["Dehydration", "Sensitivity", "Oily T-zone"].map((k) => (
+          <span key={k} className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 999, padding: "3px 12px", fontSize: 11, fontWeight: 600 }}>{k}</span>
         ))}
       </div>
     </div>
