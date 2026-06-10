@@ -385,7 +385,7 @@ function WhatYouGetStory() {
   const visuals = [<RoutineCard key="r" />, <SpectrumFrame key="sp" />, <RoutineCheckFrame key="rc" />];
 
   return (
-    <section ref={sectionRef} data-snap-story className="snap-start flex flex-col" style={{ minHeight: "100svh", paddingTop: 60, paddingBottom: 16, paddingLeft: 32, paddingRight: 32 }}>
+    <section ref={sectionRef} data-snap-story className="flex flex-col" style={{ minHeight: "100svh", paddingTop: 60, paddingBottom: 16, paddingLeft: 32, paddingRight: 32 }}>
       <div className="text-center text-charcoal" style={{ fontSize: 13, fontWeight: 700, letterSpacing: "0.14em", marginBottom: 14 }}>{t("wyg.eyebrow")}</div>
       <div
         onClick={(e) => {
@@ -1367,6 +1367,32 @@ export default function Landing() {
   const [count, setCount] = useState(0);
   const [hideHeader, setHideHeader] = useState(false);
 
+  // Snap-on-settle: ONLY after scrolling fully stops, if the story section is near,
+  // glide it into place. Runs after momentum ends, so it never fights active scroll.
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const story = main.querySelector("[data-snap-story]") as HTMLElement | null;
+    if (!story) return;
+    let t: ReturnType<typeof setTimeout>;
+    const settle = () => {
+      const vh = main.clientHeight;
+      const top = story.getBoundingClientRect().top - main.getBoundingClientRect().top;
+      if (Math.abs(top) > 2 && Math.abs(top) < vh * 0.45) {
+        main.scrollTo({ top: main.scrollTop + top, behavior: "smooth" });
+      }
+    };
+    const onScroll = () => {
+      clearTimeout(t);
+      t = setTimeout(settle, 140); // fires only once scrolling is idle for 140ms
+    };
+    main.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      main.removeEventListener("scroll", onScroll);
+      clearTimeout(t);
+    };
+  }, []);
+
   // Hide the top bar when scrolling down, reveal when scrolling up or near the top.
   useEffect(() => {
     const main = mainRef.current;
@@ -1406,7 +1432,7 @@ export default function Landing() {
   return (
     <LocaleProvider>
       <Header hidden={hideHeader} />
-      <main ref={mainRef} className="mx-auto bg-white snap-y snap-proximity" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}>
+      <main ref={mainRef} className="mx-auto bg-white" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}>
         <Hero />
         <WhatYouGetStory />
         <ReportArchiveSection />
