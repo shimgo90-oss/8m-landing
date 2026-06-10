@@ -116,7 +116,17 @@ function StarRow({ rating = "4.8", count = "1,200+ reviews" }: { rating?: string
 function Hero() {
   const { t } = useI18n();
   return (
-    <section className="snap-start flex flex-col items-center justify-center px-6 text-center" style={{ minHeight: "100svh", paddingTop: 116, paddingBottom: 40 }}>
+    <section
+      className="snap-start flex flex-col items-center justify-center px-6 text-center"
+      style={{
+        minHeight: "100svh",
+        paddingTop: 116,
+        paddingBottom: 40,
+        backgroundColor: "#ffffff",
+        backgroundImage: "radial-gradient(circle, rgba(17,24,39,0.05) 1px, transparent 1.3px)",
+        backgroundSize: "22px 22px",
+      }}
+    >
       <h1 className="font-display text-charcoal" style={{ fontSize: "clamp(28px, 7.5vw, 38px)", lineHeight: 1.15, fontWeight: 500, letterSpacing: "-0.015em", maxWidth: 420 }}>
         {t("hero.titleA")}{" "}
         <span className="text-midnight" style={{ background: "var(--color-lumen-lime)", padding: "0 6px", borderRadius: 4 }}>
