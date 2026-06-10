@@ -146,9 +146,9 @@ function Hero() {
 /* ───────────────────────── How it works (auto-swipe) ───────────────────────── */
 
 const HIW_STEPS = [
+  { title: "A custom routine,\nbuilt just for your skin" }, // 커스텀 루틴
+  { title: "Your skin,\nas a clear spectrum" }, // 피부 스펙트럼
   { title: "We check your\ncurrent routine" }, // 루틴 점검
-  { title: "A custom routine,\nbuilt just for your skin" }, // What you get — 커스텀 루틴
-  { title: "All in one plan,\nstraight to your inbox" }, // 플랜 형태로 전달
 ] as const;
 
 function DiagnosisCard() {
@@ -297,6 +297,24 @@ function PlanFrame() {
   );
 }
 
+function SpectrumFrame() {
+  return (
+    <div className="flex flex-col items-center">
+      <div className="relative" style={{ width: 184, height: 184 }}>
+        {[184, 132, 84].map((d) => (
+          <div key={d} className="absolute rounded-full" style={{ width: d, height: d, left: (184 - d) / 2, top: (184 - d) / 2, border: "1px solid rgba(255,255,255,0.16)" }} />
+        ))}
+        <div className="absolute rounded-full" style={{ width: 122, height: 104, left: 31, top: 44, background: "#62d8f433", border: "2px solid #62d8f4" }} />
+      </div>
+      <div className="mt-5 flex gap-1.5">
+        {["Hydration", "Sebum", "Redness"].map((k) => (
+          <span key={k} className="text-midnight" style={{ background: "var(--color-lumen-lime)", borderRadius: 4, padding: "2px 8px", fontSize: 10, fontWeight: 600 }}>{k}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // Full-screen Instagram-story (dark, inset) for the 3 "what you get" frames.
 function WhatYouGetStory() {
   const { t } = useI18n();
@@ -307,16 +325,24 @@ function WhatYouGetStory() {
   const sectionRef = useRef<HTMLElement>(null);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const start = () => { if (timer.current) clearInterval(timer.current); timer.current = setInterval(() => setFrame((f) => (f + 1) % N), 3600); };
-  useEffect(() => { start(); return () => { if (timer.current) clearInterval(timer.current); }; }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const go = (d: number) => { setFrame((f) => (f + d + N) % N); start(); };
+  const go = (d: number) => { setFrame((f) => (f + d + N) % N); };
 
-  // progress gauge: animate fill 0 -> 100% each frame
+  // autoplay only while in view; restart from the first frame on enter
   useEffect(() => {
+    if (!visible) { if (timer.current) clearInterval(timer.current); return; }
+    setFrame(0);
+    if (timer.current) clearInterval(timer.current);
+    timer.current = setInterval(() => setFrame((f) => (f + 1) % N), 3600);
+    return () => { if (timer.current) clearInterval(timer.current); };
+  }, [visible, N]);
+
+  // progress gauge: animate fill 0 -> 100% for the active frame (only while visible)
+  useEffect(() => {
+    if (!visible) return;
     setFillW(0);
     const id = requestAnimationFrame(() => requestAnimationFrame(() => setFillW(100)));
     return () => cancelAnimationFrame(id);
-  }, [frame]);
+  }, [frame, visible]);
 
   // dissolve the dark panel in/out as it enters view
   useEffect(() => {
@@ -327,7 +353,7 @@ function WhatYouGetStory() {
     return () => obs.disconnect();
   }, []);
 
-  const visuals = [<RoutineCheckFrame key="rc" />, <div key="r" style={{ width: 226 }}><RoutineCard /></div>, <PlanFrame key="p" />];
+  const visuals = [<div key="r" style={{ width: 226 }}><RoutineCard /></div>, <SpectrumFrame key="sp" />, <RoutineCheckFrame key="rc" />];
 
   return (
     <section ref={sectionRef} className="snap-start flex flex-col" style={{ minHeight: "100svh", paddingTop: 60, paddingBottom: 100, paddingLeft: 32, paddingRight: 32 }}>
@@ -346,8 +372,8 @@ function WhatYouGetStory() {
         </div>
 
         {/* tap zones: left = prev, right = next */}
-        <button aria-label="Previous" onClick={() => go(-1)} className="absolute inset-y-0 left-0 z-10" style={{ width: "32%" }} />
-        <button aria-label="Next" onClick={() => go(1)} className="absolute inset-y-0 right-0 z-10" style={{ width: "68%" }} />
+        <button aria-label="Previous" onClick={() => go(-1)} className="absolute inset-y-0 left-0 z-10" style={{ width: "32%", touchAction: "pan-y" }} />
+        <button aria-label="Next" onClick={() => go(1)} className="absolute inset-y-0 right-0 z-10" style={{ width: "68%", touchAction: "pan-y" }} />
 
         <div key={frame} className="guide-bar-enter flex flex-col items-center" style={{ pointerEvents: "none" }}>
           <h2 className="font-display" style={{ fontSize: "clamp(26px, 7.5vw, 32px)", fontWeight: 500, lineHeight: 1.2, whiteSpace: "pre-line", minHeight: 78, letterSpacing: "-0.01em", color: "#ffffff" }}>
@@ -1040,12 +1066,12 @@ function HowItWorksSheet({ open, onClose }: { open: boolean; onClose: () => void
   );
 }
 
-function BuyBar() {
+function BuyBar({ show = true }: { show?: boolean }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
   return (
     <>
-      <div className="fixed inset-x-0 bottom-0 z-50 pointer-events-none">
+      <div className="fixed inset-x-0 bottom-0 z-50 pointer-events-none" style={{ opacity: show ? 1 : 0, transform: show ? "translateY(0)" : "translateY(110%)", transition: "opacity 0.3s ease, transform 0.3s ease" }}>
         <div className="mx-auto w-full pointer-events-auto" style={{ maxWidth: 480, background: "linear-gradient(to top, #ffffff 58%, rgba(255,255,255,0.92) 78%, rgba(255,255,255,0) 100%)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", paddingTop: 8 }}>
           <div className="flex items-center justify-center gap-2 px-4 pt-3 text-mid-gray" style={{ fontSize: 12 }}>
             <span className="line-through">$24.99</span>
@@ -1072,17 +1098,40 @@ function BuyBar() {
 /* ───────────────────────── Page ───────────────────────── */
 
 export default function Landing() {
+  const mainRef = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const sections = Array.from(main.querySelectorAll(":scope > section")) as HTMLElement[];
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            const idx = sections.indexOf(e.target as HTMLElement);
+            if (idx >= 0) setActive(idx);
+          }
+        });
+      },
+      { root: main, threshold: 0.55 }
+    );
+    sections.forEach((s) => obs.observe(s));
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <LocaleProvider>
       <Header />
-      <main className="mx-auto bg-white snap-y snap-mandatory" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}>
+      <main ref={mainRef} className="mx-auto bg-white snap-y snap-mandatory" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}>
         <Hero />
         <WhatYouGetStory />
+        <ReportArchiveSection />
         <TeamSection />
         <StoriesSection />
         <OfferSection />
       </main>
-      <BuyBar />
+      <BuyBar show={active !== 0} />
     </LocaleProvider>
   );
 }
