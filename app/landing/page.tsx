@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { LocaleProvider, useI18n, LOCALES, type Locale } from "./_i18n";
 
 function SuminAvatar({ size }: { size: number }) {
@@ -781,119 +781,89 @@ function PlanCheck({ on = true }: { on?: boolean }) {
   );
 }
 
-type Plan = {
-  name: string;
-  price: string;
-  oldPrice?: string;
-  cadence?: string;
-  tagline: string;
-  badge?: string;
-  features: string[];
-  ctaLabel: string;
-  ctaHref: string;
-  ctaNewTab?: boolean;
-  highlight?: boolean;
-};
+type PlanRow = { label: string; free: boolean | string; full: boolean | string };
 
-function PlanTierCard({ plan }: { plan: Plan }) {
-  return (
-    <div
-      className="flex flex-col rounded-2xl bg-white p-5"
-      style={{ boxShadow: plan.highlight ? "inset 0 0 0 1.5px #62d8f4, var(--shadow-card)" : "var(--shadow-card)" }}
-    >
-      <div className="flex items-center justify-between">
-        <span className="font-display text-charcoal" style={{ fontSize: 20, fontWeight: 500 }}>{plan.name}</span>
-        {plan.badge && (
-          <span className="text-white" style={{ background: "#242424", borderRadius: 999, padding: "3px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em" }}>
-            {plan.badge}
-          </span>
-        )}
-      </div>
+const PLAN_ROWS: PlanRow[] = [
+  { label: "Skin photos", free: "1", full: "3" },
+  { label: "In-depth questionnaire", free: false, full: true },
+  { label: "Skin graph + concern keywords", free: true, full: true },
+  { label: "Custom routine", free: "2 steps", full: "Full" },
+  { label: "Current routine product check", free: false, full: true },
+  { label: "In-depth 8mirrors team analysis", free: false, full: true },
+  { label: "Treatment plan + report PDF", free: false, full: true },
+  { label: "40% off products + free shipping", free: false, full: true },
+];
 
-      <div className="mt-2 flex items-baseline gap-2">
-        <span className="font-display text-midnight" style={{ fontSize: 34, lineHeight: 1, letterSpacing: "-0.02em" }}>{plan.price}</span>
-        {plan.oldPrice && <span className="text-mid-gray line-through" style={{ fontSize: 14 }}>{plan.oldPrice}</span>}
-        {plan.cadence && <span className="text-mid-gray" style={{ fontSize: 13 }}>{plan.cadence}</span>}
-      </div>
+const FREE_W = 70;
+const FULL_W = 104;
 
-      <p className="text-mid-gray mt-1.5" style={{ fontSize: 13, lineHeight: 1.4 }}>{plan.tagline}</p>
-
-      <ul className="mt-4 flex flex-col gap-2">
-        {plan.features.map((f) => (
-          <li key={f} className="flex gap-2.5 text-[#3a3a3a]" style={{ fontSize: 13.5, lineHeight: 1.45 }}>
-            <PlanCheck />
-            <span>{f}</span>
-          </li>
-        ))}
-      </ul>
-
-      <a
-        href={plan.ctaHref}
-        {...(plan.ctaNewTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        className="mt-5 flex items-center justify-center rounded-lg text-midnight"
-        style={{ height: 50, fontSize: 15, fontWeight: 700, background: "var(--color-mirror-cyan)" }}
-      >
-        {plan.ctaLabel}
-      </a>
-    </div>
-  );
+function PlanCell({ v }: { v: boolean | string }) {
+  if (typeof v === "string") {
+    return <span style={{ fontSize: 12.5, fontWeight: 600, color: "#1f1f1f" }}>{v}</span>;
+  }
+  return v ? <PlanCheck /> : <span style={{ color: "#cfcfcf", fontSize: 16, lineHeight: 1 }}>–</span>;
 }
 
 function OfferSection() {
-  const plans: Plan[] = [
-    {
-      name: "Free",
-      price: "$0",
-      tagline: "See where your skin stands in 2 minutes.",
-      features: [
-        "Submit 1 photo",
-        "Skin-condition graph + your concern keywords",
-        "Routine preview — Cleanser & Toner",
-      ],
-      ctaLabel: "Try it free",
-      ctaHref: "#",
-    },
-    {
-      name: "Full plan",
-      price: "$9.99",
-      oldPrice: "$24.99",
-      tagline: "Your skin, fully read and rebuilt by the 8mirrors team.",
-      badge: "BEST VALUE",
-      highlight: true,
-      features: [
-        "Submit 3 photos + in-depth questionnaire",
-        "Skin-condition graph + your concern keywords",
-        "Current routine product check",
-        "Your complete custom routine",
-        "In-depth skin analysis by the 8mirrors team",
-        "Treatment plan + full report PDF",
-        "40% off your full routine — free worldwide shipping",
-      ],
-      ctaLabel: "Get my full plan",
-      ctaHref: PAYPAL_URL,
-      ctaNewTab: true,
-    },
-  ];
+  const cell = "flex items-center justify-center py-2.5";
+  const hair = { boxShadow: "inset 0 -1px 0 #f1f1f1" } as React.CSSProperties;
 
   return (
-    <section className="snap-start flex flex-col justify-center px-5" style={{ minHeight: "100svh", paddingTop: 64, paddingBottom: 56 }}>
+    <section className="snap-start flex flex-col justify-center px-5" style={{ minHeight: "100svh", paddingTop: 56, paddingBottom: 40 }}>
       <Eyebrow>CHOOSE YOUR PLAN</Eyebrow>
       <h2 className="font-display text-charcoal mt-1.5" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2, letterSpacing: "-0.01em" }}>
         Start free, or get the full plan
       </h2>
 
-      <div className="mt-5 flex flex-col gap-3.5">
-        {plans.map((p) => (
-          <PlanTierCard key={p.name} plan={p} />
-        ))}
+      <div className="relative mt-5">
+        {/* highlighted Full column */}
+        <div
+          aria-hidden
+          style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: FULL_W, borderRadius: 14, background: "rgba(98,216,244,0.07)", boxShadow: "inset 0 0 0 1.5px #62d8f4", pointerEvents: "none" }}
+        />
+
+        <div style={{ display: "grid", gridTemplateColumns: `1fr ${FREE_W}px ${FULL_W}px` }}>
+          {/* header */}
+          <div className={cell} style={{ ...hair, justifyContent: "flex-start" }} />
+          <div className={`${cell} flex-col gap-0.5`} style={hair}>
+            <span className="text-mid-gray" style={{ fontSize: 12, fontWeight: 700 }}>Free</span>
+            <span className="font-display text-midnight" style={{ fontSize: 18, lineHeight: 1 }}>$0</span>
+          </div>
+          <div className={`${cell} flex-col gap-0.5`} style={{ ...hair, paddingTop: 14 }}>
+            <span className="text-midnight" style={{ background: "#242424", color: "#fff", borderRadius: 999, padding: "2px 7px", fontSize: 9, fontWeight: 700, letterSpacing: "0.04em" }}>BEST VALUE</span>
+            <span className="text-midnight" style={{ fontSize: 12, fontWeight: 700, marginTop: 1 }}>Full</span>
+            <div className="flex items-baseline gap-1">
+              <span className="font-display text-midnight" style={{ fontSize: 18, lineHeight: 1 }}>$9.99</span>
+              <span className="text-mid-gray line-through" style={{ fontSize: 10 }}>$24.99</span>
+            </div>
+          </div>
+
+          {/* rows */}
+          {PLAN_ROWS.map((r) => (
+            <Fragment key={r.label}>
+              <div className={cell} style={{ ...hair, justifyContent: "flex-start", paddingRight: 8 }}>
+                <span className="text-left" style={{ fontSize: 13, lineHeight: 1.3, color: "#3a3a3a" }}>{r.label}</span>
+              </div>
+              <div className={cell} style={hair}><PlanCell v={r.free} /></div>
+              <div className={cell} style={hair}><PlanCell v={r.full} /></div>
+            </Fragment>
+          ))}
+        </div>
       </div>
 
-      <div className="mt-5 flex items-center gap-2.5">
-        <EyeMaskFace size={38} />
-        <p className="text-mid-gray text-left" style={{ fontSize: 12, lineHeight: 1.4 }}>
-          Your eyes are auto-masked. <span className="text-midnight font-semibold">Photos stay private</span> and are only seen by your skin team.
-        </p>
+      {/* CTAs */}
+      <div className="mt-4 flex gap-2.5">
+        <a href="#" className="flex flex-1 items-center justify-center rounded-lg bg-white text-midnight" style={{ height: 50, fontSize: 15, fontWeight: 700, boxShadow: "inset 0 0 0 1.5px #e3e3e3" }}>
+          Try it free
+        </a>
+        <a href={PAYPAL_URL} target="_blank" rel="noopener noreferrer" className="flex flex-1 items-center justify-center rounded-lg text-midnight" style={{ height: 50, fontSize: 15, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
+          Get full plan
+        </a>
       </div>
+
+      <p className="text-mid-gray mt-3 text-center" style={{ fontSize: 11.5, lineHeight: 1.4 }}>
+        Your eyes are auto-masked — <span className="text-midnight font-semibold">photos stay private</span>, seen only by your skin team.
+      </p>
     </section>
   );
 }
@@ -1261,37 +1231,7 @@ function AiIcon() {
   );
 }
 
-function EyeMaskTip({ visible }: { visible: boolean }) {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        left: 16,
-        bottom: "100%",
-        marginBottom: 12,
-        maxWidth: 262,
-        pointerEvents: "none",
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(8px)",
-        transition: "opacity 0.28s ease, transform 0.28s ease",
-      }}
-    >
-      <div className="relative flex items-center gap-2.5 rounded-2xl bg-white p-3" style={{ boxShadow: "var(--shadow-card)" }}>
-        <EyeMaskFace size={40} />
-        <div className="flex flex-col">
-          <p className="text-midnight" style={{ fontSize: 13.5, fontWeight: 700, lineHeight: 1.25 }}>Your eyes stay private</p>
-          <p className="text-mid-gray" style={{ fontSize: 12, lineHeight: 1.35 }}>Auto-blurred before you submit —<br />only your skin team sees it.</p>
-        </div>
-        <span
-          aria-hidden
-          style={{ position: "absolute", left: 28, bottom: -5, width: 12, height: 12, background: "#fff", transform: "rotate(45deg)", boxShadow: "3px 3px 5px rgba(34,42,53,0.05)" }}
-        />
-      </div>
-    </div>
-  );
-}
-
-function BuyBar({ show = true, tip = false }: { show?: boolean; tip?: boolean }) {
+function BuyBar({ show = true }: { show?: boolean }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
   return (
@@ -1300,11 +1240,9 @@ function BuyBar({ show = true, tip = false }: { show?: boolean; tip?: boolean })
         <div className="mx-auto w-full" style={{ maxWidth: 480 }}>
           <div style={{ height: 56, background: "linear-gradient(to top, #ffffff, rgba(255,255,255,0))" }} />
           <div className="pointer-events-auto" style={{ background: "#ffffff" }}>
-            <div className="relative flex items-stretch gap-2 px-4 pt-3" style={{ paddingBottom: 16 }}>
-              <EyeMaskTip visible={show && tip} />
-              <a href="#" className="flex flex-1 flex-col items-center justify-center rounded-lg px-4 py-2.5 text-midnight" style={{ background: "var(--color-mirror-cyan)" }}>
-                <span style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.1 }}>{t("bar.cta")}</span>
-                <span style={{ fontSize: 11, fontWeight: 600, lineHeight: 1.1, marginTop: 2, color: "rgba(17,17,17,0.62)" }}>1 photo · 2 min</span>
+            <div className="flex items-stretch gap-2 px-4 pt-3" style={{ paddingBottom: 16 }}>
+              <a href="#" className="flex flex-1 items-center justify-center rounded-lg px-4 py-3.5 text-midnight" style={{ fontSize: 15, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
+                {t("bar.cta")}
               </a>
               <button type="button" onClick={() => setOpen(true)} className="flex shrink-0 items-center justify-center gap-1 rounded-lg bg-white px-3 text-midnight" style={{ fontSize: 12, fontWeight: 600, boxShadow: "var(--shadow-card)" }}>
                 <AiIcon /> Summary
@@ -1324,29 +1262,6 @@ export default function Landing() {
   const mainRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [count, setCount] = useState(0);
-  const [tip, setTip] = useState(false);
-
-  // Show the eye-mask reassurance tooltip when the user pauses or scrolls up.
-  useEffect(() => {
-    const main = mainRef.current;
-    if (!main) return;
-    let last = main.scrollTop;
-    let idle: ReturnType<typeof setTimeout>;
-    const onScroll = () => {
-      const cur = main.scrollTop;
-      const dy = cur - last;
-      last = cur;
-      clearTimeout(idle);
-      if (dy < -3) setTip(true); // scrolling up → reassure
-      else if (dy > 5) setTip(false); // actively scrolling down → get out of the way
-      idle = setTimeout(() => setTip(true), 650); // paused → reassure
-    };
-    main.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      main.removeEventListener("scroll", onScroll);
-      clearTimeout(idle);
-    };
-  }, []);
 
   useEffect(() => {
     const main = mainRef.current;
@@ -1379,7 +1294,7 @@ export default function Landing() {
         <StoriesSection />
         <OfferSection />
       </main>
-      <BuyBar show={active !== 0 && active !== count - 1} tip={tip} />
+      <BuyBar show={active !== 0 && active !== count - 1} />
     </LocaleProvider>
   );
 }
