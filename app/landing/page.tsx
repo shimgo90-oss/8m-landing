@@ -148,9 +148,9 @@ function Hero() {
 /* ───────────────────────── How it works (auto-swipe) ───────────────────────── */
 
 const HIW_STEPS = [
-  { title: "Your skin,\ndistilled into clear keywords" }, // 피부 분석 및 관리 키워드 도출
-  { title: "A treatment plan\npaced to your skin" }, // 트리트먼트 플랜
-  { title: "A custom routine,\nbuilt just for your skin" }, // 피부 맞춤 커스텀 루틴
+  { title: "We check your\ncurrent routine" }, // 루틴 점검
+  { title: "A custom routine,\nbuilt just for your skin" }, // What you get — 커스텀 루틴
+  { title: "All in one plan,\nstraight to your inbox" }, // 플랜 형태로 전달
 ] as const;
 
 function DiagnosisCard() {
@@ -247,6 +247,33 @@ function TreatmentCard() {
   );
 }
 
+function RoutineCheckCard() {
+  return (
+    <div className="h-full w-full rounded-[20px] bg-white p-4 flex flex-col items-center justify-center" style={{ boxShadow: "var(--shadow-card)" }}>
+      <Eyebrow>CURRENT ROUTINE</Eyebrow>
+      <div className="mt-4"><ScoreDonut score={72} size={118} /></div>
+      <div className="text-midnight mt-3" style={{ fontSize: 13, fontWeight: 700 }}>Routine Score</div>
+      <div className="text-mid-gray" style={{ fontSize: 11 }}>Okay to Use 4 · Stop Using 2</div>
+    </div>
+  );
+}
+
+function PlanCard() {
+  return (
+    <div className="h-full w-full rounded-[20px] bg-white p-4 flex flex-col items-center justify-center gap-4" style={{ boxShadow: "var(--shadow-card)" }}>
+      <Eyebrow>YOUR PLAN</Eyebrow>
+      <div className="flex gap-2">
+        {["o1B2I", "caInY", "A9QXft"].map((id) => (
+          <div key={id} className="rounded-md overflow-hidden border border-neutral-200 bg-white" style={{ width: 56, aspectRatio: "595 / 842" }}>
+            <Image src={`/report/${id}.webp`} alt="" width={112} height={158} className="w-full h-full object-cover" unoptimized />
+          </div>
+        ))}
+      </div>
+      <div className="text-mid-gray text-center" style={{ fontSize: 11 }}>One clear plan, to your inbox</div>
+    </div>
+  );
+}
+
 function HowItWorks() {
   const { t } = useI18n();
   const [step, setStep] = useState(0);
@@ -255,7 +282,7 @@ function HowItWorks() {
   const stop = () => { if (timer.current) clearInterval(timer.current); };
   const start = () => {
     stop();
-    timer.current = setInterval(() => setStep((s) => (s + 1) % HIW_STEPS.length), 1800);
+    timer.current = setInterval(() => setStep((s) => (s + 1) % HIW_STEPS.length), 2200);
   };
   useEffect(() => { start(); return stop; }, []);
 
@@ -274,7 +301,7 @@ function HowItWorks() {
     else if (dx > 40) go(-1);
   };
 
-  const cards = [<KeywordsCard key="k" />, <TreatmentCard key="t" />, <RoutineCard key="r" />];
+  const cards = [<RoutineCheckCard key="rc" />, <RoutineCard key="r" />, <PlanCard key="p" />];
 
   return (
     <section className="snap-start flex flex-col items-center justify-center px-5 text-center" style={{ minHeight: "100svh", paddingTop: 64, paddingBottom: 140 }}>
@@ -296,12 +323,13 @@ function HowItWorks() {
         onPointerUp={(e) => onUp(e.clientX)}
       >
         {cards.map((card, i) => {
-          const pos = (i - step + cards.length) % cards.length; // 0 front, 1, 2 back
-          const transforms = [
-            "translate(0,0) rotate(0deg) scale(1)",
-            "translate(46px,18px) rotate(5deg) scale(0.9)",
-            "translate(-46px,18px) rotate(-5deg) scale(0.9)",
-          ];
+          const pos = (i - step + cards.length) % cards.length; // 0 = front
+          const dir = pos === 0 ? 0 : pos % 2 === 1 ? 1 : -1;
+          const depth = Math.ceil(pos / 2);
+          const transform =
+            pos === 0
+              ? "translate(0,0) rotate(0deg) scale(1)"
+              : `translate(${dir * 44}px, ${depth * 12}px) rotate(${dir * 5}deg) scale(${1 - depth * 0.07})`;
           return (
             <div
               key={i}
@@ -311,9 +339,9 @@ function HowItWorks() {
                 height: 300,
                 left: "calc(50% - 110px)",
                 top: 30,
-                transform: transforms[pos],
-                opacity: pos === 0 ? 1 : 0.5,
-                zIndex: pos === 0 ? 30 : 20 - pos,
+                transform,
+                opacity: pos === 0 ? 1 : Math.max(0.2, 0.55 - (depth - 1) * 0.18),
+                zIndex: 30 - pos,
               }}
             >
               {card}
@@ -1048,33 +1076,6 @@ function BuyBar() {
 /* ───────────────────────── Page ───────────────────────── */
 
 export default function Landing() {
-  const [active, setActive] = useState(0);
-  const [coachVisible, setCoachVisible] = useState(false);
-  const refs = useRef<(HTMLElement | null)[]>([]);
-
-  useEffect(() => {
-    const shown = new Set<Element>();
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          const idx = refs.current.findIndex((r) => r === e.target);
-          if (e.isIntersecting) {
-            shown.add(e.target);
-            if (idx >= 0) setActive(idx);
-          } else {
-            shown.delete(e.target);
-          }
-        });
-        setCoachVisible(shown.size > 0);
-      },
-      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
-    );
-    refs.current.forEach((r) => r && obs.observe(r));
-    return () => obs.disconnect();
-  }, []);
-
-  const a = REPORT_PANELS[active];
-
   return (
     <LocaleProvider>
       <Header />
@@ -1083,13 +1084,8 @@ export default function Landing() {
         <TeamSection />
         <StoriesSection />
         <HowItWorks />
-        {REPORT_PANELS.map((p, i) => (
-          <ReportPanel key={p.id} panel={p} panelRef={(el) => { refs.current[i] = el; }} />
-        ))}
-        <ReportArchiveSection />
         <OfferSection />
       </main>
-      <CoachBubble num={a.num} title={a.title} message={a.message} visible={coachVisible} />
       <BuyBar />
     </LocaleProvider>
   );
