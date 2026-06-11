@@ -145,8 +145,8 @@ function Hero() {
       </a>
 
       {/* rolling animation (0.7×) */}
-      <div className="rolling-mask w-full mt-8" style={{ maxWidth: 248 }}>
-        <div className="grid grid-cols-3 gap-4 overflow-visible" style={{ height: 78 }}>
+      <div className="rolling-mask w-full mt-8" style={{ maxWidth: 252 }}>
+        <div className="grid grid-cols-3 gap-5 overflow-visible" style={{ height: 78 }}>
           <RollingColumn snap={1} col={0} />
           <RollingColumn snap={2} col={1} />
           <RollingColumn snap={1} col={2} />
@@ -1435,7 +1435,7 @@ export default function Landing() {
   return (
     <LocaleProvider>
       <Header hidden={hideHeader} />
-      <main ref={mainRef} className="mx-auto bg-white" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto" }}>
+      <main ref={mainRef} className="mx-auto bg-white" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto", overflowX: "hidden" }}>
         <Hero />
         <WhatYouGetStory />
         <ReportArchiveSection />
