@@ -145,8 +145,8 @@ function Hero() {
       </a>
 
       {/* rolling animation (0.7×) */}
-      <div className="rolling-mask w-full mt-8" style={{ maxWidth: 232 }}>
-        <div className="grid grid-cols-3 gap-2 overflow-visible" style={{ height: 78 }}>
+      <div className="rolling-mask w-full mt-8" style={{ maxWidth: 244 }}>
+        <div className="grid grid-cols-3 gap-3 overflow-visible" style={{ height: 78 }}>
           <RollingColumn snap={1} col={0} />
           <RollingColumn snap={2} col={1} />
           <RollingColumn snap={1} col={2} />
