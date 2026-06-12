@@ -14,5 +14,9 @@ export default async function LandingVariantPage({
   const { variant } = await params;
   const v = VARIANT_MAP[variant];
   if (!v) notFound();
+  if (v.Custom) {
+    const Custom = v.Custom;
+    return <Custom />;
+  }
   return <LandingExperience sections={v.sections} />;
 }

@@ -1364,7 +1364,10 @@ function Footer() {
 
 /* ───────────────────────── Page ───────────────────────── */
 
-export function LandingExperience({ sections = DEFAULT_ORDER }: { sections?: SectionKey[] } = {}) {
+export function LandingExperience({
+  sections = DEFAULT_ORDER,
+  children,
+}: { sections?: SectionKey[]; children?: React.ReactNode } = {}) {
   const mainRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [count, setCount] = useState(0);
@@ -1436,10 +1439,11 @@ export function LandingExperience({ sections = DEFAULT_ORDER }: { sections?: Sec
     <LocaleProvider>
       <Header hidden={hideHeader} />
       <main ref={mainRef} className="mx-auto bg-white" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto", overflowX: "hidden" }}>
-        {sections.map((key) => {
-          const Section = SECTIONS[key];
-          return <Section key={key} />;
-        })}
+        {children ??
+          sections.map((key) => {
+            const Section = SECTIONS[key];
+            return <Section key={key} />;
+          })}
       </main>
       <BuyBar show={active > 0 && active < count - 2} />
     </LocaleProvider>
