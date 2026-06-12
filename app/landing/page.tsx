@@ -1364,7 +1364,7 @@ function Footer() {
 
 /* ───────────────────────── Page ───────────────────────── */
 
-export default function Landing() {
+export function LandingExperience({ sections = DEFAULT_ORDER }: { sections?: SectionKey[] } = {}) {
   const mainRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [count, setCount] = useState(0);
@@ -1436,15 +1436,42 @@ export default function Landing() {
     <LocaleProvider>
       <Header hidden={hideHeader} />
       <main ref={mainRef} className="mx-auto bg-white" style={{ maxWidth: 480, height: "100dvh", overflowY: "auto", overflowX: "hidden" }}>
-        <Hero />
-        <WhatYouGetStory />
-        <ReportArchiveSection />
-        <TeamSection />
-        <StoriesSection />
-        <OfferSection />
-        <Footer />
+        {sections.map((key) => {
+          const Section = SECTIONS[key];
+          return <Section key={key} />;
+        })}
       </main>
       <BuyBar show={active > 0 && active < count - 2} />
     </LocaleProvider>
   );
+}
+
+/* ───────────────────────── variant registry ─────────────────────────
+   Sections are composable. A landing variant = an ordered list of these keys.
+   Add new variants in ./_variants.tsx; the shell (header / scroll / buy bar)
+   is shared so every variant behaves identically. */
+const SECTIONS = {
+  hero: Hero,
+  "what-you-get": WhatYouGetStory,
+  "report-archive": ReportArchiveSection,
+  team: TeamSection,
+  stories: StoriesSection,
+  offer: OfferSection,
+  footer: Footer,
+} as const;
+
+export type SectionKey = keyof typeof SECTIONS;
+
+export const DEFAULT_ORDER: SectionKey[] = [
+  "hero",
+  "what-you-get",
+  "report-archive",
+  "team",
+  "stories",
+  "offer",
+  "footer",
+];
+
+export default function Landing() {
+  return <LandingExperience sections={DEFAULT_ORDER} />;
 }
