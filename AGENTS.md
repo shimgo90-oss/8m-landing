@@ -21,10 +21,11 @@ The 8mirrors marketing **landing site** (Next.js 16 App Router). An **A/B testin
 - **Value structure**: [context/value-prop.md](context/value-prop.md) — free quiz = entry / matched routine & results = core value / the $9.99 perception problem
 - **How to build variants & test principles**: [context/variant-playbook.md](context/variant-playbook.md)
 
-## Two-agent lanes (division of labor)
-- **Marketer lane (Codex)** — assemble/duplicate variants, copy (`copy` overrides), section order, run experiments. **Touches: `app/landing/_variants.tsx` and copy.** Must **not** author new React components → file an issue for Claude.
-- **Dev lane (Claude)** — React components, new sections / custom variants (`Custom`), shell/scaffolding, render issues. **Touches: `app/landing/_variant-*.tsx`, `app/landing/page.tsx`, new components.**
-- One line: **Claude builds the lego blocks; the marketer assembles landings from them. No block? Order it from Claude.**
+## How we work
+- **The marketer edits the landing directly** (with Codex) — copy, sections, even components. No artificial restriction on what they can touch.
+- **Claude (with 고고)** handles heavier builds / new components when asked, and keeps the shared kit clean.
+- **The one gate: 고고 reviews every change on a preview before it merges to `main`.** That's the safety — not lane rules.
+- Still expected: follow [the brand voice](context/brand-voice.md) and [DESIGN.md](DESIGN.md). For simple changes prefer the no-code `copy` / `sections` path in `_variants.tsx` (cleaner diffs, no broken layout); drop into components when the change needs it.
 
 ## Variant system
 - [app/landing/_variants.tsx](app/landing/_variants.tsx) — the variant registry. The top comment explains "how to make one." A variant = `{ slug, note, sections?, copy?, Custom? }`.

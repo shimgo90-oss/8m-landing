@@ -1,0 +1,9 @@
+{
+  // VSCode suggests these when the repo is opened. (Codex is installed
+  // separately — see MARKETER.md.)
+  "recommendations": [
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens"
+  ]
+}

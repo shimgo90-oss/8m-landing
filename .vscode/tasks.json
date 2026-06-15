@@ -1,0 +1,24 @@
+{
+  // Run via: Terminal → Run Task… (or Cmd+Shift+B for the dev server).
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "▶ Run landing (dev)",
+      "detail": "Start the local preview at http://localhost:3000",
+      "type": "shell",
+      "command": "npm run dev",
+      "group": { "kind": "build", "isDefault": true },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "✓ Build check (before pushing)",
+      "detail": "Confirm the site builds — catches broken code",
+      "type": "shell",
+      "command": "npm run build",
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}

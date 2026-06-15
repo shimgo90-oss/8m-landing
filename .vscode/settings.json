@@ -1,0 +1,8 @@
+{
+  "files.autoSave": "onFocusChange",
+  "editor.tabSize": 2,
+  "search.exclude": { "**/node_modules": true, "**/.next": true },
+  "files.exclude": { "**/.next": true },
+  "git.branchProtection": ["main"],
+  "git.branchProtectionPrompt": "alwaysCommitToNewBranch"
+}

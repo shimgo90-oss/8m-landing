@@ -67,7 +67,7 @@ Copy one block and change just 4 things to get a new variant + its URL:
 > ⚠️ **Copy rules**: user-facing copy is **US English** (you're writing for a US audience — use US spelling/idiom: *color*, not *colour*). Follow the tone in `context/` (brand-voice / value-prop / variant-playbook). **Don't sell "a report"** → frame it as a matched routine / visible results.
 
 ### Need a new design or block?
-That's **code work (Claude / dev lane)**. Don't write React yourself → open a **GitHub issue** describing the block you need, and 고고/Claude will build it.
+Go ahead — ask Codex to build it (you can edit components too). Just preview it and open a PR; **고고 reviews before it goes live**, so nothing breaks production. For bigger redesigns you can also ping 고고/Claude to build the block for you.
 
 ---
 
