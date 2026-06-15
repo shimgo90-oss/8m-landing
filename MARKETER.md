@@ -25,14 +25,8 @@ https://github.com/shimgo90-oss/8mirrors-design-sandbox.git
 Then, in the VSCode terminal (`Ctrl+\``), run once:
 ```bash
 npm install
-
-# Identify yourself (use the SAME email as your GitHub account):
-git config user.name "Your Name"
-git config user.email "you@your-github-email.com"
-
-# Mark this machine as the marketer's (so Codex knows to route via PR):
-echo "marketer" > .landing-role
 ```
+(Optional, for nicer commit attribution: `git config user.email "you@your-github-email.com"`.)
 
 ---
 

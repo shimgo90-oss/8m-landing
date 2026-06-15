@@ -55,11 +55,11 @@ Full spec: **[DESIGN.md](DESIGN.md)** (in-repo). After creating/editing, self-ch
 - Variants are **isolated** (a new file / one registry line) → they don't touch existing variants (minimal blast radius).
 
 ## Who's driving (role detection)
-Before finishing, figure out who you're working for:
-1. Look for a **`.landing-role`** file at the repo root (git-ignored, per-machine). If it contains `marketer`, you're in **marketer mode**.
-2. Otherwise check `git config user.email` — if it's **not** the repo owner (고고), treat as a **contributor** (same as marketer mode).
-- In **marketer mode**: you are helping the marketer. Always route changes through a PR for 고고's review — never merge.
-- Either way the rule above holds: the agent itself never merges to `main`.
+Run `git config user.email`:
+- If it equals the repo owner — **고고 (`shimgo90@gmail.com`)** — owner mode: 고고 may merge after review.
+- **Any other email → contributor mode (the marketer).** Take the change only up to a **PR**: create the branch, push, and open/prepare the PR — then stop. **Do not merge to `main`.**
+
+No setup needed on the marketer's side: any non-owner email is treated as the marketer automatically. In all cases the agent never merges to `main` itself — production merges are 고고's call.
 
 ## When a change is done (Definition of Done)
 After the landing change looks right, walk the user through shipping it — don't just stop:
