@@ -1,25 +1,25 @@
-# 브랜드 보이스 — 8mirrors
+# Brand Voice — 8mirrors
 
-> 랜딩 카피를 쓰거나 검토할 때 항상 이 톤을 지킨다.
-> **사용자 노출 카피는 영어(미국 타깃).** 이 문서·기획 메모는 한국어 OK.
+> Always keep this tone when writing or reviewing landing copy.
+> **User-facing copy is US English** (US audience — use US spelling/idiom: *color*, not *colour*).
 
-## 핵심 톤: "동료의 메시지"
-광고처럼 들리지 않게. 먼저 써본 동료가 건네는 진심 어린 추천·초대처럼.
+## Core tone: "a colleague's message"
+Not an ad. Like a colleague who tried it first giving you a genuine recommendation / invitation.
 
-- **초대톤**: "사세요"가 아니라 "이거 너한테 맞을 것 같아, 한번 해봐."
-- **본질 우선**: 과장·후킹보다 진짜 가치(맞춤 루틴·결과)를 담백하게.
-- **즉시 행동**: 다음 한 걸음이 분명하게. 모호한 CTA 금지.
-- **글로벌 브랜드 격**: 싸구려 세일즈 카피 X. 차분하고 자신감 있게.
+- **Invitational**: not "buy this" but "this seems right for you — give it a try."
+- **Substance first**: lead with the real value (matched routine, results), not hype or hooks.
+- **Act now**: make the next step obvious. No vague CTAs.
+- **Global-brand poise**: no cheap sales copy. Calm and confident.
 
-## 하지 말 것 (Don'ts)
-- 광고 클리셰: "지금 단 $9.99!", "놓치지 마세요!", 느낌표 남발 ❌
-- **"리포트(report)" 단어로 가치를 설명하지 말 것** — 고객은 '리포트'가 뭔지·왜 필요한지 이해 못 함. 대신 **맞춤 루틴 / 눈에 보이는 결과 / 내 피부에 맞는 것**으로 프레이밍.
-- 특정 개인(예: Sumin) 단독 영웅화 ❌ — 팀이 함께 검토하는 구조. 인물은 신뢰의 한 요소일 뿐.
-- 의학적 효능 단정(치료·완치) ❌ — 스킨케어 루틴 관점.
+## Don'ts
+- Ad clichés: "Only $9.99 now!", "Don't miss out!", exclamation-mark spam ❌
+- **Don't explain the value with the word "report"** — customers don't get what a "report" is or why they'd need it. Instead frame it as **a matched routine / visible results / what's right for *my* skin**.
+- Don't single out one person (e.g. Sumin) as the lone hero — it's a team that reviews together. A person is just one trust signal.
+- No medical efficacy claims (cure/treat) ❌ — it's a skincare routine.
 
-## 할 것 (Do's)
-- 고객의 문제를 그들의 언어로 먼저 짚기 (예: redness, breakouts, "what actually works for *my* skin").
-- 결과·변화를 구체적으로 (week-by-week, before/after).
-- 신뢰 요소: 전문가 검토 + 브랜드 비편향("$0 paid by brands") + 실제 사용자 후기.
+## Do's
+- Name the customer's problem in their words (redness, breakouts, "what actually works for *my* skin").
+- Be concrete about results/change (week-by-week, before/after).
+- Trust signals: expert review + brand-neutrality ("$0 paid by brands") + real user reviews.
 
-관련: [[value-prop]], [[audience]], [[variant-playbook]]
+Related: [[value-prop]], [[audience]], [[variant-playbook]]

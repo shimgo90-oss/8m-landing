@@ -1,18 +1,18 @@
-# 타깃 오디언스 — 8mirrors
+# Audience — 8mirrors
 
-## 페르소나
-- **미국 거주 30대 여성.**
-- 스킨케어에 관심 있고 돈도 쓰지만, **뭐가 *내* 피부에 맞는지 몰라** 시행착오·낭비에 지침.
-- "one-size-fits-all" 추천·인플루언서 광고에 피로감. 진짜 내게 맞는 걸 원함.
-- 바쁘다. 2분 안에 가치를 못 느끼면 이탈.
+## Persona
+- **Women in their 30s, living in the US.**
+- Into skincare and willing to spend, but **don't know what works for *their* skin** — tired of trial-and-error and waste.
+- Fatigued by one-size-fits-all recommendations and influencer ads. They want what's genuinely right for them.
+- Busy. If they don't feel value within ~2 minutes, they bounce.
 
-## 카피 함의
-- **언어 = 영어(US).** 미국 30대 여성에게 자연스러운 구어체. 한국어 직역 금지.
-- 피부 고민을 구체적으로 호명: redness, breakouts, dryness, texture, dark spots…
-- "expert", "matched to you", "no brand bias", "K-beauty" 같은 신뢰·차별 키워드가 잘 먹힘.
-- 과한 전문용어 X, 친구가 설명하듯.
+## Copy implications
+- **Language = US English.** Natural, conversational for a US woman in her 30s. (The marketer is a native English/Australian speaker — great for copy; just use US spelling & idiom for this audience.)
+- Name skin concerns concretely: redness, breakouts, dryness, texture, dark spots…
+- Trust/differentiation keywords land well: "expert", "matched to you", "no brand bias", "K-beauty".
+- Avoid heavy jargon — explain like a friend would.
 
-## 측정 관점
-- 유료광고 유입 → 랜딩 → 진단 시작 전환이 핵심 지표. 카피·구조 변형은 이 전환을 끌어올리려는 실험.
+## Measurement lens
+- The key metric is paid-ad → landing → quiz-start conversion. Copy/structure variants are experiments to lift that conversion.
 
-관련: [[brand-voice]], [[value-prop]]
+Related: [[brand-voice]], [[value-prop]]

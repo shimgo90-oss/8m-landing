@@ -1,93 +1,93 @@
-# 마케터 가이드 — 랜딩 변형 만들기
+# Marketer Guide — Building Landing Variants
 
-8mirrors 랜딩 A/B 테스트를 **코드 거의 없이** 운영하는 안내서. 순서대로 따라하면 됨.
+How to run 8mirrors landing A/B tests with **almost no code**. Just follow the steps in order.
 
 ---
 
-## 0. 한 번만 — 계정·프로그램 준비
+## 0. One-time — accounts & programs
 
-### 가입할 계정 2개
-1. **GitHub 계정** (필수, 무료) — https://github.com 에서 가입. → 가입한 **아이디를 고고에게 알려주면** 이 저장소 접근권을 줌.
-2. **Codex(OpenAI) 계정** — AI 비서. (이미 쓰고 있으면 그대로)
+### Two accounts to create
+1. **GitHub account** (required, free) — sign up at https://github.com → **send your username to 고고 (the owner)** so they can grant access to this repo.
+2. **Codex (OpenAI) account** — your AI assistant. (If you already use Codex, you're set.)
 
-> Git(컴퓨터에 까는 도구)과 GitHub(웹 계정)는 다른 거지만, 설치·로그인은 아래 VSCode가 거의 다 해줌. 걱정 안 해도 됨.
+> Git (the tool on your computer) and GitHub (the web account) are different things, but VSCode handles the install/login for you. Don't worry about it.
 
-### 프로그램 설치
+### Install
 1. **VSCode** — https://code.visualstudio.com
-2. **Node.js** (LTS) — https://nodejs.org (랜딩을 내 컴퓨터에서 미리 보려면 필요)
-3. VSCode 안에서 **Codex 확장** 설치 + 로그인
+2. **Node.js** (LTS) — https://nodejs.org (needed to preview the landing on your own machine)
+3. Inside VSCode, install the **Codex extension** and log in.
 
-### 저장소 받기 (한 번)
-VSCode → `Cmd+Shift+P` → **Git: Clone** → 아래 주소 붙여넣기 → GitHub 로그인 창 뜨면 로그인:
+### Get the repo (once)
+VSCode → `Cmd+Shift+P` → **Git: Clone** → paste the URL below → log in when GitHub prompts:
 ```
 https://github.com/shimgo90-oss/8mirrors-design-sandbox.git
 ```
-열린 다음, VSCode 터미널(`Ctrl+\``)에서 한 번:
+Then, in the VSCode terminal (`Ctrl+\``), run once:
 ```bash
 npm install
 ```
 
 ---
 
-## 1. 매번 작업 시작할 때
+## 1. Every time you start
 
 ```bash
-git checkout main && git pull        # 최신 상태로
-git checkout -b variant/<이름>        # 내 작업 브랜치 (예: variant/glowup)
-npm run dev                          # 미리보기: http://localhost:3000/lp/<slug>
+git checkout main && git pull         # get the latest
+git checkout -b variant/<name>         # your working branch (e.g. variant/glowup)
+npm run dev                            # preview at http://localhost:3000/lp/<slug>
 ```
 
 ---
 
-## 2. 변형 만들기 (핵심 — 코드 안 건드림)
+## 2. Make a variant (the core — no code)
 
-파일 하나만 연다: **`app/landing/_variants.tsx`**
+Open one file: **`app/landing/_variants.tsx`**
 
-블록 하나를 복사해서 4가지만 바꾸면 새 변형 + URL이 생김:
+Copy one block and change just 4 things to get a new variant + its URL:
 
 ```ts
 {
-  slug: "glowup",                    // → 주소가 /lp/glowup 이 됨 (소문자-하이픈)
-  label: "변화 중심 (카피 테스트)",     // 내부 메모용 이름
-  note: "8주 변화/결과를 앞세우면 전환이 오를 것이다",  // 무슨 가설인지
-  sections: ["hero", "what-you-get", "offer", "footer"],  // 어떤 블록을, 어떤 순서로
-  copy: {                            // 문구만 바꾸기 (코드 X)
-    "hero.titleA": "8주 뒤, 거울 보는 게",
-    "hero.titleB": "즐거워져",        // 라임 형광펜 들어가는 부분
-    "hero.sub": "2분이면 돼요. 내 피부에 맞춘 루틴으로 시작하세요.",
-    "bar.cta": "내 루틴 시작하기",
+  slug: "glowup",                    // → the URL becomes /lp/glowup (lowercase-with-dashes)
+  label: "Glow-up (copy test)",      // internal name, not shown to users
+  note: "Hypothesis: leading with the 8-week visible change lifts conversion",
+  sections: ["hero", "what-you-get", "offer", "footer"],  // which blocks, in what order
+  copy: {                            // change wording only (no code)
+    "hero.titleA": "In 8 weeks, the mirror",
+    "hero.titleB": "feels good",      // this part gets the lime highlight
+    "hero.sub": "Two minutes is all it takes. Start a routine matched to your skin.",
+    "bar.cta": "Start my routine",
   },
 }
 ```
 
-- 쓸 수 있는 블록: `hero · what-you-get · report-archive · team · stories · offer · footer`
-- 바꿀 수 있는 문구 키: `app/landing/_i18n.tsx` 참고 (`hero.titleA`, `hero.titleB`, `hero.sub`, `hero.cta`, `bar.cta` 등)
-- 막히면 Codex에게: *"`_variants.tsx`에서 lean 변형 복사해서 slug는 glowup, 헤드라인을 ~로 바꿔줘"* 라고 시키면 됨.
+- Blocks you can use: `hero · what-you-get · report-archive · team · stories · offer · footer`
+- Copy keys you can change: see `app/landing/_i18n.tsx` (`hero.titleA`, `hero.titleB`, `hero.sub`, `hero.cta`, `bar.cta`, …)
+- Stuck? Tell Codex: *"In `_variants.tsx`, copy the `lean` variant, set slug to `glowup`, and change the headline to ~."*
 
-> ⚠️ **카피 규칙**: 노출 문구는 **영어(미국 타깃)**. 톤·가치 프레이밍은 `context/` 폴더(brand-voice / value-prop / variant-playbook) 참고. **'리포트'로 팔지 말 것** → 맞춤 루틴·결과로.
+> ⚠️ **Copy rules**: user-facing copy is **US English** (you're writing for a US audience — use US spelling/idiom: *color*, not *colour*). Follow the tone in `context/` (brand-voice / value-prop / variant-playbook). **Don't sell "a report"** → frame it as a matched routine / visible results.
 
-### 새로운 디자인/블록이 필요하면?
-그건 **코드 작업(Claude/개발 레인)**. 직접 React 만들지 말고 → **GitHub 이슈**로 "이런 블록이 필요해" 남기면 고고/Claude가 만들어 줌.
+### Need a new design or block?
+That's **code work (Claude / dev lane)**. Don't write React yourself → open a **GitHub issue** describing the block you need, and 고고/Claude will build it.
 
 ---
 
-## 3. 미리보기 → 올리기 → 검토받기
+## 3. Preview → push → get reviewed
 
 ```bash
-git add -A && git commit -m "variant: glowup 추가" && git push -u origin variant/glowup
+git add -A && git commit -m "variant: add glowup" && git push -u origin variant/glowup
 ```
 
-- push하면 **Vercel이 프리뷰 URL을 자동 생성** → 폰에서 직접 확인(모바일 실측 권장).
-- GitHub에서 **Pull Request** 올리기 → **고고가 디자인 관점에서 검토 후 머지**.
-- 머지되면 자동으로 `8mirrors-design-sandbox.vercel.app/lp/<slug>` 에 라이브 → 광고에 연결.
+- Pushing makes **Vercel auto-generate a preview URL** → check it on your phone (mobile test recommended).
+- Open a **Pull Request** on GitHub → **고고 reviews it from a design perspective, then merges**.
+- Once merged, it's automatically live at `8mirrors-design-sandbox.vercel.app/lp/<slug>` → connect your ad to it.
 
-> 🔒 `main`에 직접 머지/푸시는 안 됨(막혀 있음). 항상 브랜치 → PR → 고고 승인.
+> 🔒 You can't merge/push directly to `main` (it's protected). Always branch → PR → 고고 approves.
 
 ---
 
-## 4. 막힐 때
+## 4. When stuck
 
-- 무엇을·왜 테스트하나: `context/variant-playbook.md`
-- 톤·문구: `context/brand-voice.md`
-- 디자인 규칙: `DESIGN.md`
-- 그래도 막히면 Codex에게 묻거나 고고에게.
+- What/why to test: `context/variant-playbook.md`
+- Tone & wording: `context/brand-voice.md`
+- Design rules: `DESIGN.md`
+- Still stuck? Ask Codex, or 고고.
