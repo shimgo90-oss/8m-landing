@@ -49,7 +49,24 @@ Full spec: **[DESIGN.md](DESIGN.md)** (in-repo). After creating/editing, self-ch
 - The shell is a maxWidth 480 mobile canvas — right-edge clipping below 480px is expected (not a bug); review at 480.
 
 ## Deploy & safety (mandatory)
-- **main = production** (Vercel auto-deploys). Variants/experiments go on a `variant/<slug>` branch → push → **Vercel preview URL**.
-- **No direct merge/push to main** (marketer lane). Open a PR; **고고 reviews design, then merges.**
+- **main = production** (Vercel auto-deploys). All work goes on a `variant/<slug>` branch → push → **Vercel preview URL**.
+- **The agent never merges or pushes to `main` directly.** Changes reach production only via a PR that **고고 reviews and merges.**
 - Confirm `npm run build` (= `next build`) passes before pushing — no broken deploys.
 - Variants are **isolated** (a new file / one registry line) → they don't touch existing variants (minimal blast radius).
+
+## Who's driving (role detection)
+Before finishing, figure out who you're working for:
+1. Look for a **`.landing-role`** file at the repo root (git-ignored, per-machine). If it contains `marketer`, you're in **marketer mode**.
+2. Otherwise check `git config user.email` — if it's **not** the repo owner (고고), treat as a **contributor** (same as marketer mode).
+- In **marketer mode**: you are helping the marketer. Always route changes through a PR for 고고's review — never merge.
+- Either way the rule above holds: the agent itself never merges to `main`.
+
+## When a change is done (Definition of Done)
+After the landing change looks right, walk the user through shipping it — don't just stop:
+1. Confirm you're on a `variant/<slug>` branch (not `main`). If on `main`, create the branch first.
+2. Run a quick **`npm run build`** to confirm it compiles.
+3. Commit and **push the branch**.
+4. **Tell the marketer (in plain language):**
+   > 이 시안대로 반영하려면 → 이 브랜치를 push하고 GitHub에서 **Pull Request**를 올리세요. 그러면 고고가 프리뷰에서 확인하고 머지합니다. (직접 main에 머지하지 마세요.)
+   …and give the one-line `git push` command + the PR link/steps. (English the marketer can act on; bilingual is fine.)
+5. Mention the Vercel **preview URL** so they (and 고고) can review the rendered page before merge.
