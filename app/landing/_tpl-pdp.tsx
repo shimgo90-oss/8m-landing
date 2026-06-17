@@ -225,7 +225,7 @@ const SECTIONcn = "flex flex-col px-6";
 // Short by default. benefits / custom / results stay registered below — a marketer
 // re-adds any of them just by listing its key here.
 export const PDP_DEFAULT_SECTIONS = [
-  "hero", "info", "experts", "howto", "faq", "reviews", "cta",
+  "hero", "info", "experts", "howto", "faq", "results", "reviews", "cta",
 ];
 
 export const PDP_DEFAULTS = {
@@ -265,6 +265,7 @@ export const PDP_DEFAULTS = {
     "results.beforeCap": "Week 1",
     "results.afterCap": "Week 8",
     "results.headline": "Based on real customer journeys",
+    "results.disclaimer": "Individual results vary. Photos shared with customer consent.",
     "reviews.eyebrow": "Reviews",
     "reviews.rating": "4.9",
     "reviews.count": "682 reviews",
@@ -513,11 +514,24 @@ const SECTIONS: Record<string, (ctx: Ctx) => React.ReactNode> = {
   results: ({ c, img }) => (
     <section className={SECTIONcn} style={{ paddingTop: 26, paddingBottom: 26 }}>
       <Eyebrow>{c("results.eyebrow")}</Eyebrow>
-      <div className="mt-4 grid grid-cols-2 gap-4">
-        <Img src={img("results.before")} height={150} caption={c("results.beforeCap")} />
-        <Img src={img("results.after")} height={150} caption={c("results.afterCap")} />
+      <p className="mt-3 text-center font-display text-charcoal" style={{ fontSize: 21, fontWeight: 500, lineHeight: 1.25 }}>{c("results.headline")}</p>
+      <div className="mt-4 grid grid-cols-2 gap-3">
+        {[["results.before", "results.beforeCap"], ["results.after", "results.afterCap"]].map(([imgKey, capKey], i) => (
+          <div key={imgKey}>
+            <div className="relative w-full rounded-2xl overflow-hidden" style={{ aspectRatio: "4 / 5", backgroundColor: "#ece9e2" }}>
+              {img(imgKey) ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={img(imgKey)} alt="" className="absolute inset-0 h-full w-full object-cover" />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center"><span className="font-body" style={{ color: "#b6b1a6", fontSize: 13 }}>[ photo ]</span></div>
+              )}
+              <span className="absolute font-body" style={{ top: 10, left: 10, background: i === 0 ? "rgba(17,17,17,0.6)" : "var(--color-mirror-cyan)", color: i === 0 ? "#fff" : "#111", fontSize: 10.5, fontWeight: 700, letterSpacing: "0.06em", padding: "3px 8px", borderRadius: 6 }}>{i === 0 ? "BEFORE" : "AFTER"}</span>
+            </div>
+            <p className="mt-2 text-center font-body text-mid-gray" style={{ fontSize: 12.5 }}>{c(capKey)}</p>
+          </div>
+        ))}
       </div>
-      <p className="mt-5 text-center font-display text-charcoal" style={{ fontSize: 21, fontWeight: 500, lineHeight: 1.25 }}>{c("results.headline")}</p>
+      <p className="mt-4 text-center font-body text-mid-gray" style={{ fontSize: 11.5, lineHeight: 1.45 }}>{c("results.disclaimer")}</p>
     </section>
   ),
 
