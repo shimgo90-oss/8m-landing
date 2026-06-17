@@ -13,7 +13,12 @@ const inter = Inter({
   variable: "--font-body",
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://8mirrors-global.vercel.app";
+// Auto-tracks whatever the project's production domain is (updates on rename),
+// override with NEXT_PUBLIC_SITE_URL once a custom domain is attached.
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`) ||
+  "https://8mirrors-design-sandbox.vercel.app";
 const TITLE = "8mirrors — Your Custom K-Beauty Routine, Built for Your Skin";
 const DESC = "A complete 5-step skincare routine, built for your exact skin by Seoul experts. Any skin type. Shipped worldwide.";
 
