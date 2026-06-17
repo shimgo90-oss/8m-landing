@@ -832,21 +832,21 @@ function PlanCheck({ on = true }: { on?: boolean }) {
   );
 }
 
-type PlanRow = { label: string; free: boolean | string; full: boolean | string };
+type PlanRow = { label: string; free: boolean | string; full: boolean | string; box: boolean | string };
 
 const PLAN_ROWS: PlanRow[] = [
-  { label: "Skin photos", free: "1", full: "3" },
-  { label: "In-depth questionnaire", free: false, full: true },
-  { label: "Skin graph + keywords", free: true, full: true },
-  { label: "Custom routine", free: "2 steps", full: "Full" },
-  { label: "Current routine check", free: false, full: true },
-  { label: "8mirrors team analysis", free: false, full: true },
-  { label: "Treatment plan + PDF", free: false, full: true },
-  { label: "40% off + free shipping", free: false, full: true },
+  { label: "Skin photos", free: "1", full: "3", box: "3" },
+  { label: "In-depth questionnaire", free: false, full: true, box: true },
+  { label: "Skin graph + keywords", free: true, full: true, box: true },
+  { label: "Custom routine", free: "2 steps", full: "Full", box: "Full" },
+  { label: "Current routine check", free: false, full: true, box: true },
+  { label: "8mirrors team analysis", free: false, full: true, box: true },
+  { label: "Treatment plan + report", free: false, full: true, box: true },
+  { label: "K-beauty products", free: false, full: "40% off", box: "Included" },
 ];
 
-const FREE_W = 112;
-const FULL_W = 124;
+const LABEL_W = 150;
+const COL_W = 116;
 
 function PlanCell({ v }: { v: boolean | string }) {
   if (typeof v === "string") {
@@ -888,43 +888,42 @@ function PlanHeader({
 function OfferSection() {
   const cell = "flex items-center justify-center py-2.5";
   const hair = { boxShadow: "inset 0 -1px 0 #f1f1f1" } as React.CSSProperties;
+  const stick = { position: "sticky", left: 0, background: "#ffffff", zIndex: 2 } as React.CSSProperties;
 
   return (
     <section className="flex flex-col px-5" style={{ paddingTop: 56, paddingBottom: 64 }}>
       <div className="text-center">
         <Eyebrow>CHOOSE YOUR PLAN</Eyebrow>
         <h2 className="font-display text-charcoal mt-1.5" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2, letterSpacing: "-0.01em" }}>
-          Start free, or get the full plan
+          Start free — or get your full routine box
         </h2>
       </div>
 
-      <div className="relative mt-5">
-        {/* highlighted Full column */}
-        <div
-          aria-hidden
-          style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: FULL_W, borderRadius: 14, background: "rgba(98,216,244,0.07)", boxShadow: "inset 0 0 0 1.5px #62d8f4", pointerEvents: "none" }}
-        />
-
-        <div style={{ display: "grid", gridTemplateColumns: `1fr ${FREE_W}px ${FULL_W}px`, alignItems: "stretch" }}>
-          {/* header: name + price + CTA (one cell per plan so lines align) */}
-          <div />
+      {/* labels column is pinned; plan columns swipe horizontally */}
+      <div className="no-scrollbar mt-5 overflow-x-auto" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+        <div style={{ display: "grid", gridTemplateColumns: `${LABEL_W}px repeat(3, ${COL_W}px)`, alignItems: "stretch", width: "max-content" }}>
+          {/* header row */}
+          <div style={stick} />
           <PlanHeader name="Free" price="$0" ctaLabel="Try it free" ctaHref="#" />
-          <PlanHeader name="Full" price="$9.99" oldPrice="$24.99" badge accent ctaLabel="Get plan" ctaHref={PAYPAL_URL} newTab />
+          <PlanHeader name="Plan" price="$9.99" oldPrice="$24.99" ctaLabel="Get plan" ctaHref={PAYPAL_URL} newTab />
+          <PlanHeader name="Box" price="$119" badge accent ctaLabel="See details" ctaHref="/lp/box" />
 
           {/* rows */}
           {PLAN_ROWS.map((r) => (
             <Fragment key={r.label}>
-              <div className={cell} style={{ ...hair, justifyContent: "flex-start", paddingRight: 8 }}>
+              <div className={cell} style={{ ...hair, ...stick, zIndex: 1, justifyContent: "flex-start", paddingRight: 10 }}>
                 <span className="text-left" style={{ fontSize: 13, lineHeight: 1.3, color: "#3a3a3a" }}>{r.label}</span>
               </div>
               <div className={cell} style={hair}><PlanCell v={r.free} /></div>
               <div className={cell} style={hair}><PlanCell v={r.full} /></div>
+              <div className={cell} style={hair}><PlanCell v={r.box} /></div>
             </Fragment>
           ))}
         </div>
       </div>
 
-      <p className="text-mid-gray mt-4 text-center" style={{ fontSize: 11.5, lineHeight: 1.4 }}>
+      <p className="text-mid-gray mt-3 text-center" style={{ fontSize: 11, lineHeight: 1.4 }}>← Swipe to compare plans →</p>
+      <p className="text-mid-gray mt-3 text-center" style={{ fontSize: 11.5, lineHeight: 1.4 }}>
         Your eyes are auto-masked — <span className="text-midnight font-semibold">photos stay private</span>, seen only by your skin team.
       </p>
     </section>
