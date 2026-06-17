@@ -13,7 +13,7 @@ const inter = Inter({
   variable: "--font-body",
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://8mirrors-design-sandbox.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://get-8mirrors.vercel.app";
 const TITLE = "8mirrors — Your Custom K-Beauty Routine, Built for Your Skin";
 const DESC = "A complete 5-step skincare routine, built for your exact skin by Seoul experts. Any skin type. Shipped worldwide.";
 
