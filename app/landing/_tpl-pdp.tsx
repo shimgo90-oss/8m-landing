@@ -267,7 +267,7 @@ const SECTIONcn = "flex flex-col px-6";
 // Short by default. benefits / custom / results stay registered below — a marketer
 // re-adds any of them just by listing its key here.
 export const PDP_DEFAULT_SECTIONS = [
-  "hero", "info", "results", "experts", "howto", "faq", "reviews", "cta", "footer",
+  "hero", "results", "info", "howto", "experts", "faq", "reviews", "footer",
 ];
 
 export const PDP_DEFAULTS = {
@@ -309,6 +309,7 @@ export const PDP_DEFAULTS = {
     "results.afterCap": "Week 8",
     "results.headline": "Based on real customer journeys",
     "results.disclaimer": "Individual results vary. Photos shared with customer consent.",
+    "results.seeReviews": "See all reviews →",
     "reviews.eyebrow": "Reviews",
     "reviews.rating": "4.9",
     "reviews.count": "682 reviews",
@@ -563,11 +564,14 @@ const SECTIONS: Record<string, (ctx: Ctx) => React.ReactNode> = {
         ))}
       </div>
       <p className="mt-4 text-center font-body text-mid-gray" style={{ fontSize: 11.5, lineHeight: 1.45 }}>{c("results.disclaimer")}</p>
+      <div className="mt-4 text-center">
+        <button type="button" onClick={() => document.getElementById("reviews")?.scrollIntoView({ behavior: "smooth", block: "start" })} className="font-body text-mid-gray" style={{ fontSize: 13, textDecoration: "underline", textUnderlineOffset: 3, textDecorationColor: "#cfcdc6" }}>{c("results.seeReviews")}</button>
+      </div>
     </section>
   ),
 
   reviews: ({ c, L }) => (
-    <section className={SECTIONcn} style={{ paddingTop: 26, paddingBottom: 26 }}>
+    <section id="reviews" className={SECTIONcn} style={{ paddingTop: 26, paddingBottom: 26, scrollMarginTop: 70 }}>
       <Eyebrow>{c("reviews.eyebrow")}</Eyebrow>
       <div className="mt-4 flex items-center" style={{ gap: 18 }}>
         <div className="text-center shrink-0">
@@ -586,9 +590,9 @@ const SECTIONS: Record<string, (ctx: Ctx) => React.ReactNode> = {
           ))}
         </div>
       </div>
-      <div className="mt-5 flex flex-col" style={{ gap: 12 }}>
+      <div className="mt-5 flex flex-col">
         {L.reviews.map((r, i) => (
-          <div key={r.who + i} className="rounded-2xl bg-white" style={{ padding: 20, boxShadow: "var(--shadow-card)" }}>
+          <div key={r.who + i} style={{ paddingTop: i > 0 ? 16 : 4, paddingBottom: 16, boxShadow: i > 0 ? "inset 0 1px 0 #ededea" : undefined }}>
             <div className="flex items-center justify-between">
               <Stars />
               {r.date && <span className="font-body text-mid-gray" style={{ fontSize: 12 }}>{r.date}</span>}
@@ -673,7 +677,7 @@ export default function PdpTemplate({ config }: { config: LandingConfig }) {
   const ctx: Ctx = { c, img, cta, L };
 
   return (
-    <LandingExperience copy={{ "bar.cta": c("bar.cta"), "bar.promo": c("bar.promo") }}>
+    <LandingExperience copy={{ "bar.cta": c("bar.cta"), "bar.promo": c("bar.promo"), "bar.href": cta }}>
       {order.map((key) => {
         const S = SECTIONS[key];
         return S ? <S key={key} {...ctx} /> : null;

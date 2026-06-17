@@ -57,6 +57,7 @@ const EN: Dict = {
   "bar.how": "How it works",
   "bar.cta": "Try it free",
   "bar.promo": "",
+  "bar.href": "https://eightmirrors.com",
 };
 
 const FR: Dict = {

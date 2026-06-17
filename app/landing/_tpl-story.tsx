@@ -257,7 +257,7 @@ export default function StoryTemplate({ config }: { config: LandingConfig }) {
   const ctx: Ctx = { c, img, L };
 
   return (
-    <LandingExperience copy={{ "bar.cta": c("bar.cta") }}>
+    <LandingExperience copy={{ "bar.cta": c("bar.cta"), "bar.href": config.links?.cta || "#" }}>
       {order.map((key) => {
         const S = SECTIONS[key];
         return S ? <S key={key} {...ctx} /> : null;

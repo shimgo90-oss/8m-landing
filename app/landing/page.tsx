@@ -140,7 +140,7 @@ function Hero() {
         {t("hero.sub")}
       </p>
 
-      <a href="#" className="mt-6 inline-flex items-center justify-center rounded-lg" style={{ background: "var(--color-mirror-cyan)", color: "#111111", padding: "15px 30px", fontSize: 16, fontWeight: 700 }}>
+      <a href={APP_URL} className="mt-6 inline-flex items-center justify-center rounded-lg" style={{ background: "var(--color-mirror-cyan)", color: "#111111", padding: "15px 30px", fontSize: 16, fontWeight: 700 }}>
         {t("bar.cta")}
       </a>
 
@@ -905,7 +905,7 @@ function OfferSection() {
         <div style={{ display: "grid", gridTemplateColumns: `${LABEL_W}px repeat(3, ${COL_W}px)`, alignItems: "stretch", width: "max-content" }}>
           {/* header row */}
           <div style={stick} />
-          <PlanHeader name="Free" price="$0" ctaLabel="Try it free" ctaHref="#" />
+          <PlanHeader name="Free" price="$0" ctaLabel="Try it free" ctaHref={APP_URL} />
           <PlanHeader name="Plan" price="$9.99" oldPrice="$24.99" ctaLabel="Get plan" ctaHref={PAYPAL_URL} newTab />
           <PlanHeader name="Box" price="$119" badge accent ctaLabel="See details" ctaHref="/lp/box" />
 
@@ -1073,6 +1073,7 @@ function StoriesSection() {
 }
 
 const PAYPAL_URL = "https://www.paypal.com/ncp/payment/NFWM2BSB77C86";
+const APP_URL = "https://eightmirrors.com"; // product / free diagnostic entry
 
 // Menu items → internalized in-app pages at /landing/<slug>
 const MENU: [string, string][] = [
@@ -1098,7 +1099,9 @@ function Header({ hidden = false }: { hidden?: boolean }) {
           className="mx-auto flex items-center justify-between px-4"
           style={{ maxWidth: 480, height: 52, background: "#ffffff", borderBottom: "1px solid #eee" }}
         >
-          <Image src="/logo.png" alt="8mirrors" width={76} height={18} unoptimized priority style={{ height: 18, width: "auto" }} />
+          <a href="/landing" aria-label="8mirrors home">
+            <Image src="/logo.png" alt="8mirrors" width={76} height={18} unoptimized priority style={{ height: 18, width: "auto" }} />
+          </a>
           <div className="flex items-center gap-1">
             <div className="relative">
               <button type="button" aria-label="Language" onClick={() => { setLangOpen((v) => !v); setOpen(false); }} className="flex items-center gap-1 p-2 text-midnight" style={{ fontSize: 13, fontWeight: 600 }}>
@@ -1275,7 +1278,7 @@ function HowItWorksSheet({ open, onClose }: { open: boolean; onClose: () => void
             className="mt-7 flex flex-col gap-3"
             style={{ opacity: done ? 1 : 0, transform: done ? "none" : "translateY(6px)", transition: "opacity 0.4s ease, transform 0.4s ease", pointerEvents: done ? "auto" : "none" }}
           >
-            <a href="#" className="flex items-center justify-center rounded-lg text-midnight" style={{ height: 52, fontSize: 16, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
+            <a href={APP_URL} className="flex items-center justify-center rounded-lg text-midnight" style={{ height: 52, fontSize: 16, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
               Try it free
             </a>
             <a href={PAYPAL_URL} target="_blank" rel="noopener noreferrer" className="text-center text-mid-gray" style={{ fontSize: 13.5, fontWeight: 600 }}>
@@ -1311,7 +1314,7 @@ function BuyBar({ show = true }: { show?: boolean }) {
               <div className="text-center font-body text-mid-gray px-4" style={{ fontSize: 12, lineHeight: 1.4, paddingTop: 8 }}>{promo}</div>
             )}
             <div className="flex items-stretch px-4" style={{ paddingTop: promo ? 8 : 12, paddingBottom: 16 }}>
-              <a href="#" className="flex flex-1 items-center justify-center rounded-lg px-4 py-3.5 text-midnight" style={{ fontSize: 15, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
+              <a href={t("bar.href")} className="flex flex-1 items-center justify-center rounded-lg px-4 py-3.5 text-midnight" style={{ fontSize: 15, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
                 {t("bar.cta")}
               </a>
             </div>
@@ -1340,7 +1343,7 @@ export function Footer() {
         Custom K-beauty routines — read and built by Seoul skin experts, shipped worldwide.
       </p>
 
-      <a href="#" className="mt-7 inline-flex w-fit items-center justify-center rounded-lg text-midnight" style={{ background: "var(--color-mirror-cyan)", padding: "12px 22px", fontSize: 15, fontWeight: 700 }}>
+      <a href={APP_URL} className="mt-7 inline-flex w-fit items-center justify-center rounded-lg text-midnight" style={{ background: "var(--color-mirror-cyan)", padding: "12px 22px", fontSize: 15, fontWeight: 700 }}>
         Try it free
       </a>
 
