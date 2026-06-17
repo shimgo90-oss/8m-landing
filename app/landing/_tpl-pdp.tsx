@@ -218,6 +218,48 @@ const BENEFIT_ICONS = [
   () => (<svg width={24} height={24} viewBox="0 0 24 24" fill="none" aria-hidden><rect x="3" y="7" width="11" height="8" rx="1" stroke="#242424" strokeWidth="1.6" /><path d="M14 9h4l3 3v3h-7" stroke="#242424" strokeWidth="1.6" strokeLinejoin="round" /><circle cx="7" cy="17" r="1.6" stroke="#242424" strokeWidth="1.6" /><circle cx="17" cy="17" r="1.6" stroke="#242424" strokeWidth="1.6" /></svg>),
 ];
 
+/* vertical timeline for "How it works"; step 2 carries an expert mini-profile that
+   scrolls to the open experts section (#experts). */
+function HowItWorksTimeline({ flow, img }: { flow: { t: string; s: string; emph?: string }[]; img: (k: string) => string | undefined }) {
+  const goExperts = () => { document.getElementById("experts")?.scrollIntoView({ behavior: "smooth", block: "start" }); };
+  return (
+    <div className="flex flex-col">
+      {flow.map((b, i) => {
+        const last = i === flow.length - 1;
+        return (
+          <div key={i} className="flex" style={{ gap: 14 }}>
+            <div className="flex flex-col items-center" style={{ width: 30 }}>
+              <span className="shrink-0 flex items-center justify-center rounded-full font-body text-charcoal" style={{ width: 30, height: 30, background: "var(--color-canvas)", fontSize: 13, fontWeight: 700, boxShadow: "var(--shadow-input-ring)" }}>{i + 1}</span>
+              {!last && <div style={{ flex: 1, width: 2, background: "#e7e4dd", marginTop: 6, marginBottom: 6, borderRadius: 1 }} />}
+            </div>
+            <div style={{ flex: 1, paddingBottom: last ? 0 : 22 }}>
+              <div className="font-body text-charcoal" style={{ fontSize: 15.5, fontWeight: 600, lineHeight: 1.3 }}>{b.t}</div>
+              <div className="font-body text-mid-gray" style={{ fontSize: 13.5, lineHeight: 1.5, marginTop: 2 }}>{b.s}</div>
+              {b.emph && (
+                <span className="font-body text-midnight" style={{ display: "inline-block", marginTop: 9, background: "var(--color-lumen-lime)", padding: "4px 9px", borderRadius: 5, fontSize: 12.5, fontWeight: 600, lineHeight: 1.35 }}>{b.emph}</span>
+              )}
+              {i === 1 && (
+                <button type="button" onClick={goExperts} className="mt-3 flex w-full items-center rounded-xl bg-white text-left" style={{ gap: 10, padding: "10px 12px", boxShadow: "var(--shadow-card)" }}>
+                  <div className="flex shrink-0">
+                    {["/team1.jpg", "/team2.jpg", "/sumin.jpg"].map((def, k) => (
+                      <div key={k} className="rounded-full overflow-hidden bg-neutral-200" style={{ width: 30, height: 30, marginLeft: k > 0 ? -9 : 0, boxShadow: "0 0 0 2px #ffffff" }}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={img(`experts.${k}`) || def} alt="" className="h-full w-full object-cover" style={{ objectPosition: "center 25%" }} />
+                      </div>
+                    ))}
+                  </div>
+                  <span className="flex-1 font-body text-charcoal" style={{ fontSize: 12.5, fontWeight: 600, lineHeight: 1.3 }}>Meet your Seoul experts</span>
+                  <span className="font-body text-charcoal" style={{ fontSize: 12.5, fontWeight: 700, whiteSpace: "nowrap" }}>See details →</span>
+                </button>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 const SECTIONcn = "flex flex-col px-6";
 
 /* ── default content (the polished baseline a marketer starts from) ── */
@@ -225,7 +267,7 @@ const SECTIONcn = "flex flex-col px-6";
 // Short by default. benefits / custom / results stay registered below — a marketer
 // re-adds any of them just by listing its key here.
 export const PDP_DEFAULT_SECTIONS = [
-  "hero", "info", "results", "howitworks", "howto", "faq", "reviews", "cta", "footer",
+  "hero", "info", "results", "experts", "howto", "faq", "reviews", "cta", "footer",
 ];
 
 export const PDP_DEFAULTS = {
@@ -313,9 +355,9 @@ export const PDP_DEFAULTS = {
       { t: "Track your results", s: "Log your routine and watch your skin improve, week by week." },
     ],
     howto: [
-      { title: "Open your box", body: "Check your custom products and the progress tracker inside." },
-      { title: "Morning & night", body: "Apply your basic AM and PM steps every day." },
-      { title: "Twice a week", body: "Add your special treatment or mask step about 2× a week." },
+      { title: "Morning & night", body: "Your daily basics — cleanse, treat, moisturize and protect, every AM and PM." },
+      { title: "Mask routine", body: "A couple of times a week, add your mask step for a deeper reset." },
+      { title: "Active treatment", body: "Your special active step, used as your routine directs — usually 2–3× a week." },
     ],
     reviews: [
       { body: "everything just showed up matched to me — no more cart full of random products. my skin's the calmest it's been in years", who: "Bellevue, WA", date: "2 weeks ago" },
@@ -451,26 +493,8 @@ const SECTIONS: Record<string, (ctx: Ctx) => React.ReactNode> = {
           </ul>
           <p className="font-body text-mid-gray" style={{ fontSize: 13, lineHeight: 1.55, marginTop: 12 }}>{c("info.benefitsNote")}</p>
         </Accordion>
-        <Accordion title={c("experts.eyebrow")}>
-          <div className="flex items-center" style={{ gap: 11 }}>
-            <div className="flex">
-              {["/team1.jpg", "/team2.jpg", "/sumin.jpg"].map((def, i) => (
-                <div key={i} className="rounded-full overflow-hidden bg-neutral-200" style={{ width: 44, height: 44, marginLeft: i > 0 ? -12 : 0, boxShadow: "0 0 0 2px #ffffff" }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img(`experts.${i}`) || def} alt="" className="h-full w-full object-cover" style={{ objectPosition: "center 25%" }} />
-                </div>
-              ))}
-            </div>
-            <span className="font-body text-mid-gray" style={{ fontSize: 12.5, lineHeight: 1.4 }}>{c("experts.avatarsNote")}</span>
-          </div>
-          <p className="font-body text-mid-gray" style={{ fontSize: 13.5, lineHeight: 1.6, marginTop: 12 }}>{c("experts.intro")}</p>
-          <div className="flex flex-wrap" style={{ gap: 8, marginTop: 12 }}>
-            {L.stats.map((s, i) => (
-              <span key={i} className="font-body" style={{ fontSize: 12.5, lineHeight: 1.3, background: "var(--color-canvas)", boxShadow: "var(--shadow-input-ring)", borderRadius: 8, padding: "6px 12px" }}>
-                <span className="text-charcoal" style={{ fontWeight: 700 }}>{s.big}</span> <span className="text-mid-gray">{s.sub}</span>
-              </span>
-            ))}
-          </div>
+        <Accordion title={c("howitworks.eyebrow")} defaultOpen>
+          <HowItWorksTimeline flow={L.flow} img={img} />
         </Accordion>
       </div>
     </section>
@@ -485,28 +509,28 @@ const SECTIONS: Record<string, (ctx: Ctx) => React.ReactNode> = {
     </section>
   ),
 
-  howitworks: ({ c, L }) => (
-    <section className={SECTIONcn} style={{ paddingTop: 26, paddingBottom: 28 }}>
-      <Eyebrow>{c("howitworks.eyebrow")}</Eyebrow>
-      <div className="mt-5 flex flex-col">
-        {L.flow.map((b, i) => {
-          const last = i === L.flow.length - 1;
-          return (
-            <div key={i} className="flex" style={{ gap: 14 }}>
-              <div className="flex flex-col items-center" style={{ width: 30 }}>
-                <span className="shrink-0 flex items-center justify-center rounded-full font-body text-charcoal" style={{ width: 30, height: 30, background: "var(--color-canvas)", fontSize: 13, fontWeight: 700, boxShadow: "var(--shadow-input-ring)" }}>{i + 1}</span>
-                {!last && <div style={{ flex: 1, width: 2, background: "#e7e4dd", marginTop: 6, marginBottom: 6, borderRadius: 1 }} />}
-              </div>
-              <div style={{ flex: 1, paddingBottom: last ? 0 : 22 }}>
-                <div className="font-body text-charcoal" style={{ fontSize: 15.5, fontWeight: 600, lineHeight: 1.3 }}>{b.t}</div>
-                <div className="font-body text-mid-gray" style={{ fontSize: 13.5, lineHeight: 1.5, marginTop: 2 }}>{b.s}</div>
-                {b.emph && (
-                  <span className="font-body text-midnight" style={{ display: "inline-block", marginTop: 9, background: "var(--color-lumen-lime)", padding: "4px 9px", borderRadius: 5, fontSize: 12.5, fontWeight: 600, lineHeight: 1.35 }}>{b.emph}</span>
-                )}
-              </div>
+  experts: ({ c, img, L }) => (
+    <section id="experts" className={SECTIONcn} style={{ paddingTop: 26, paddingBottom: 28, scrollMarginTop: 70 }}>
+      <Eyebrow>{c("experts.eyebrow")}</Eyebrow>
+      <p className="mt-2 font-display text-charcoal" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.2 }}>{c("experts.title")}</p>
+      <div className="mt-4 flex items-center" style={{ gap: 11 }}>
+        <div className="flex">
+          {["/team1.jpg", "/team2.jpg", "/sumin.jpg"].map((def, i) => (
+            <div key={i} className="rounded-full overflow-hidden bg-neutral-200" style={{ width: 46, height: 46, marginLeft: i > 0 ? -12 : 0, boxShadow: "0 0 0 2px #ffffff" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={img(`experts.${i}`) || def} alt="" className="h-full w-full object-cover" style={{ objectPosition: "center 25%" }} />
             </div>
-          );
-        })}
+          ))}
+        </div>
+        <span className="font-body text-mid-gray" style={{ fontSize: 12.5, lineHeight: 1.4 }}>{c("experts.avatarsNote")}</span>
+      </div>
+      <p className="mt-4 font-body text-mid-gray" style={{ fontSize: 13.5, lineHeight: 1.6, maxWidth: 400 }}>{c("experts.intro")}</p>
+      <div className="mt-4 flex flex-wrap" style={{ gap: 8 }}>
+        {L.stats.map((s, i) => (
+          <span key={i} className="font-body" style={{ fontSize: 12.5, lineHeight: 1.3, background: "var(--color-canvas)", boxShadow: "var(--shadow-input-ring)", borderRadius: 8, padding: "6px 12px" }}>
+            <span className="text-charcoal" style={{ fontWeight: 700 }}>{s.big}</span> <span className="text-mid-gray">{s.sub}</span>
+          </span>
+        ))}
       </div>
     </section>
   ),
@@ -522,7 +546,6 @@ const SECTIONS: Record<string, (ctx: Ctx) => React.ReactNode> = {
   results: ({ c, img }) => (
     <section className={SECTIONcn} style={{ paddingTop: 26, paddingBottom: 26 }}>
       <Eyebrow>{c("results.eyebrow")}</Eyebrow>
-      <p className="mt-3 text-center font-display text-charcoal" style={{ fontSize: 21, fontWeight: 500, lineHeight: 1.25 }}>{c("results.headline")}</p>
       <div className="mt-4 grid grid-cols-2 gap-3">
         {[["results.before", "results.beforeCap"], ["results.after", "results.afterCap"]].map(([imgKey, capKey], i) => (
           <div key={imgKey}>

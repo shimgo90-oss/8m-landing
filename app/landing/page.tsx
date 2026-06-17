@@ -838,15 +838,16 @@ const PLAN_ROWS: PlanRow[] = [
   { label: "Skin photos", free: "1", full: "3", box: "3" },
   { label: "In-depth questionnaire", free: false, full: true, box: true },
   { label: "Skin graph + keywords", free: true, full: true, box: true },
-  { label: "Custom routine", free: "2 steps", full: "Full", box: "Full" },
-  { label: "Current routine check", free: false, full: true, box: true },
-  { label: "8mirrors team analysis", free: false, full: true, box: true },
-  { label: "Treatment plan + report", free: false, full: true, box: true },
-  { label: "K-beauty products", free: false, full: "40% off", box: "Included" },
+  { label: "Expert analysis + report", free: false, full: true, box: true },
+  { label: "Custom AM & PM routine", free: "2 steps", full: "Full", box: "Full" },
+  { label: "K-beauty products", free: false, full: "40% off", box: "5 included" },
+  { label: "Progress tracker", free: false, full: false, box: true },
+  { label: "Free worldwide shipping", free: false, full: false, box: true },
+  { label: "Routine adjustments", free: false, full: false, box: true },
 ];
 
-const LABEL_W = 150;
-const COL_W = 116;
+const LABEL_W = 82;
+const COL_W = 118;
 
 function PlanCell({ v }: { v: boolean | string }) {
   if (typeof v === "string") {
@@ -912,7 +913,7 @@ function OfferSection() {
           {PLAN_ROWS.map((r) => (
             <Fragment key={r.label}>
               <div className={cell} style={{ ...hair, ...stick, zIndex: 1, justifyContent: "flex-start", paddingRight: 10 }}>
-                <span className="text-left" style={{ fontSize: 13, lineHeight: 1.3, color: "#3a3a3a" }}>{r.label}</span>
+                <span className="text-left" style={{ fontSize: 12, lineHeight: 1.25, color: "#3a3a3a" }}>{r.label}</span>
               </div>
               <div className={cell} style={hair}><PlanCell v={r.free} /></div>
               <div className={cell} style={hair}><PlanCell v={r.full} /></div>
