@@ -28,10 +28,11 @@ The 8mirrors marketing **landing site** (Next.js 16 App Router). An **A/B testin
 - Still expected: follow [the brand voice](context/brand-voice.md) and [DESIGN.md](DESIGN.md). For simple changes prefer the no-code `copy` / `sections` path in `_variants.tsx` (cleaner diffs, no broken layout); drop into components when the change needs it.
 
 ## Variant system
-- [app/landing/_variants.tsx](app/landing/_variants.tsx) — the variant registry. The top comment explains "how to make one." A variant = `{ slug, note, sections?, copy?, Custom? }`.
-- `sections` = order/subset of shared blocks (`hero · what-you-get · report-archive · team · stories · offer · footer`).
-- `copy` = i18n key → text **no-code override** (change wording without touching React). Keys live in [app/landing/_i18n.tsx](app/landing/_i18n.tsx).
-- `Custom` = fully custom layout component (dev lane only, e.g. [app/landing/_variant-redness.tsx](app/landing/_variant-redness.tsx)).
+- [app/landing/_variants.tsx](app/landing/_variants.tsx) — the variant registry. The top comment explains "how to make one." A variant = `{ slug, note, template?, sections?, copy?, images?, links?, lists?, Custom? }`.
+- **Two kinds of variant:**
+  - **Data-driven** (original / lean / routine) — `sections` (order/subset of shared blocks: `hero · what-you-get · report-archive · team · stories · offer · footer`) + `copy` (i18n key → text override; keys in [app/landing/_i18n.tsx](app/landing/_i18n.tsx)).
+  - **Template** (box = `pdp`, redness = `story`) — set `template`, then override `copy` / `images` / `links` / `lists` / `sections`. **Defaults + every accepted key live in [app/landing/_tpl-pdp.tsx](app/landing/_tpl-pdp.tsx) / [app/landing/_tpl-story.tsx](app/landing/_tpl-story.tsx)** (`PDP_DEFAULTS`, `STORY_DEFAULTS`). Layout / color / type / spacing are locked inside the template files — content, order and destinations are the editable surface. Marketer how-to: [MARKETER.md](MARKETER.md) §2½.
+  - `Custom` = legacy fully-custom component (dev lane). Templates have replaced it for box/redness.
 - The shell (header, scroll, buy bar) is shared via `LandingExperience` — every variant behaves identically.
 
 ## Design system (mandatory for any UI work)

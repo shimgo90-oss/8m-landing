@@ -72,6 +72,54 @@ Go ahead — ask Codex to build it (you can edit components too). Just preview i
 
 ---
 
+## 2½. Editing a template page (the $119 Box & Redness)
+
+Two pages are **templates** — richer than the simple variants above, but edited the same way (in `_variants.tsx`):
+
+- `/lp/box` → `template: "pdp"` (product-detail page)
+- `/lp/redness` → `template: "story"` (story-led page)
+
+To spin a test off one: **copy its block, change the `slug`, override only what you want.** You can touch 5 things — nothing else:
+
+```ts
+{
+  slug: "box-glow",
+  template: "pdp",                  // keep the same template
+  label: "Box — glow angle",
+  note: "Hypothesis: …",
+
+  sections: ["hero", "results", "info", "howto", "experts", "faq", "reviews", "footer"], // reorder / remove
+
+  copy: {                           // text only (keys live in app/landing/_tpl-pdp.tsx → PDP_DEFAULTS.copy)
+    "hero.title": "The Custom Routine Box",
+    "hero.price": "$119",
+    "hero.cta": "Get my box",
+    "bar.promo": "Order now — free shipping + a free gift",
+  },
+
+  images: {                         // photo/video slots → drop a file in /public and point to it
+    "gallery.0": "/lp/box/hero.png",    // gallery.0–5 = top carousel
+    "howto.0": "/lp/box/step1.jpg",     // howto.0–2  = "How to use" cards
+    "results.before": "/lp/box/before.jpg",
+    "results.after": "/lp/box/after.jpg",
+  },
+
+  links: { cta: "https://your-checkout-url" }, // where the buy button goes
+
+  lists: {                          // repeatable content (arrays) — see PDP_DEFAULTS.lists
+    reviews: [{ body: "…", who: "Austin, TX", date: "2 weeks ago" }],
+    faq: [{ q: "…", a: "…" }],
+  },
+}
+```
+
+- **Where every key lives**: open `app/landing/_tpl-pdp.tsx` (or `_tpl-story.tsx`) and read `PDP_DEFAULTS` — every `copy` key, `images` slot, `lists` array, and `sections` key the template accepts is right there. Copy one, override it in your variant.
+- **Locked by design** (you can't break it): layout, colors, fonts, spacing. You only change content / order / destinations.
+- Leave an `images` slot empty → it shows a grey placeholder (fine for a copy test).
+- **Need a new section or a layout change?** That's a Claude job — ask, and it's added to the template for everyone.
+
+---
+
 ## 3. Preview → push → get reviewed
 
 ```bash

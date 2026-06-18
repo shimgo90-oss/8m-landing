@@ -19,7 +19,11 @@ import type { ComponentType } from "react";
 
    Common copy keys (override in `copy`):
      hero.titleA · hero.titleB · hero.sub · hero.cta · bar.cta
-     (full list lives in _i18n.tsx) */
+     (full list lives in _i18n.tsx)
+
+   TEMPLATE pages — box (template: "pdp") & redness (template: "story") — have more
+   knobs: template · images · links · lists (+ their own copy/section keys).
+   Defaults & all keys live in _tpl-pdp.tsx / _tpl-story.tsx. How-to: MARKETER.md §2½. */
 
 /* A landing variant = a config object a marketer edits. The fields below are the
    ONLY things a marketer touches (content/order/destination) — layout/color/type
