@@ -2,6 +2,12 @@
 
 How to run 8mirrors landing A/B tests with **almost no code**. Just follow the steps in order.
 
+> ## ⚠️ Two rules that prevent 90% of problems
+> 1. **Always `git pull` before you start.** The live site is `main` — if you don't pull, you'll be editing an **old version** of the page (and your preview will look wrong).
+> 2. **Never commit on `main`.** Always work on a `variant/<name>` branch. Committing on your local `main` makes your copy drift from the live site and you'll get stuck.
+>
+> **Seeing an old page / out of sync?** Easiest fix: delete the folder and **re-clone fresh** (see §4).
+
 ---
 
 ## 0. One-time — accounts & programs
@@ -37,6 +43,8 @@ git checkout main && git pull         # get the latest
 git checkout -b variant/<name>         # your working branch (e.g. variant/glowup)
 npm run dev                            # preview at http://localhost:3000/lp/<slug>
 ```
+
+> ⚠️ **Don't skip `git pull`** — it's the #1 cause of "the page looks old/wrong." And **never commit on `main`**: only ever commit on your `variant/<name>` branch.
 
 ---
 
@@ -140,3 +148,13 @@ git add -A && git commit -m "variant: add glowup" && git push -u origin variant/
 - Tone & wording: `context/brand-voice.md`
 - Design rules: `DESIGN.md`
 - Still stuck? Ask Codex, or 고고.
+
+### Page looks old / out of sync?
+Your local copy has drifted from the live site. Fastest fix — **re-clone fresh** (you lose only un-pushed local changes):
+```bash
+cd ..                                  # leave the project folder
+# delete or rename the old 8mirrors-design-sandbox folder, then:
+git clone https://github.com/shimgo90-oss/8mirrors-design-sandbox.git
+cd 8mirrors-design-sandbox && npm install && npm run dev
+```
+(Or ask Codex: *"Hard-reset my local main to origin/main and start a fresh variant branch."*)
