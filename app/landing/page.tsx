@@ -1338,11 +1338,11 @@ export function Footer() {
         style={{ width: 232, height: "auto", filter: "brightness(0) invert(1)" }}
       />
       <p style={{ color: "#8c8c8c", fontSize: 14, lineHeight: 1.55, marginTop: 18, maxWidth: 300 }}>
-        Custom K-beauty routines — read and built by Seoul skin experts, shipped worldwide.
+        Custom K-Beauty routines — Reviewed and built by Korean Skin Experts, shipped worldwide.
       </p>
 
       <a href={APP_URL} className="mt-7 inline-flex w-fit items-center justify-center rounded-lg text-midnight" style={{ background: "var(--color-mirror-cyan)", padding: "12px 22px", fontSize: 15, fontWeight: 700 }}>
-        Try it free
+        Try it FREE
       </a>
 
       <nav className="mt-10 grid grid-cols-2" style={{ rowGap: 15, columnGap: 16 }}>

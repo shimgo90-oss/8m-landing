@@ -72,7 +72,12 @@ export const VARIANTS: Variant[] = [
     images: {
       // gallery.0 = the lead hero shot (curated-routine moodboard). gallery.1..5 left as
       // placeholders for the per-step product category shots. Swap any in here.
-      "gallery.0": "/lp/box/hero.png",
+      "gallery.0": "/lp/box/gallery-new-1-chatgpt-final-shift-right.png",
+      "gallery.1": "/lp/box/gallery-new-2.jpg",
+      "gallery.2": "/lp/box/gallery-new-3.jpg",
+      "gallery.3": "/lp/box/gallery-new-4.jpg",
+      "gallery.4": "/lp/box/gallery-new-5.jpg",
+      "gallery.5": "/lp/box/gallery-new-6.jpg",
     },
     // A marketer clones this block, changes slug + note, then edits copy/images/links/lists/sections.
   },

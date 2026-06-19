@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "8mirrors — The Custom Routine Box";
+export const alt = "8mirrors — Custom Routine Box";
 
 // Social share card shown when the URL is shared on SNS.
 export default function OpengraphImage() {
@@ -25,7 +25,7 @@ export default function OpengraphImage() {
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <div style={{ fontSize: 50, fontWeight: 700, color: "#9a9a93", letterSpacing: 4 }}>CUSTOM K-BEAUTY ROUTINE</div>
           <div style={{ fontSize: 80, fontWeight: 600, color: "#111111", lineHeight: 1.05, maxWidth: 980 }}>
-            The Custom Routine Box
+            Custom Routine Box
           </div>
           <div style={{ fontSize: 32, color: "#555555", lineHeight: 1.4, maxWidth: 880 }}>
             A complete 5-step routine, built for your exact skin by Seoul experts. Any skin type, shipped worldwide.
