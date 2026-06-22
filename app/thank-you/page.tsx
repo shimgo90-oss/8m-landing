@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 
 // Where customers go after a successful Stripe checkout. Set the Stripe Payment
 // Link's "After payment → redirect" to https://<domain>/thank-you (both test & live).
@@ -9,8 +8,6 @@ export const metadata: Metadata = {
   description: "Your Custom Routine Box is confirmed.",
   robots: { index: false, follow: false },
 };
-
-const APP_URL = "https://eightmirrors.com"; // skin-analysis / diagnostic entry
 
 export default function ThankYou() {
   return (
@@ -42,39 +39,32 @@ export default function ThankYou() {
         </h1>
 
         <p className="font-body" style={{ marginTop: 14, fontSize: 16, lineHeight: 1.55, color: "var(--color-charcoal)" }}>
-          Your Custom Routine Box is confirmed. The last step is yours: share your skin so our Korean experts can build a routine made for you.
+          Your Custom Routine Box is confirmed. Thank you for trusting your skin with us.
         </p>
 
-        <a
-          href={APP_URL}
-          className="font-body text-midnight"
-          style={{
-            marginTop: 28,
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 10,
-            background: "var(--color-mirror-cyan)",
-            padding: "16px 22px",
-            fontSize: 16,
-            fontWeight: 700,
-          }}
+        {/* What happens next — email-led, no action needed from the customer */}
+        <div
+          className="w-full rounded-2xl bg-white text-left"
+          style={{ marginTop: 28, padding: 22, boxShadow: "var(--shadow-card)" }}
         >
-          Start my skin analysis →
-        </a>
+          <p className="font-body" style={{ fontSize: 13, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--color-mid-gray)" }}>
+            What happens next
+          </p>
+          <p className="font-body" style={{ marginTop: 10, fontSize: 15.5, lineHeight: 1.55, color: "var(--color-charcoal)" }}>
+            Check your inbox &mdash; in a few minutes we&rsquo;ll email you a short set of questions to start your skin analysis. <strong style={{ fontWeight: 700 }}>No action needed right now</strong>; just keep an eye out for that email.
+          </p>
+        </div>
 
         <p className="font-body" style={{ marginTop: 18, fontSize: 13.5, lineHeight: 1.5, color: "var(--color-mid-gray)" }}>
-          A confirmation email is on its way. Once you share your skin, our experts review it over 4&ndash;5 days &mdash; then your box ships, free worldwide.
+          Once you reply, our Korean experts review your skin over 4&ndash;5 days &mdash; then your box ships, free worldwide.
         </p>
 
-        <Link
-          href="/landing"
-          className="font-body"
-          style={{ marginTop: 28, fontSize: 13.5, color: "var(--color-mid-gray)", textDecoration: "underline", textUnderlineOffset: 3, textDecorationColor: "#cfcdc6" }}
-        >
-          Back to home
-        </Link>
+        <p className="font-body" style={{ marginTop: 22, fontSize: 13, lineHeight: 1.5, color: "var(--color-mid-gray)" }}>
+          Didn&rsquo;t get the email? Check your spam folder, or reach us at{" "}
+          <a href="mailto:contact@haebom.day" style={{ color: "var(--color-charcoal)", textDecoration: "underline", textUnderlineOffset: 3, textDecorationColor: "#cfcdc6" }}>
+            contact@haebom.day
+          </a>.
+        </p>
       </div>
     </main>
   );
