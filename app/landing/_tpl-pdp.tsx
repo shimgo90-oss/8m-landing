@@ -76,6 +76,15 @@ function CtaButton({ href = "#", children }: { href?: string; children: React.Re
   );
 }
 
+function SalePrice({ price, original = "$159" }: { price: string; original?: string }) {
+  return (
+    <span className="inline-flex items-baseline" style={{ gap: 7 }}>
+      <span className="font-body" style={{ color: "#e5484d", fontSize: 22, fontWeight: 700, lineHeight: 1 }}>{price}</span>
+      <span className="font-body text-mid-gray line-through" style={{ fontSize: 15, fontWeight: 600, lineHeight: 1 }}>{original}</span>
+    </span>
+  );
+}
+
 function Chevron({ open }: { open: boolean }) {
   return (
     <svg width={18} height={18} viewBox="0 0 24 24" fill="none" aria-hidden className="shrink-0" style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform 0.2s ease" }}>
@@ -124,7 +133,9 @@ function HeroGallery({ slides, img }: { slides: string[]; img: (k: string) => st
       <div ref={ref} onScroll={onScroll} className="flex overflow-x-auto no-scrollbar" style={{ scrollSnapType: "x mandatory", scrollbarWidth: "none", msOverflowStyle: "none", gap: 12 }}>
         {slides.map((label, i) => (
           <div key={i} className="shrink-0" style={{ width: "85%", scrollSnapAlign: "center" }}>
-            {img(`gallery.${i}`) ? (
+            {i === 0 && img("box.product.0") && img(`gallery.${i}`) ? (
+              <HeroProductBox src={img(`gallery.${i}`)!} img={img} />
+            ) : img(`gallery.${i}`) ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={img(`gallery.${i}`)} alt={label} className="w-full rounded-2xl object-cover" style={{ height: 360 }} />
             ) : (
@@ -151,6 +162,59 @@ function HeroGallery({ slides, img }: { slides: string[]; img: (k: string) => st
             )}
           </button>
         ))}
+      </div>
+    </div>
+  );
+}
+
+const HERO_PRODUCTS = [
+  { key: "box.product.0", label: "Aestura" },
+  { key: "box.product.1", label: "Torriden" },
+  { key: "box.product.2", label: "HaruHaru" },
+  { key: "box.product.3", label: "Purito" },
+  { key: "box.product.4", label: "Anua" },
+];
+
+function HeroProductBox({ src, img }: { src: string; img: (k: string) => string | undefined }) {
+  return (
+    <div className="relative w-full overflow-hidden rounded-2xl" style={{ height: 360, backgroundColor: "#ece9e2" }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt="Custom Routine Box" className="absolute inset-0 h-full w-full object-cover" />
+      <div
+        className="absolute rounded-2xl"
+        style={{
+          right: 10,
+          bottom: 10,
+          width: "63%",
+          height: 130,
+          background: "linear-gradient(180deg, #fbf7ef 0%, #efe4d7 100%)",
+          boxShadow: "0 14px 30px rgba(36, 36, 36, 0.2)",
+          padding: "13px 11px 9px",
+        }}
+      >
+        <div className="font-display text-charcoal text-center" style={{ fontSize: 14, fontWeight: 500, lineHeight: 1.05, letterSpacing: "0.02em" }}>
+          Custom Routine Box
+        </div>
+        <div className="mt-2 flex items-end justify-center" style={{ gap: 4 }}>
+          {HERO_PRODUCTS.map((p) => {
+            const productSrc = img(p.key);
+            return (
+              <div key={p.key} className="flex min-w-0 flex-1 flex-col items-center">
+                <div className="flex h-[72px] w-full items-end justify-center rounded-lg bg-white/45 px-0.5 py-1">
+                  {productSrc ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={productSrc} alt={p.label} className="max-h-full max-w-full object-contain" />
+                  ) : (
+                    <span className="font-body text-mid-gray" style={{ fontSize: 9, fontWeight: 600 }}>{p.label}</span>
+                  )}
+                </div>
+                <span className="mt-1 font-body text-mid-gray" style={{ fontSize: 8.5, fontWeight: 600, lineHeight: 1 }}>
+                  {p.label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
@@ -264,34 +328,35 @@ export const PDP_DEFAULT_SECTIONS = [
 
 export const PDP_DEFAULTS = {
   copy: {
-    "bar.cta": "Get my box",
+    "bar.cta": "Order My Custom Box",
     "bar.promo": "Order now — free shipping + a free gift",
-    "hero.eyebrow": "Custom K-beauty routine",
-    "hero.title": "The Custom Routine Box",
-    "hero.sub": "A complete 5-step routine, built for your exact skin by Seoul experts. Any skin type — oily, dry, sensitive or combination.",
-    "hero.rating": "4.9 · 682 skins analyzed",
+    "hero.eyebrow": "8mirrors | K-Skincare Matchmaker",
+    "hero.title": "Custom Routine Box",
+    "hero.sub": "",
+    "hero.bold": "No more guesswork. No more wasted money.",
+    "hero.rating": "4.9 · 682 faces analyzed",
     "hero.price": "$119",
     "hero.shipNote": "Free worldwide shipping",
-    "hero.cta": "Get my box",
+    "hero.cta": "Order My Custom Box",
     "hero.installment": "or 4 interest-free payments of $29.75 with Afterpay",
     "hero.guarantee": "30-day happiness guarantee · free returns",
     "hero.reassure": "Built per-person · expert analysis included · no subscription",
     "contents.eyebrow": "What's in the box",
-    "contents.title": "Your custom 5-step routine",
+    "contents.title": "Your Custom 5-Step Routine",
     "contents.intro": "Five real K-beauty products, handpicked for your skin — so your exact set is unique to you.",
     "detail.eyebrow": "What you also get",
     "faq.eyebrow": "FAQ",
     "info.descriptionTitle": "Description",
     "info.contentsTitle": "What's in the box",
     "info.benefitsTitle": "Benefits",
-    "description.body": "8mirrors builds a complete skincare routine made for your skin — not a one-size-fits-all kit. Tell us about your skin and send a photo; Seoul skin experts review it over 4–5 days and build your custom AM & PM routine of real K-beauty products, delivered to your door. It works for any skin type — oily, dry, sensitive or combination.",
-    "info.benefitsNote": "No brand pays to be in your box — 682+ skins analyzed, $0 paid by brands. Just what's right for your skin.",
-    "howto.eyebrow": "How to use",
+    "description.body": "Skincare is not one-size-fits-all. At 8mirrors, our Skin Experts first assess your skin from photos that you submit, then they build a skincare routine that's personalised to your skin goals. From South Korea your door, we offer Expert-curated Korean skincare solutions to cater to all skin concerns.",
+    "info.benefitsNote": "Our boxes are not influenced by brands. All products have been tried, tested and loved by the 8mirrors team before being approved for your box. We follow your skin data, not trends.",
+    "howto.eyebrow": "How to Use Your Custom Box",
     "howitworks.eyebrow": "How it works",
-    "experts.eyebrow": "Our Seoul experts",
+    "experts.eyebrow": "OUR KOREAN EXPERTS",
     "experts.title": "Every box is built by hand.",
-    "experts.avatarsNote": "Your Seoul skin team",
-    "experts.intro": "Real skin experts from TheBom Studio in Myeongdong, Seoul read your skin and build your routine — no algorithm, no brand quotas. The same expert care, now shipped to you.",
+    "experts.avatarsNote": "Your Korean Skincare Matchmakers",
+    "experts.intro": "Real Skin Experts from TheBom Studio in Seoul, South Korea review your skin and build your routine - no AI, no brand endorsements. The same Expert care you get in Seoul, now delivered direct to you no matter where you are in the world.",
     "experts.howTitle": "How it works",
     "custom.eyebrow": "How it's built for you",
     "custom.title": "One box, built differently for every skin.",
@@ -310,15 +375,15 @@ export const PDP_DEFAULTS = {
     "cta.price": "$119",
     "cta.shipNote": "Free worldwide shipping",
     "cta.line": "Your full routine, the analysis behind it, and a tracker — built for your skin.",
-    "cta.cta": "Get my box",
+    "cta.cta": "Order My Custom Box",
   } as Record<string, string>,
   lists: {
     thumbs: ["Cleanser", "Toner", "Serum", "Cream", "SPF"],
     benefits: [
       { title: "Built for your skin", sub: "Not one-size-fits-all" },
       { title: "Full 5-step routine", sub: "Cleanser to SPF" },
-      { title: "Expert-built in Seoul", sub: "Read by real pros" },
-      { title: "Shipped worldwide", sub: "Straight to your door" },
+      { title: "Expert-built in Seoul", sub: "Reviewed by real pros" },
+      { title: "Shipped worldwide", sub: "From Korea to your doorstep" },
     ],
     products: [
       { step: "Cleanser", role: "Gentle cleanser", desc: "Clears the day without stripping your skin", when: "AM · PM" },
@@ -329,28 +394,28 @@ export const PDP_DEFAULTS = {
     ],
     extras: [
       { title: "Expert skin analysis", sub: "Your skin read by Seoul pros — the reason every pick fits" },
-      { title: "Skin report", sub: "Your skin type, needs and what to expect, in plain language" },
-      { title: "Progress tracker", sub: "A simple sheet to watch your skin improve, week by week" },
+      { title: "Skin Report", sub: "Your skin type, needs and what to expect, in plain language" },
+      { title: "Progress Tracker", sub: "A simple sheet to watch your skin improve, week by week" },
     ],
     detail: [
-      { title: "Skin analysis", body: "Before anything ships, Seoul skin experts read your photos and answers over 4–5 days — your skin type, triggers, sensitivities and what it actually needs. Every product in your box is chosen from this, not a generic quiz." },
-      { title: "Skin report", body: "A plain-language report you keep: what's going on with your skin, why each step is in your routine, and what to expect week by week." },
-      { title: "Progress tracker", body: "A tracker in the box to log your routine daily and watch your skin change over the weeks — so you see it working, not guess." },
+      { title: "Skin Assessment", body: "Before anything ships, Seoul Skin Experts review your photos & concerns over 4-5 days. We check your skin type, current skin condition, triggers, sensitivities and what exactly your skin needs. Every product chosen for you in your custom routine box is determined by the result of this in-depth skin assessment" },
+      { title: "Skin Report", body: "An easy-to-read yet in-depth report that tells you exactly what's going on with your skin and how to manage your skin health. No subscription. Just check back in with us anytime you need your skin re-assessed." },
+      { title: "Progress Tracker", body: "All Custom Routine boxes come with a progress log so you can track your skin progress and changes over the coming weeks." },
     ],
     stats: [
-      { big: "682+", sub: "skins analyzed" },
-      { big: "$0", sub: "paid by brands to be picked" },
+      { big: "682+", sub: "faces analyzed" },
+      { big: "$0", sub: "brand endorsements" },
     ],
     flow: [
-      { t: "Tell us your skin", s: "Answer a few quick questions and send one photo." },
-      { t: "Experts read your skin", s: "Seoul skin pros study your photo over 4–5 days — not an algorithm.", emph: "They write you a detailed analysis report" },
-      { t: "We build & ship your box", s: "Your custom 5-step routine, made for you and sent to your door." },
+      { t: "Tell us about your skin", s: "Answer a few quick questions and send one photo." },
+      { t: "Experts read your skin", s: "Korean Skin Experts review your skin over 4-5 days, carefully building your treatment plan with effective solutions for you", emph: "They write a detailed skin report, just for you." },
+      { t: "We build & ship your box", s: "Your Custom 5-Step Routine is created, packed and sent direct to your doorstep, no matter where you are in the world." },
       { t: "Track your results", s: "Log your routine and watch your skin improve, week by week." },
     ],
     howto: [
-      { title: "Morning & night", body: "Your daily basics — cleanse, treat, moisturize and protect, every AM and PM." },
-      { title: "Mask routine", body: "A couple of times a week, add your mask step for a deeper reset." },
-      { title: "Active treatment", body: "Your special active step, used as your routine directs — usually 2–3× a week." },
+      { title: "The AM & PM steps", body: "These are your daily basics — cleanse, treat, moisturize and protect, every morning and night." },
+      { title: "The Mask Step", body: "A couple of times a week, add your mask step for a deeper reset." },
+      { title: "The Special Treatment Step", body: "Your special active ingredient step, targetting specific concerns — usually 2–3× a week." },
     ],
     reviews: [
       { body: "everything just showed up matched to me — no more cart full of random products. my skin's the calmest it's been in years", who: "Bellevue, WA", date: "2 weeks ago" },
@@ -366,10 +431,10 @@ export const PDP_DEFAULTS = {
       { t: "They pick every product", s: "No brand quotas — only what fits your skin goes in the box" },
     ],
     faq: [
-      { q: "I'm not in South Korea. Can I still get one?", a: "Yes — it's made for people outside Korea who want healthy, glowing skin. It ships worldwide." },
-      { q: "How long until it arrives?", a: "Each box is built personally by our experts, so allow 5–7 business days for your analysis and routine before it ships." },
+      { q: "I'm not in Korea. Can I still order a Custom box?", a: "Yes! We created this service to help global users access Korean skincare solutions, no matter where they are in the world. Glowing skin has no borders." },
+      { q: "How long until my box arrives?", a: "Each box is built personally by our experts, so allow 5–7 business days for your analysis and routine before it ships." },
       { q: "I already have a routine. Do I have to change everything?", a: "No. We keep the products that are working for your skin and only swap what isn't." },
-      { q: "What if my skin changes?", a: "We reassess and adjust your routine when your skin shifts with the season or your lifestyle." },
+      { q: "What do I do if my skin changes?", a: "Change is expected! We reassess and adjust your routine when your skin shifts with the seasons or due to lifestyle changes." },
       { q: "Shipping & returns", a: "Free worldwide shipping. Because each box is built personally for you, allow 5–7 business days for your analysis and routine before it ships. 30-day happiness guarantee with free returns." },
     ],
   },
@@ -391,12 +456,14 @@ const SECTIONS: Record<string, (ctx: Ctx) => React.ReactNode> = {
       <div className="mt-6">
         <Eyebrow>{c("hero.eyebrow")}</Eyebrow>
         <h1 className="mt-2 font-display text-charcoal" style={{ fontSize: "clamp(26px, 7vw, 34px)", lineHeight: 1.12, fontWeight: 500, letterSpacing: "-0.015em" }}>{c("hero.title")}</h1>
+        {c("hero.sub") && <p className="mt-2.5 font-body text-mid-gray" style={{ fontSize: 13.5, lineHeight: 1.5, maxWidth: 390 }}>{c("hero.sub")}</p>}
+        {c("hero.bold") && <p className="mt-1.5 font-body text-charcoal" style={{ fontSize: 14, lineHeight: 1.4, fontWeight: 700 }}>{c("hero.bold")}</p>}
         <div className="mt-3 inline-flex items-center" style={{ gap: 8 }}>
           <Stars />
           <span className="font-body text-charcoal" style={{ fontSize: 13, textDecoration: "underline", textUnderlineOffset: 2, textDecorationColor: "#cfcdc6" }}>{c("hero.rating")}</span>
         </div>
         <div className="mt-4 flex items-baseline gap-2.5">
-          <span className="font-body text-charcoal" style={{ fontSize: 22, fontWeight: 700, lineHeight: 1 }}>{c("hero.price")}</span>
+          <SalePrice price={c("hero.price")} />
           <span className="font-body text-mid-gray" style={{ fontSize: 13 }}>{c("hero.shipNote")}</span>
         </div>
         {c("hero.installment") && <p className="mt-1.5 font-body text-mid-gray" style={{ fontSize: 12.5 }}>{c("hero.installment")}</p>}
@@ -637,7 +704,7 @@ const SECTIONS: Record<string, (ctx: Ctx) => React.ReactNode> = {
     <section className={SECTIONcn} style={{ paddingTop: 26, paddingBottom: 56 }}>
       <div className="rounded-2xl bg-white" style={{ padding: 24, boxShadow: "var(--shadow-card)" }}>
         <div className="flex items-baseline gap-2.5">
-          <span className="font-body text-charcoal" style={{ fontSize: 22, fontWeight: 700, lineHeight: 1 }}>{c("cta.price")}</span>
+          <SalePrice price={c("cta.price")} />
           <span className="font-body text-mid-gray" style={{ fontSize: 13 }}>{c("cta.shipNote")}</span>
         </div>
         <p className="mt-2 font-body text-mid-gray" style={{ fontSize: 14, lineHeight: 1.5 }}>{c("cta.line")}</p>

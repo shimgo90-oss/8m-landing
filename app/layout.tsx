@@ -16,7 +16,7 @@ const inter = Inter({
 // Public domain for canonical + OG image URLs. Override via NEXT_PUBLIC_SITE_URL
 // (e.g. when a custom domain is attached).
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://8mirrors-global.vercel.app";
-const TITLE = "8mirrors — Your Custom K-Beauty Routine, Built for Your Skin";
+const TITLE = "8mirrors | K-Skincare Matchmaker";
 const DESC = "A complete 5-step skincare routine, built for your exact skin by Seoul experts. Any skin type. Shipped worldwide.";
 
 export const metadata: Metadata = {
