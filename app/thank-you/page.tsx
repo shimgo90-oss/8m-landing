@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import PurchaseTracking from "./PurchaseTracking";
 
 // Where customers go after a successful Stripe checkout. Set the Stripe Payment
 // Link's "After payment → redirect" to https://<domain>/thank-you (both test & live).
@@ -10,12 +11,18 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function ThankYou() {
+export default async function ThankYou({
+  searchParams,
+}: {
+  searchParams: Promise<{ session_id?: string }>;
+}) {
+  const { session_id } = await searchParams;
   return (
     <main
       className="flex min-h-screen flex-col items-center px-6"
       style={{ backgroundColor: "#f7f6f3", paddingTop: 64, paddingBottom: 64 }}
     >
+      <PurchaseTracking sessionId={session_id} />
       <div className="flex w-full flex-col items-center text-center" style={{ maxWidth: 440 }}>
         <Image src="/logo.png" alt="8mirrors" width={84} height={20} unoptimized priority style={{ height: 20, width: "auto" }} />
 
