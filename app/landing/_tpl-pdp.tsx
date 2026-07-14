@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { LandingExperience, Footer } from "./page";
 import type { LandingConfig } from "./_variants";
+import { trackCta } from "../analytics";
 
 /* ─────────────────────────────────────────────────────────────────────────
    PDP TEMPLATE — config-driven product-detail page.
@@ -68,9 +69,9 @@ function VerifiedIcon() {
 }
 
 
-function CtaButton({ href = "#", children }: { href?: string; children: React.ReactNode }) {
+function CtaButton({ href = "#", location, children }: { href?: string; location: string; children: React.ReactNode }) {
   return (
-    <a href={href} className="flex w-full items-center justify-center rounded-lg text-midnight font-body" style={{ background: "var(--color-mirror-cyan)", padding: "15px 22px", fontSize: 16, fontWeight: 700 }}>
+    <a href={href} onClick={() => trackCta(location, href)} className="flex w-full items-center justify-center rounded-lg text-midnight font-body" style={{ background: "var(--color-mirror-cyan)", padding: "15px 22px", fontSize: 16, fontWeight: 700 }}>
       {children}
     </a>
   );
@@ -467,7 +468,7 @@ const SECTIONS: Record<string, (ctx: Ctx) => React.ReactNode> = {
           <span className="font-body text-mid-gray" style={{ fontSize: 13 }}>{c("hero.shipNote")}</span>
         </div>
         {c("hero.installment") && <p className="mt-1.5 font-body text-mid-gray" style={{ fontSize: 12.5 }}>{c("hero.installment")}</p>}
-        <div className="mt-5"><CtaButton href={cta}>{c("hero.cta")}</CtaButton></div>
+        <div className="mt-5"><CtaButton href={cta} location="pdp-hero">{c("hero.cta")}</CtaButton></div>
       </div>
     </section>
   ),
@@ -708,7 +709,7 @@ const SECTIONS: Record<string, (ctx: Ctx) => React.ReactNode> = {
           <span className="font-body text-mid-gray" style={{ fontSize: 13 }}>{c("cta.shipNote")}</span>
         </div>
         <p className="mt-2 font-body text-mid-gray" style={{ fontSize: 14, lineHeight: 1.5 }}>{c("cta.line")}</p>
-        <div className="mt-5"><CtaButton href={cta}>{c("cta.cta")}</CtaButton></div>
+        <div className="mt-5"><CtaButton href={cta} location="pdp-bottom">{c("cta.cta")}</CtaButton></div>
       </div>
     </section>
   ),

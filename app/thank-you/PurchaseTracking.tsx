@@ -2,11 +2,12 @@
 
 import { useEffect } from "react";
 import { sendGAEvent } from "@next/third-parties/google";
+import { track } from "../analytics";
 
-// Fires one GA4 `purchase` event when the customer lands on /thank-you after
-// a successful Stripe checkout. Lets GA attribute revenue to the ad/source/slug
-// session. NOTE: this is for ad-conversion + revenue *trends* only — the source
-// of truth for actual revenue is the backend payment_order / Stripe.
+// Fires one `purchase` event — to GA4 and to PostHog — when the customer lands on
+// /thank-you after a successful Stripe checkout. Lets both tools close the funnel on
+// the ad/source/variant session. NOTE: this is for ad-conversion + revenue *trends*
+// only — the source of truth for actual revenue is the backend payment_order / Stripe.
 //
 // transaction_id = Stripe Checkout Session id (passed via redirect
 // ?session_id={CHECKOUT_SESSION_ID}). It dedupes refreshes/direct opens.
@@ -29,6 +30,13 @@ export default function PurchaseTracking({ sessionId }: { sessionId?: string }) 
           quantity: 1,
         },
       ],
+    });
+
+    track("purchase", {
+      transaction_id: sessionId,
+      value: BOX_PRICE,
+      currency: "USD",
+      item_id: "custom_routine_box",
     });
 
     if (dedupeKey) sessionStorage.setItem(dedupeKey, "1");

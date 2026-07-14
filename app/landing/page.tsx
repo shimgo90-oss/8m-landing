@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { LocaleProvider, useI18n, LOCALES, type Locale } from "./_i18n";
+import { trackCta } from "../analytics";
 
 function SuminAvatar({ size }: { size: number }) {
   return (
@@ -140,7 +141,7 @@ function Hero() {
         {t("hero.sub")}
       </p>
 
-      <a href={APP_URL} className="mt-6 inline-flex items-center justify-center rounded-lg" style={{ background: "var(--color-mirror-cyan)", color: "#111111", padding: "15px 30px", fontSize: 16, fontWeight: 700 }}>
+      <a href={APP_URL} onClick={() => trackCta("hero", APP_URL)} className="mt-6 inline-flex items-center justify-center rounded-lg" style={{ background: "var(--color-mirror-cyan)", color: "#111111", padding: "15px 30px", fontSize: 16, fontWeight: 700 }}>
         {t("bar.cta")}
       </a>
 
@@ -1276,10 +1277,10 @@ function HowItWorksSheet({ open, onClose }: { open: boolean; onClose: () => void
             className="mt-7 flex flex-col gap-3"
             style={{ opacity: done ? 1 : 0, transform: done ? "none" : "translateY(6px)", transition: "opacity 0.4s ease, transform 0.4s ease", pointerEvents: done ? "auto" : "none" }}
           >
-            <a href={APP_URL} className="flex items-center justify-center rounded-lg text-midnight" style={{ height: 52, fontSize: 16, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
+            <a href={APP_URL} onClick={() => trackCta("report-sheet", APP_URL)} className="flex items-center justify-center rounded-lg text-midnight" style={{ height: 52, fontSize: 16, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
               Try it free
             </a>
-            <a href={PAYPAL_URL} target="_blank" rel="noopener noreferrer" className="text-center text-mid-gray" style={{ fontSize: 13.5, fontWeight: 600 }}>
+            <a href={PAYPAL_URL} onClick={() => trackCta("report-sheet-paypal", PAYPAL_URL)} target="_blank" rel="noopener noreferrer" className="text-center text-mid-gray" style={{ fontSize: 13.5, fontWeight: 600 }}>
               Or get the full plan · $9.99 →
             </a>
           </div>
@@ -1312,7 +1313,7 @@ function BuyBar({ show = true }: { show?: boolean }) {
               <div className="text-center font-body text-mid-gray px-4" style={{ fontSize: 12, lineHeight: 1.4, paddingTop: 6 }}>{promo}</div>
             )}
             <div className="flex items-stretch px-4" style={{ paddingTop: promo ? 7 : 10, paddingBottom: 12 }}>
-              <a href={t("bar.href")} className="flex flex-1 items-center justify-center rounded-lg px-4 py-3.5 text-midnight" style={{ fontSize: 15, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
+              <a href={t("bar.href")} onClick={() => trackCta("sticky-bar", t("bar.href"))} className="flex flex-1 items-center justify-center rounded-lg px-4 py-3.5 text-midnight" style={{ fontSize: 15, fontWeight: 700, background: "var(--color-mirror-cyan)" }}>
                 {t("bar.cta")}
               </a>
             </div>
@@ -1341,7 +1342,7 @@ export function Footer() {
         Custom K-Beauty routines — Reviewed and built by Korean Skin Experts, shipped worldwide.
       </p>
 
-      <a href={APP_URL} className="mt-7 inline-flex w-fit items-center justify-center rounded-lg text-midnight" style={{ background: "var(--color-mirror-cyan)", padding: "12px 22px", fontSize: 15, fontWeight: 700 }}>
+      <a href={APP_URL} onClick={() => trackCta("footer", APP_URL)} className="mt-7 inline-flex w-fit items-center justify-center rounded-lg text-midnight" style={{ background: "var(--color-mirror-cyan)", padding: "12px 22px", fontSize: 15, fontWeight: 700 }}>
         Try it FREE
       </a>
 

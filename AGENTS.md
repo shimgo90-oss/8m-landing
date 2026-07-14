@@ -49,6 +49,13 @@ Full spec: **[DESIGN.md](DESIGN.md)** (in-repo). After creating/editing, self-ch
 - Tokens: `bg-mirror-cyan`, `text-charcoal`, `bg-lumen-lime`, `text-mid-gray`, `bg-canvas`, … ([app/globals.css](app/globals.css)). Reference implementation: [app/design-test/page.tsx](app/design-test/page.tsx).
 - The shell is a maxWidth 480 mobile canvas — right-edge clipping below 480px is expected (not a bug); review at 480.
 
+## Analytics (what's measured, and where)
+- **PostHog** = the home for behavioural data (autocaptured pageviews/clicks, session replay, heatmaps, funnels). Loaded via the official snippet in [app/layout.tsx](app/layout.tsx); this landing has **its own PostHog project**, separate from the product app. Key comes from `NEXT_PUBLIC_POSTHOG_KEY` (Vercel env) — unset = PostHog doesn't load, which is the intended local-dev state.
+- **Microsoft Clarity is retired.** Behavioural data is consolidated on PostHog — don't add Clarity (or another session-recording tool) back.
+- **GA4** stays, for ad-platform conversion attribution (`purchase` on `/thank-you`).
+- Named events (on top of autocapture) live in [app/analytics.ts](app/analytics.ts): `cta_click` (with `location`: `hero` · `sticky-bar` · `pdp-hero` · `pdp-bottom` · `footer` …) and `purchase`. **Adding a new CTA? Give it a `location` and call `trackCta`** — otherwise it's invisible in the funnel.
+- Neither tool is the source of truth for revenue — the backend / Stripe is.
+
 ## Deploy & safety (mandatory)
 - **main = production** (Vercel auto-deploys). All work goes on a `variant/<slug>` branch → push → **Vercel preview URL**.
 - **The agent never merges or pushes to `main` directly.** Changes reach production only via a PR that **고고 reviews and merges.**
