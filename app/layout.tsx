@@ -10,11 +10,12 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-JK6D1ZR0YQ";
 
 // PostHog — the single home for behavioural data (session replay, heatmaps, funnels).
 // It replaces Microsoft Clarity, which was retired when we consolidated on PostHog.
-// This landing has its OWN PostHog project (separate from the product app), so the
-// key comes from env only — no fallback, and no risk of writing into the wrong project.
-// Set NEXT_PUBLIC_POSTHOG_KEY in Vercel → Settings → Environment Variables.
-// Unset (e.g. local dev) = PostHog simply doesn't load.
-const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY || "";
+//
+// SAME project as the product app (the free plan allows only one). The landing is kept
+// separable by a `site: "landing"` super property on every event — filter on it to see
+// landing-only numbers, and EXCLUDE it when you want product-app-only numbers.
+// Override via env if the project ever changes.
+const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY || "phc_sH5sriLgFM2ghdYP5BymAJtxFxuk4zmESem4qfiSKRUM";
 const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com";
 
 const fraunces = Fraunces({
