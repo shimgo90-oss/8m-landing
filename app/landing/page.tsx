@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Fragment, useEffect, useRef, useState } from "react";
-import { LocaleProvider, useI18n, LOCALES, type Locale } from "./_i18n";
+import { LocaleProvider, useI18n } from "./_i18n";
 
 function SuminAvatar({ size }: { size: number }) {
   return (
@@ -1073,7 +1073,7 @@ function StoriesSection() {
 const PAYPAL_URL = "https://www.paypal.com/ncp/payment/NFWM2BSB77C86";
 const APP_URL = "https://eightmirrors.com"; // product / free diagnostic entry
 
-// Menu items → internalized in-app pages at /landing/<slug>
+// Footer navigation only. The mobile header intentionally has no menu button.
 const MENU: [string, string][] = [
   ["About Us", "about"],
   ["What You Get", "what-you-get"],
@@ -1084,84 +1084,20 @@ const MENU: [string, string][] = [
 ];
 
 function Header({ hidden = false }: { hidden?: boolean }) {
-  const [open, setOpen] = useState(false);
-  const [langOpen, setLangOpen] = useState(false);
-  const { locale, setLocale } = useI18n();
   return (
-    <>
-      <header
-        className="fixed top-0 inset-x-0 z-[55]"
-        style={{ transform: hidden && !open ? "translateY(-100%)" : "translateY(0)", transition: "transform 0.3s ease" }}
-      >
-        <div
-          className="mx-auto flex items-center justify-between px-4"
-          style={{ maxWidth: 480, height: 52, background: "#ffffff", borderBottom: "1px solid #eee" }}
-        >
-          <a href="/landing" aria-label="8mirrors home">
-            <Image src="/logo.png" alt="8mirrors" width={76} height={18} unoptimized priority style={{ height: 18, width: "auto" }} />
-          </a>
-          <div className="flex items-center gap-1">
-            <div className="relative">
-              <button type="button" aria-label="Language" onClick={() => { setLangOpen((v) => !v); setOpen(false); }} className="flex items-center gap-1 p-2 text-midnight" style={{ fontSize: 13, fontWeight: 600 }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden><circle cx="12" cy="12" r="9" stroke="#111" strokeWidth="1.6" /><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18" stroke="#111" strokeWidth="1.6" /></svg>
-                {locale.toUpperCase()}
-              </button>
-              {langOpen && (
-                <div className="absolute right-0 mt-1 rounded-xl bg-white py-1" style={{ minWidth: 132, boxShadow: "0 10px 24px rgba(0,0,0,0.12)", border: "1px solid #eee" }}>
-                  {LOCALES.map(([code, label]) => (
-                    <button key={code} type="button" onClick={() => { setLocale(code as Locale); setLangOpen(false); }} className="flex w-full items-center justify-between px-4 py-2.5 text-left text-midnight" style={{ fontSize: 14, fontWeight: locale === code ? 700 : 400 }}>
-                      {label}
-                      {locale === code && <span style={{ color: "#62d8f4" }}>✓</span>}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-            <button type="button" aria-label="Menu" aria-expanded={open} onClick={() => { setOpen((v) => !v); setLangOpen(false); }} className="-mr-2 p-2">
-            {open ? (
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M5 5l14 14M19 5L5 19" stroke="#111" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-            ) : (
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M3 6h18M3 12h18M3 18h18" stroke="#111" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-            )}
-          </button>
-          </div>
-        </div>
-      </header>
-
-      {/* backdrop */}
+    <header
+      className="fixed top-0 inset-x-0 z-[55]"
+      style={{ transform: hidden ? "translateY(-100%)" : "translateY(0)", transition: "transform 0.3s ease" }}
+    >
       <div
-        onClick={() => setOpen(false)}
-        className={`fixed inset-0 z-[53] bg-black/30 transition-opacity duration-300 ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
-        aria-hidden
-      />
-
-      {/* slide-down menu (drops from behind the header bar) */}
-      <div className="fixed left-1/2 z-[54] w-full" style={{ top: 52, maxWidth: 480, transform: "translateX(-50%)", pointerEvents: open ? "auto" : "none" }}>
-        <nav
-          className={`bg-white border-b border-neutral-200 transition-transform duration-300 ease-out ${open ? "translate-y-0" : "-translate-y-[130%]"}`}
-          style={{ boxShadow: "0 14px 28px rgba(0,0,0,0.1)" }}
-        >
-          {MENU.map(([title, slug], i) => (
-            <a
-              key={title}
-              href={`/landing/${slug}`}
-              onClick={() => setOpen(false)}
-              className="flex items-center justify-between px-5 py-4 text-midnight"
-              style={{ fontSize: 16, fontWeight: 500, borderBottom: i < MENU.length - 1 ? "1px solid #f0f0f0" : "none" }}
-            >
-              {title}
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M9 6l6 6-6 6" stroke="#bbb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
-          ))}
-        </nav>
+        className="mx-auto flex items-center px-4"
+        style={{ maxWidth: 480, height: 52, background: "#ffffff", borderBottom: "1px solid #eee" }}
+      >
+        <a href="/landing" aria-label="8mirrors home">
+          <Image src="/logo.png" alt="8mirrors" width={76} height={18} unoptimized priority style={{ height: 18, width: "auto" }} />
+        </a>
       </div>
-    </>
+    </header>
   );
 }
 
