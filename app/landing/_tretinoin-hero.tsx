@@ -85,9 +85,9 @@ export default function TretinoinHeroLanding() {
       }}
     >
       <section
-        className="flex min-h-[100dvh] flex-col bg-white px-4"
+        className="flex flex-col bg-white px-4"
         aria-labelledby="tretinoin-hero-title"
-        style={{ paddingTop: 86, paddingBottom: 20 }}
+        style={{ paddingTop: 86, paddingBottom: 4 }}
       >
         <h1
           id="tretinoin-hero-title"
@@ -185,13 +185,13 @@ export default function TretinoinHeroLanding() {
 
         <ol
           className="mt-8 flex snap-x snap-mandatory overflow-x-auto px-6"
-          style={{ gap: 16, scrollbarWidth: "none", WebkitOverflowScrolling: "touch" }}
+          style={{ gap: 16, scrollbarWidth: "none", WebkitOverflowScrolling: "touch", scrollPaddingLeft: 24 }}
           aria-label="How the 8mirrors routine service works"
         >
           {HOW_STEPS.map((step) => (
             <li
               key={step.number}
-              className="shrink-0 snap-center overflow-hidden rounded-3xl bg-white"
+              className="shrink-0 snap-start overflow-hidden rounded-3xl bg-white"
               style={{ width: "calc(100vw - 64px)", maxWidth: 392, boxShadow: "var(--shadow-card)" }}
             >
               <div className="relative bg-white" style={{ height: 300 }}>
@@ -222,7 +222,7 @@ export default function TretinoinHeroLanding() {
               </div>
             </li>
           ))}
-          <li aria-hidden className="w-2 shrink-0" />
+          <li aria-hidden className="shrink-0" style={{ width: 64 }} />
         </ol>
       </section>
 
@@ -247,12 +247,12 @@ export default function TretinoinHeroLanding() {
 
         <div
           className="mt-8 flex snap-x snap-mandatory overflow-x-auto px-6"
-          style={{ gap: 16, scrollbarWidth: "none" }}
+          style={{ gap: 16, scrollbarWidth: "none", scrollPaddingLeft: 24 }}
         >
           {CUSTOMER_STORIES.map((story) => (
             <article
               key={story.who}
-              className="shrink-0 snap-center overflow-hidden rounded-2xl bg-white"
+              className="shrink-0 snap-start overflow-hidden rounded-2xl bg-white"
               style={{ width: 328, boxShadow: "var(--shadow-card)" }}
             >
               <div className="grid grid-cols-2" style={{ gap: 3, background: "#ffffff" }}>
@@ -284,7 +284,7 @@ export default function TretinoinHeroLanding() {
               </div>
             </article>
           ))}
-          <div aria-hidden className="shrink-0" style={{ width: 8 }} />
+          <div aria-hidden className="shrink-0" style={{ width: 128 }} />
         </div>
 
         <p className="mt-5 px-6 font-body text-mid-gray" style={{ fontSize: 11, lineHeight: 1.5 }}>
