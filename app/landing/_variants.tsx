@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import TretinoinHeroLanding from "./_tretinoin-hero";
 
 /* ───────────────────────── Landing A/B variants ─────────────────────────
    Each variant is its own URL: /lp/<slug>  (e.g. /lp/original, /lp/lean).
@@ -63,6 +64,12 @@ export const VARIANTS: Variant[] = [
     note: "Story-led: concern (redness) → box + price → why it's yours → before/after → tracker → no-bias → how it works → review. Leads with the pain, holds price till desire is built.",
     template: "story",
     // Renders STORY_DEFAULTS (the redness baseline). Clone + edit copy/images/lists for a new story variant.
+  },
+  {
+    slug: "tretinoin-routine",
+    label: "Tretinoin barrier-support routine — demand test",
+    note: "Hypothesis: a visual, product-led hero will make the barrier-support offer immediately tangible and increase quiz starts among tretinoin users.",
+    Custom: TretinoinHeroLanding,
   },
   {
     slug: "box",
